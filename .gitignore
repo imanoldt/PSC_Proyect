@@ -1,0 +1,4 @@
+# Archivos sistemas Mac
+.DS_store
+# Archivos project Eclipse
+*.project
