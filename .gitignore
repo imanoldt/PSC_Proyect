@@ -2,4 +2,5 @@
 .DS_store
 # Archivos project Eclipse
 *.project
-/target/
+*.classpath
+*.settings
