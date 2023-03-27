@@ -1,4 +1,4 @@
-package es.deusto.spq.server.jdo;
+package com.ludoFun.app.server.jdo;
 
 import java.util.Set;
 

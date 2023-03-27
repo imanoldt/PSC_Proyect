@@ -6,11 +6,11 @@ import javax.jdo.Query;
 import javax.jdo.JDOHelper;
 import javax.jdo.Transaction;
 
-import es.deusto.spq.server.jdo.User;
-import es.deusto.spq.server.jdo.Message;
-import es.deusto.spq.pojo.DirectMessage;
-import es.deusto.spq.pojo.MessageData;
-import es.deusto.spq.pojo.UserData;
+import com.ludoFun.app.server.jdo.User;
+import com.ludoFun.app.server.jdo.Message;
+import com.ludoFun.app.pojo.DirectMessage;
+import com.ludoFun.app.pojo.MessageData;
+import com.ludoFun.app.pojo.UserData;
 
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
