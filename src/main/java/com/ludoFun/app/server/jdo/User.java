@@ -1,5 +1,5 @@
 package com.ludoFun.app.server.jdo;
-
+//-------
 import java.util.Set;
 
 import javax.jdo.annotations.PersistenceCapable;

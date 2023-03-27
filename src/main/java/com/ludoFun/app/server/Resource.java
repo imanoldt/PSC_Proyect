@@ -1,5 +1,5 @@
 package com.ludoFun.app.server;
-
+//-----
 import javax.jdo.PersistenceManager;
 import javax.jdo.PersistenceManagerFactory;
 import javax.jdo.Query;
@@ -122,3 +122,4 @@ public class Resource {
 		return Response.ok("Hello world!").build();
 	}
 }
+

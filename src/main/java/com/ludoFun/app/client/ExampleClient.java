@@ -1,5 +1,5 @@
 package com.ludoFun.app.client;
-
+//------
 import javax.ws.rs.client.Client;
 import javax.ws.rs.client.ClientBuilder;
 import javax.ws.rs.client.Entity;
@@ -84,4 +84,5 @@ public class ExampleClient {
 		exampleClient.registerUser(USER, PASSWORD);
 		exampleClient.sayMessage(USER, PASSWORD, "This is a test!...");
 	}
+	
 }
