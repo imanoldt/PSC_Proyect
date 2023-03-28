@@ -1,14 +1,10 @@
-package windows;
+package es.deusto.spq.client.gui;
 
 import java.awt.BorderLayout;
 import java.awt.EventQueue;
-
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
-
-import controllers.LoginController;
-
 import java.awt.GridLayout;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
@@ -22,16 +18,12 @@ import javax.swing.ImageIcon;
 import net.miginfocom.swing.MigLayout;
 import java.awt.Font;
 import javax.swing.SwingConstants;
-import datechooser.beans.DateChooserPanel;
-import domain.TipoProvedor;
-
 import java.awt.Color;
 import javax.swing.JComboBox;
 import javax.swing.DefaultComboBoxModel;
 
 public class VentanaRegistro extends JFrame {
 
-	private LoginController controller;
 	private JPanel contentPane;
 	private JPanel panel;
 	private JPanel panel_1;
@@ -46,7 +38,6 @@ public class VentanaRegistro extends JFrame {
 	private JLabel lblAltura;
 	private JTextField textField_2;
 	private JTextField textField_3;
-	private DateChooserPanel dateChooserPanel;
 	private JButton btnRegistrarse;
 	private JLabel lblFcardiacaMax;
 	private JTextField txtFcardiacaMax;
@@ -79,8 +70,8 @@ public class VentanaRegistro extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public VentanaRegistro(LoginController cont) {
-		controller = cont;
+	public VentanaRegistro() {
+		
 		setResizable(false);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 1060, 708);
@@ -123,8 +114,8 @@ public class VentanaRegistro extends JFrame {
 		lblFecha.setFont(new Font("Montserrat", Font.PLAIN, 15));
 		panel_1.add(lblFecha, "cell 0 6");
 		
-		dateChooserPanel = new DateChooserPanel();
-		panel_1.add(dateChooserPanel, "cell 6 6 14 1,grow");
+		
+		
 		
 		lblPeso = new JLabel("Peso:");
 		lblPeso.setFont(new Font("Montserrat", Font.PLAIN, 15));
@@ -163,12 +154,7 @@ public class VentanaRegistro extends JFrame {
 		panel_1.add(lblProvedor, "cell 0 14");
 		
 		comboBox = new JComboBox();
-		String[] s = new String[TipoProvedor.values().length];
-		int i = 0;
-		for(TipoProvedor t: TipoProvedor.values()) {
-			s[i++] = t.toString();
-		}
-		comboBox.setModel(new DefaultComboBoxModel(s));
+		
 		panel_1.add(comboBox, "cell 9 14 11 1,grow");
 		
 		btnRegistrarse = new JButton("Registrarme");
@@ -194,14 +180,8 @@ public class VentanaRegistro extends JFrame {
 		
 		btnRegistrarse.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				controller.regist(textField.getText(), textField_5.getText(), textField_1.getText(), 
-						dateChooserPanel.getSelectedDate().getTime(), 
-						textField_2.getText(), textField_3.getText(), txtFcardiacaMax.getText(), 
-						textField_4.getText(), comboBox.getSelectedIndex());
-				dispose();
+				
 			}
 		});
-
 	}
-
 }

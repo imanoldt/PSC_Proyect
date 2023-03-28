@@ -1,4 +1,4 @@
-package serialization;
+package es.deusto.spq.client.serialization;
 
 import java.util.Date;
 

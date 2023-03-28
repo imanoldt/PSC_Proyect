@@ -1,4 +1,4 @@
-package serialization;
+package es.deusto.spq.client.serialization;
 
 public class Libro {
 	private String nombre;

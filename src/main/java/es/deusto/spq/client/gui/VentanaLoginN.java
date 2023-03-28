@@ -1,4 +1,4 @@
-package windows;
+package es.deusto.spq.client.gui;
 
 import java.awt.BorderLayout;
 import java.awt.EventQueue;
@@ -6,8 +6,7 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import java.awt.GridLayout;
-import net.miginfocom.swing.MigLayout;
-import remote.ServiceLocator;
+
 
 import javax.swing.JLabel;
 import javax.swing.JTextField;
@@ -17,7 +16,7 @@ import javax.swing.JButton;
 import java.awt.Font;
 import javax.swing.border.MatteBorder;
 
-import controllers.LoginController;
+import net.miginfocom.swing.MigLayout;
 
 import java.awt.Color;
 import java.awt.Dimension;
@@ -34,8 +33,6 @@ import javax.swing.UIManager;
 
 @SuppressWarnings("serial")
 public class VentanaLoginN extends JFrame {
-	private LoginController controller;
-
 	private JPanel contentPane, pnlPrincipal, pnlIzquierda, pnlDerechaa;
 
 	private JLabel lblIniciarSesion, lblUsuario, lblIconoUsu, lblContraseya;
@@ -55,8 +52,7 @@ public class VentanaLoginN extends JFrame {
 	 * Create the frame.
 	 */
 
-	public VentanaLoginN(ServiceLocator service) {
-		controller = new LoginController(service);
+	public VentanaLoginN() {
 		setResizable(false);
 		setTitle("LogIn");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -132,20 +128,7 @@ public class VentanaLoginN extends JFrame {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				if(controller.login(txtUsuario.getText(), passContraseya.getText())) {
-					EventQueue.invokeLater(new Runnable() {
-						public void run() {
-							try {
-								VentanaMain frame = new VentanaMain(controller);
-								frame.setVisible(true);
-							} catch (Exception e) {
-								e.printStackTrace();
-							}
-						}
-					});
-				} else {
-					System.out.println("# Error during login!");
-				}
+
 			}
 		});
 		btnRegistrarse = new JButton("Registrarse");
@@ -155,12 +138,7 @@ public class VentanaLoginN extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				EventQueue.invokeLater(new Runnable() {
 					public void run() {
-						try {
-							VentanaRegistro frame = new VentanaRegistro(controller);
-							frame.setVisible(true);
-						} catch (Exception e) {
-							e.printStackTrace();
-						}
+						
 					}
 				});
 			}
