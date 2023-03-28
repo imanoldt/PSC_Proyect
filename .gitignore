@@ -2,7 +2,7 @@ target/
 # Archivos sistemas Mac
 .DS_store
 # Archivos project Eclipse
-.project/
+.project
 .classpath
 .settings/
 *.log
