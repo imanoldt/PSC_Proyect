@@ -1,7 +1,6 @@
-package pruebaprueba;
+package serialization;
 
 public enum Categoria {
 	INFANTIL,
 	ADULTO
-	
 }

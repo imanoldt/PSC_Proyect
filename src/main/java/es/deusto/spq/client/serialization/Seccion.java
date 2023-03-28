@@ -1,4 +1,4 @@
-package pruebaprueba;
+package serialization;
 
 public enum Seccion {
 	ACCION,

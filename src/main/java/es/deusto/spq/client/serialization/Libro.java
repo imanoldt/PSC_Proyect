@@ -1,4 +1,4 @@
-package pruebaprueba;
+package serialization;
 
 public class Libro {
 	private String nombre;

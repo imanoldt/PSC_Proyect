@@ -1,8 +1,8 @@
-package pruebaprueba;
+package serialization;
 
 public class Usuario {
 	private String name;
-	private String Nickname;
+	private String nickname;
 	private String password;
 	private Rol rol;
 	
@@ -20,12 +20,12 @@ public class Usuario {
 		this.name = name;
 	}
 
-	public String getNickname() {
-		return Nickname;
+	public String getnickname() {
+		return nickname;
 	}
 
-	public void setNickname(String nickname) {
-		Nickname = nickname;
+	public void setnickname(String nickname) {
+		nickname = nickname;
 	}
 
 	public String getPassword() {
@@ -54,7 +54,7 @@ public class Usuario {
 	public Usuario(String name, String nickname, String password, Rol rol) {
 		super();
 		this.name = name;
-		Nickname = nickname;
+		this.nickname = nickname;
 		this.password = password;
 		this.rol = rol;
 	}

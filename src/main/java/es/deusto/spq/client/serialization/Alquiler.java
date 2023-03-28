@@ -1,4 +1,4 @@
-package pruebaprueba;
+package serialization;
 
 import java.util.Date;
 

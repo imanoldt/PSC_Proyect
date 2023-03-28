@@ -4,11 +4,11 @@
 	
 	<modelVersion>4.0.0</modelVersion>
 	
-	<groupId>com.ludoFun.app</groupId>
-	<artifactId>BSPQ-12</artifactId>
-	<packaging>jar</packaging>
+	<groupId>org.datanucleus</groupId>
+	<artifactId>datanucleus-jersey-jdo-mysql</artifactId>
+	<packaging>war</packaging>
 	<version>1.0-SNAPSHOT</version>
-	<name>BSPQ-12</name>
+	<name>Jersey + Datanucleus + MySQL</name>
 
 	<properties>
 		<maven.compiler.release>8</maven.compiler.release>
@@ -32,36 +32,25 @@
     </dependencyManagement>
 
 	<dependencies>
-		<!--<dependency>
+		<dependency>
 			<groupId>org.datanucleus</groupId>
 			<artifactId>javax.jdo</artifactId>
 			<version>[3.2.0-release, )</version>
-		</dependency>-->
-		<dependency>
-			<groupId>junit</groupId>
-			<artifactId>junit</artifactId>
-			<version>4.13.2</version>
-			<scope>test</scope>
-		</dependency>
-		<dependency>
-			<groupId>javax.jdo</groupId>
-			<artifactId>jdo-api</artifactId>
-			<version>3.0.1</version>
 		</dependency>
 		<dependency>
 			<groupId>org.datanucleus</groupId>
 			<artifactId>datanucleus-core</artifactId>
-			<version>(3.9, )</version>
+			<version>[6.0.0-m1, 6.9)</version>
 		</dependency>
 		<dependency>
 			<groupId>org.datanucleus</groupId>
 			<artifactId>datanucleus-api-jdo</artifactId>
-			<version>(3.9, )</version>
+			<version>[6.0.0-m1, 6.9)</version>
 		</dependency>
 		<dependency>
 			<groupId>org.datanucleus</groupId>
 			<artifactId>datanucleus-rdbms</artifactId>
-			<version>(3.9, )</version>
+			<version>[6.0.0-m1, 6.9)</version>
 		</dependency>
 		<dependency>
 			<groupId>mysql</groupId>
@@ -94,7 +83,6 @@
 	</dependencies>
 
 	<build>
-		<finalName>ludoFun-app</finalName>
 		<resources>
 			<resource>
 				<directory>${config.files.dir}</directory>
@@ -124,7 +112,6 @@
 			</plugin>
 
 			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-compiler-plugin</artifactId>
 				<version>3.8.1</version>
 			</plugin>
@@ -196,8 +183,8 @@
 			<build>
                 <plugins>
                     <plugin>
-                        <groupId>com.ludoFun.app</groupId>
-                        <artifactId>BSPQ-12</artifactId>
+                        <groupId>org.codehaus.mojo</groupId>
+                        <artifactId>exec-maven-plugin</artifactId>
                         <version>1.2.1</version>
                         <executions>
                             <execution>
