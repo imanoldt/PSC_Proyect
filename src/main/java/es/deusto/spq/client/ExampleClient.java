@@ -1,6 +1,10 @@
 package es.deusto.spq.client;
 
 import javax.ws.rs.client.Client;
+
+import es.deusto.spq.client.gui.VentanaLoginN;
+import es.deusto.spq.client.gui.VentanaTest;
+
 import javax.ws.rs.client.ClientBuilder;
 import javax.ws.rs.client.Entity;
 import javax.ws.rs.client.Invocation;
@@ -71,6 +75,7 @@ public class ExampleClient {
 	}
 
 	public static void main(String[] args) {
+		
 		if (args.length != 2) {
 			logger.info("Use: java Client.Client [host] [port]");
 			System.exit(0);
@@ -78,6 +83,8 @@ public class ExampleClient {
 
 		String hostname = args[0];
 		String port = args[1];
+		System.out.println("Intentando abrir ventana");
+		VentanaTest vent = new VentanaTest();
 
 		ExampleClient exampleClient = new ExampleClient(hostname, port);
 		exampleClient.registerUser(USER, PASSWORD);
