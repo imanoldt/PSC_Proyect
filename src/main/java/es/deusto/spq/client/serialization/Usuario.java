@@ -5,13 +5,11 @@ public class Usuario {
 	private String nickname;
 	private String password;
 	private Rol rol;
-	
-	
-	
+
 	public Usuario() {
-		
+
 	}
-	
+
 	public String getName() {
 		return name;
 	}
@@ -46,6 +44,7 @@ public class Usuario {
 
 	/**
 	 * Constructor con parametros
+	 * 
 	 * @param name
 	 * @param nickname
 	 * @param password

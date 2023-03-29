@@ -34,9 +34,7 @@ import javax.swing.UIManager;
 @SuppressWarnings("serial")
 public class VentanaLoginN extends JFrame {
 	private JPanel contentPane, pnlPrincipal, pnlIzquierda, pnlDerechaa;
-
 	private JLabel lblIniciarSesion, lblUsuario, lblIconoUsu, lblContraseya;
-
 	private JTextField txtUsuario;
 	private JPasswordField passContraseya;
 	private JButton btnIniciarSession, btnRegistrarse, btnSalir;
