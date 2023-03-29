@@ -5,7 +5,7 @@ DROP USER IF EXISTS 'spq'@'localhost';
 
 /* CREATE 'messagesDB' DATABASE */
 CREATE SCHEMA messagesDB;
-/* CREATE THE USER 'spq' AT LOCAL SERVER WITH PASSWORD 'spq' */
-CREATE USER IF NOT EXISTS 'spq'@'localhost' IDENTIFIED BY 'spq';
+/* CREATE THE USER 'spq' AT LOCAL SERVER WITH PASSWORD 'Imanol*123' */
+CREATE USER IF NOT EXISTS 'spq'@'localhost' IDENTIFIED BY 'Imanol*123';
 
 GRANT ALL ON messagesDB.* TO 'spq'@'localhost';
