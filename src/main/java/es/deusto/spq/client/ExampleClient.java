@@ -3,7 +3,6 @@ package es.deusto.spq.client;
 import javax.ws.rs.client.Client;
 
 import es.deusto.spq.client.gui.VentanaLoginN;
-import es.deusto.spq.client.gui.VentanaTest;
 
 import javax.ws.rs.client.ClientBuilder;
 import javax.ws.rs.client.Entity;

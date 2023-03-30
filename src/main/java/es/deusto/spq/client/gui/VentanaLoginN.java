@@ -122,7 +122,7 @@ public class VentanaLoginN extends JFrame {
 			}
 		});
 								
-										lblUsuario = new JLabel("Correo:");
+										lblUsuario = new JLabel("Nombre:");
 										lblUsuario.setFont(new Font("Montserrat", Font.PLAIN, 16));
 										pnlIzquierda.add(lblUsuario, "cell 0 5,alignx left,aligny center");
 						
