@@ -17,6 +17,7 @@ public class User {
 	@Persistent(mappedBy="user", dependentElement="true")
 	@Join
 	Set<Message> messages = new HashSet<>();
+	Set<Book> books = new HashSet<>();	
 	
 	
 	

@@ -1,20 +1,28 @@
-package es.deusto.spq.pojo;
+package es.deusto.spq.server.jdo;
 
+import java.util.HashSet;
+import java.util.Set;
+
+import javax.jdo.annotations.Join;
 import javax.jdo.annotations.PersistenceCapable;
 import javax.jdo.annotations.Persistent;
+import javax.jdo.annotations.PrimaryKey;
 
+import es.deusto.spq.pojo.Categoria;
+import es.deusto.spq.pojo.Seccion;
 
-public class Libro {
-	private String nombre;
-	private String descripccion;
-	private float precio;
-//	private Categoria categoria;
-//	private Seccion seccion;
+@PersistenceCapable
+public class Book {
+	@PrimaryKey
+	String nombre=null;
+	String descripccion=null;
+	float precio=0;
 
 	/**
 	 * constructor vacio
 	 */
-	public Libro() {
+
+	public Book() {
 
 	}
 
@@ -27,13 +35,11 @@ public class Libro {
 	 * @param categoria
 	 * @param seccion
 	 */
-	public Libro(String nombre, String descripccion, float precio, Categoria categoria, Seccion seccion) {
+	public Book(String nombre, String descripccion, float precio) {
 		super();
 		this.nombre = nombre;
 		this.descripccion = descripccion;
 		this.precio = precio;
-//		this.categoria = categoria;
-//		this.seccion = seccion;
 	}
 
 	public String getNombre() {
@@ -60,20 +66,5 @@ public class Libro {
 		this.precio = precio;
 	}
 
-//	public Categoria getCategoria() {
-//		return categoria;
-//	}
-//
-//	public void setCategoria(Categoria categoria) {
-//		this.categoria = categoria;
-//	}
-//
-//	public Seccion getSeccion() {
-//		return seccion;
-//	}
-//
-//	public void setSeccion(Seccion seccion) {
-//		this.seccion = seccion;
-//	}
 
 }

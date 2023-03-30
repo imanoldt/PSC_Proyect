@@ -22,6 +22,7 @@ import java.awt.Color;
 import javax.swing.JComboBox;
 import javax.swing.DefaultComboBoxModel;
 import es.deusto.spq.pojo.*;
+import es.deusto.spq.server.jdo.User;
 import es.deusto.spq.client.*;
 
 public class VentanaRegistro extends JFrame {
@@ -114,9 +115,10 @@ public class VentanaRegistro extends JFrame {
 		
 		btnRegistrarse.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				Usuario u = new Usuario(textFieldNombre.getText(), textFieldContrasenia.getText());
+				User us = new User(textFieldNombre.getText(), textFieldContrasenia.getText());
+//				Usuario u = new Usuario(textFieldNombre.getText(), textFieldContrasenia.getText());
 				ExampleClient eC = new ExampleClient("localhost", "8080");
-				eC.registerUser(u.getName(), u.getPassword());
+				eC.registerUser(us.getLogin(), us.getPassword());
 				dispose();
 				VentanaLoginN vL = new VentanaLoginN();
 			}
