@@ -21,6 +21,8 @@ import javax.swing.SwingConstants;
 import java.awt.Color;
 import javax.swing.JComboBox;
 import javax.swing.DefaultComboBoxModel;
+import es.deusto.spq.pojo.*;
+import es.deusto.spq.client.*;
 
 public class VentanaRegistro extends JFrame {
 
@@ -30,23 +32,10 @@ public class VentanaRegistro extends JFrame {
 	private JLabel lblNewLabel;
 	private JLabel lblRegistro;
 	private JLabel lblNombre;
-	private JLabel lblEmail;
-	private JTextField textField;
-	private JTextField textField_1;
-	private JLabel lblFecha;
-	private JLabel lblPeso;
-	private JLabel lblAltura;
-	private JTextField textField_2;
-	private JTextField textField_3;
+	private JTextField textFieldNombre;
 	private JButton btnRegistrarse;
-	private JLabel lblFcardiacaMax;
-	private JTextField txtFcardiacaMax;
-	private JComboBox comboBox;
-	private JLabel lblProvedor;
-	private JTextField textField_4;
-	private JLabel lblNewLabel_1;
 	private JLabel lblContrasenya;
-	private JTextField textField_5;
+	private JTextField textFieldContrasenia;
 
 
 	/**
@@ -87,7 +76,7 @@ public class VentanaRegistro extends JFrame {
 		panel_1 = new JPanel();
 		panel_1.setBackground(new Color(255, 239, 213));
 		panel.add(panel_1);
-		panel_1.setLayout(new MigLayout("", "[191.00][grow][][][grow][grow][grow][grow][grow][grow][][grow][][][][][][grow][][][]", "[][][][][][][grow][][][][][][][][][][][][][][][][]"));
+		panel_1.setLayout(new MigLayout("", "[191.00][grow][][][grow][grow][grow][grow][grow][grow][][grow][][][][][][grow][][][]", "[][][][][][][][grow][][][][][][][][][][][][][][][][]"));
 		
 		lblRegistro = new JLabel("Registro");
 		lblRegistro.setHorizontalAlignment(SwingConstants.CENTER);
@@ -98,64 +87,9 @@ public class VentanaRegistro extends JFrame {
 		lblNombre.setFont(new Font("Montserrat", Font.PLAIN, 15));
 		panel_1.add(lblNombre, "flowx,cell 0 2,grow");
 		
-		textField_5 = new JTextField();
-		panel_1.add(textField_5, "cell 9 2 11 1,grow");
-		textField_5.setColumns(10);
-		
-		lblEmail = new JLabel("Email:");
-		lblEmail.setFont(new Font("Montserrat", Font.PLAIN, 15));
-		panel_1.add(lblEmail, "cell 0 4,growx,aligny center");
-		
-		textField_1 = new JTextField();
-		panel_1.add(textField_1, "cell 10 4 10 1,growx");
-		textField_1.setColumns(10);
-		
-		lblFecha = new JLabel("Fecha de Nacimiento:\n");
-		lblFecha.setFont(new Font("Montserrat", Font.PLAIN, 15));
-		panel_1.add(lblFecha, "cell 0 6");
-		
-		
-		
-		
-		lblPeso = new JLabel("Peso:");
-		lblPeso.setFont(new Font("Montserrat", Font.PLAIN, 15));
-		panel_1.add(lblPeso, "cell 0 8,grow");
-		
-		textField_2 = new JTextField();
-		panel_1.add(textField_2, "cell 10 8 10 1,grow");
-		textField_2.setColumns(10);
-		
-		lblAltura = new JLabel("Altura:");
-		lblAltura.setFont(new Font("Montserrat", Font.PLAIN, 15));
-		panel_1.add(lblAltura, "cell 0 10,grow");
-		
-		textField_3 = new JTextField();
-		panel_1.add(textField_3, "cell 10 10 10 1,growx");
-		textField_3.setColumns(10);
-		
-		lblNewLabel_1 = new JLabel("Frecuencia Cardiaca Reps.");
-		lblNewLabel_1.setFont(new Font("Montserrat", Font.PLAIN, 15));
-		panel_1.add(lblNewLabel_1, "cell 0 11");
-		
-		textField_4 = new JTextField();
-		panel_1.add(textField_4, "cell 10 11 10 1,grow");
-		textField_4.setColumns(10);
-		
-		lblFcardiacaMax = new JLabel("Frecuencia Cardiaca Max.");
-		lblFcardiacaMax.setFont(new Font("Montserrat", Font.PLAIN, 15));
-		panel_1.add(lblFcardiacaMax, "cell 0 12");
-		
-		txtFcardiacaMax = new JTextField();
-		panel_1.add(txtFcardiacaMax, "cell 10 12 10 1,growx,aligny center");
-		txtFcardiacaMax.setColumns(10);
-		
-		lblProvedor = new JLabel("Proveedor:");
-		lblProvedor.setFont(new Font("Montserrat", Font.PLAIN, 15));
-		panel_1.add(lblProvedor, "cell 0 14");
-		
-		comboBox = new JComboBox();
-		
-		panel_1.add(comboBox, "cell 9 14 11 1,grow");
+		lblContrasenya = new JLabel("Contraseña:");
+		lblContrasenya.setFont(new Font("Montserrat", Font.PLAIN, 15));
+		panel_1.add(lblContrasenya, "flowx,cell 0 5");
 		
 		btnRegistrarse = new JButton("Registrarme");
 		btnRegistrarse.setForeground(new Color(255, 255, 255));
@@ -163,15 +97,15 @@ public class VentanaRegistro extends JFrame {
 		btnRegistrarse.setBackground(new Color(0, 0, 0));
 		btnRegistrarse.setFont(new Font("Montserrat", Font.BOLD, 18));
 
-		panel_1.add(btnRegistrarse, "cell 0 18 20 4,grow");
+		panel_1.add(btnRegistrarse, "cell 0 19 20 4,grow");
 		
-		textField = new JTextField();
-		panel_1.add(textField, "flowx,cell 0 2 8 1,growx");
-		textField.setColumns(10);
+		textFieldNombre = new JTextField();
+		panel_1.add(textFieldNombre, "cell 0 2,growx");
+		textFieldNombre.setColumns(10);
 		
-		lblContrasenya = new JLabel("Contraseña:");
-		lblContrasenya.setFont(new Font("Montserrat", Font.PLAIN, 15));
-		panel_1.add(lblContrasenya, "cell 7 2");
+		textFieldContrasenia = new JTextField();
+		panel_1.add(textFieldContrasenia, "cell 0 5,grow");
+		textFieldContrasenia.setColumns(10);
 		
 		lblNewLabel = new JLabel("");
 		lblNewLabel.setIcon(new ImageIcon("img/Disenyo_sin_titulo.png"));
@@ -180,8 +114,13 @@ public class VentanaRegistro extends JFrame {
 		
 		btnRegistrarse.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				
+				Usuario u = new Usuario(textFieldNombre.getText(), textFieldContrasenia.getText());
+				ExampleClient eC = new ExampleClient("localhost", "8080");
+				eC.registerUser(u.getName(), u.getPassword());
+				dispose();
+				VentanaLoginN vL = new VentanaLoginN();
 			}
 		});
+		setVisible(true);
 	}
 }
