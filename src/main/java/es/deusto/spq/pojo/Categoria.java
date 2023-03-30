@@ -1,4 +1,4 @@
-package es.deusto.spq.client.serialization;
+package es.deusto.spq.pojo;
 
 public enum Categoria {
 	INFANTIL, ADULTO
