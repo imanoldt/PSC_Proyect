@@ -12,6 +12,7 @@ import es.deusto.spq.pojo.DirectMessage;
 import es.deusto.spq.pojo.MessageData;
 import es.deusto.spq.pojo.UserData;
 
+import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
@@ -78,28 +79,47 @@ public class Resource {
 		}
 	}
 	
+	/*
+	 * @POST
+	 * 
+	 * @Path("/register") public Response registerUser(UserData userData) {
+	 * if(LudoFunAccountService.getInstance().registerUser(userData)) { return
+	 * Response.ok().build(); } else { //Este es el error especifico 409 return
+	 * Response.serverError().status(Response.Status.CONFLICT).build(); } }
+	 */
+	
 	@POST
 	@Path("/register")
-	public Response registerUser(UserData userData) {
-		if(LudoFunAccountService.getInstance().registerUser(userData)) {
-			return Response.ok().build();
+		public Response registerUser(UserData userData) {
+		    if (LudoFunAccountService.getInstance().registerUser(userData)) {
+		        return Response.ok().build();
+		    } else {
+		        return Response.status(Response.Status.CONFLICT).build();
+		    }
 		}
-		else {
-			//Este es el error especifico 409
-			return Response.serverError().status(Response.Status.CONFLICT).build();
-		}
-	}
 	
-	@GET
+	/*
+	 * @GET
+	 * 
+	 * @Path("/login") public Response login(UserData userData) {
+	 * if(LudoFunAccountService.getInstance().loginUser(userData)) { return
+	 * Response.ok().build(); }else { //Este es el 401 return
+	 * Response.serverError().status(Response.Status.UNAUTHORIZED).build(); } }
+	 */
+	
+	
+	@POST
 	@Path("/login")
+	@Consumes(MediaType.APPLICATION_JSON)
 	public Response login(UserData userData) {
-		if(LudoFunAccountService.getInstance().loginUser(userData)) {
-			return Response.ok().build();
-		}else {
-			//Este es el 401
-			return Response.serverError().status(Response.Status.UNAUTHORIZED).build();
-		}
+	    if(LudoFunAccountService.getInstance().loginUser(userData)) {
+	        return Response.ok().build();
+	    } else {
+	        return Response.status(Response.Status.UNAUTHORIZED).build();
+	    }
 	}
+
+	
 	
 	@GET
 	@Path("/hello")
