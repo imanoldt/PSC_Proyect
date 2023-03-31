@@ -81,40 +81,26 @@ public class Resource {
 	@POST
 	@Path("/register")
 	public Response registerUser(UserData userData) {
-		try
-        {	
-            tx.begin();
-            logger.info("Checking whether the user already exits or not: '{}'", userData.getLogin());
-			User user = null;
-			try {
-				user = pm.getObjectById(User.class, userData.getLogin());
-			} catch (javax.jdo.JDOObjectNotFoundException jonfe) {
-				logger.info("Exception launched: {}", jonfe.getMessage());
-			}
-			logger.info("User: {}", user);
-			if (user != null) {
-				logger.info("Setting password user: {}", user);
-				user.setPassword(userData.getPassword());
-				logger.info("Password set user: {}", user);
-			} else {
-				logger.info("Creating user: {}", user);
-				user = new User(userData.getLogin(), userData.getPassword());
-				pm.makePersistent(user);					 
-				logger.info("User created: {}", user);
-			}
-			tx.commit();
+		if(LudoFunAccountService.getInstance().registerUser(userData)) {
 			return Response.ok().build();
-        }
-        finally
-        {
-            if (tx.isActive())
-            {
-                tx.rollback();
-            }
-      
+		}
+		else {
+			//Este es el error especifico 409
+			return Response.serverError().status(Response.Status.CONFLICT).build();
 		}
 	}
-
+	
+	@GET
+	@Path("/login")
+	public Response login(UserData userData) {
+		if(LudoFunAccountService.getInstance().loginUser(userData)) {
+			return Response.ok().build();
+		}else {
+			//Este es el 401
+			return Response.serverError().status(Response.Status.UNAUTHORIZED).build();
+		}
+	}
+	
 	@GET
 	@Path("/hello")
 	@Produces(MediaType.TEXT_PLAIN)
