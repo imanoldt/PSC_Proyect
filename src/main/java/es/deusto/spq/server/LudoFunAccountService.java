@@ -1,6 +1,8 @@
 package es.deusto.spq.server;
 
+import javax.jdo.JDOHelper;
 import javax.jdo.PersistenceManager;
+import javax.jdo.PersistenceManagerFactory;
 import javax.jdo.Transaction;
 
 import org.apache.logging.log4j.LogManager;
@@ -23,6 +25,11 @@ public class LudoFunAccountService {
 		instance = new LudoFunAccountService();
 		}
 	return instance;
+	}
+	private LudoFunAccountService(){
+		PersistenceManagerFactory pmf = JDOHelper.getPersistenceManagerFactory("datanucleus.properties");
+		this.pm = pmf.getPersistenceManager();
+		this.tx = pm.currentTransaction();
 	}
 
 	public boolean registerUser(UserData userData){
