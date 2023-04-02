@@ -12,56 +12,56 @@ import es.deusto.spq.pojo.UserData;
 import es.deusto.spq.server.jdo.User;
 import es.deusto.spq.pojo.UserData;
 
-
 public class LudoFunAccountService {
-	
-	private PersistenceManager pm=null;
-	private Transaction tx=null;
+
+	private PersistenceManager pm = null;
+	private Transaction tx = null;
 	protected static final Logger logger = LogManager.getLogger();
 	private static LudoFunAccountService instance;
-	
+
 	public static LudoFunAccountService getInstance() {
 		if (instance == null) {
-		instance = new LudoFunAccountService();
+			instance = new LudoFunAccountService();
 		}
-	return instance;
+		return instance;
 	}
-	private LudoFunAccountService(){
+
+	private LudoFunAccountService() {
 		PersistenceManagerFactory pmf = JDOHelper.getPersistenceManagerFactory("datanucleus.properties");
 		this.pm = pmf.getPersistenceManager();
 		this.tx = pm.currentTransaction();
 	}
 
-	public boolean registerUser(UserData userData){
+	public boolean registerUser(UserData userData) {
 		try {
 			tx.begin();
 			logger.info("Register : Checking whether the user already exits or not: '{}'", userData.getLogin());
 			User user = null;
 			try {
 				user = pm.getObjectById(User.class, userData.getLogin());
-			}catch (Exception e) {
+			} catch (Exception e) {
 				e.printStackTrace();
 				logger.error("Exception launched: {}", e.getMessage());
 			}
 			logger.info("User: {}", user);
-				if(user != null) {
-					logger.info("User already exists");
-					return false;
+			if (user != null) {
+				logger.info("User already exists");
+				return false;
 			} else {
 				logger.info("Creating user: {}", user);
 				user = new User(userData.getLogin(), userData.getPassword());
-				pm.makePersistent(user);					 
+				pm.makePersistent(user);
 				logger.info("User created: {}", user);
 			}
-		tx.commit();
-		return true;
-	} finally {
-		if (tx.isActive()) {
-			tx.rollback();	
-			}		
+			tx.commit();
+			return true;
+		} finally {
+			if (tx.isActive()) {
+				tx.rollback();
+			}
 		}
 	}
-	
+
 	public boolean loginUser(UserData userData) {
 		try {
 			tx.begin();
@@ -69,27 +69,28 @@ public class LudoFunAccountService {
 			User user = null;
 			try {
 				user = pm.getObjectById(User.class, userData.getLogin());
-			}catch (Exception e) {
+			} catch (Exception e) {
 				e.printStackTrace();
 				logger.error("Exception launched: {}", e.getMessage());
-			}if(user == null) {
+			}
+			if (user == null) {
 				logger.info("Login : User does not exist");
 				return false;
-				
-		} else {
-			if (user.getPassword() == userData.getPassword() ) {
-				logger.info("Login: User Does Exist");
-				return true;
+
 			} else {
-				logger.info("Login: User and Password Do Not Match");
-				return false;
+				if (user.getPassword() == userData.getPassword()) {
+					logger.info("Login: User Does Exist");
+					return true;
+				} else {
+					logger.info("Login: User and Password Do Not Match");
+					return false;
+				}
 			}
-		}
-			
+
 		} finally {
 			if (tx.isActive()) {
-				tx.rollback();	
-			}	
+				tx.rollback();
+			}
 		}
 	}
 }

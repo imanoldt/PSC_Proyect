@@ -6,8 +6,6 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import java.awt.GridLayout;
-
-
 import javax.swing.JLabel;
 import javax.swing.JTextField;
 import javax.swing.JPasswordField;
@@ -15,9 +13,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import java.awt.Font;
 import javax.swing.border.MatteBorder;
-
 import net.miginfocom.swing.MigLayout;
-
 import java.awt.Color;
 import java.awt.Dimension;
 import javax.swing.SwingConstants;
@@ -25,11 +21,9 @@ import java.awt.*;
 import java.awt.event.MouseMotionAdapter;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
-import java.awt.event.WindowListener;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
-import javax.swing.UIManager;
 
 @SuppressWarnings("serial")
 public class VentanaLoginN extends JFrame {
@@ -47,7 +41,7 @@ public class VentanaLoginN extends JFrame {
 		setTitle("LogIn");
 		setVisible(true);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 1048, 737);
+		setBounds(100, 100, 1160, 761);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		contentPane.setLayout(new BorderLayout(0, 0));
@@ -58,14 +52,14 @@ public class VentanaLoginN extends JFrame {
 		pnlPrincipal.setLayout(new GridLayout(0, 2, 0, 0));
 
 		pnlIzquierda = new JPanel();
-		pnlIzquierda.setBackground(new Color(182, 255, 248));
+		pnlIzquierda.setBackground(new Color(221, 84, 114));
 		pnlPrincipal.add(pnlIzquierda);
-		pnlIzquierda.setLayout(new MigLayout("", "[grow]", "[59.00][][46.00][36.00,top][][][3.00][41.00][][fill][46.00][47.00,grow][][][][][][][][][][][][]"));
+		pnlIzquierda.setLayout(new MigLayout("", "[grow]", "[59.00][][46.00][36.00,top][][][3.00][41.00][][fill][46.00][47.00,grow][][][][][][47.00][][][][][][]"));
 
 		lblIniciarSesion = new JLabel("Bienvenid@");
 		lblIniciarSesion.setHorizontalAlignment(SwingConstants.CENTER);
 		lblIniciarSesion.setBorder(null);
-		lblIniciarSesion.setFont(new Font("Montserrat", Font.BOLD, 30));
+		lblIniciarSesion.setFont(new Font("Monaco", Font.BOLD, 30));
 		pnlIzquierda.add(lblIniciarSesion, "cell 0 0,alignx center,aligny center");
 
 		lblIconoUsu = new JLabel("");
@@ -74,12 +68,12 @@ public class VentanaLoginN extends JFrame {
 
 		pnlDerechaa = new JPanel();
 		pnlDerechaa.setBorder(new MatteBorder(0, 3, 0, 0, (Color) new Color(0, 0, 0)));
-		pnlDerechaa.setBackground(UIManager.getColor("Button.background"));
+		pnlDerechaa.setBackground(new Color(243, 254, 247));
 		pnlPrincipal.add(pnlDerechaa);
 		pnlDerechaa.setLayout(new BorderLayout(0, 0));
 
 		lblNewLabel_3 = new JLabel("");
-		lblNewLabel_3.setIcon(new ImageIcon("img/Disenyo_sin_titulo.png"));
+		lblNewLabel_3.setIcon(new ImageIcon(VentanaLoginN.class.getResource("LudoFun.png")));
 		pnlDerechaa.add(lblNewLabel_3, BorderLayout.CENTER);
 
 		lblStravaCopyright = new JLabel("PSC 2023 CopyRight © Todos los derechos reservados.");
@@ -100,7 +94,7 @@ public class VentanaLoginN extends JFrame {
 		btnSalir.setOpaque(false);
 		btnIniciarSession = new JButton("Iniciar Sesion");
 		btnIniciarSession.addActionListener(new ActionListener() {
-			
+
 			@Override
 			public void actionPerformed(ActionEvent e) {
 
@@ -108,34 +102,34 @@ public class VentanaLoginN extends JFrame {
 		});
 		btnRegistrarse = new JButton("Registrarse");
 		btnRegistrarse.addActionListener(new ActionListener() {
-			
+
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				EventQueue.invokeLater(new Runnable() {
 					public void run() {
-						VentanaRegistro registro =new VentanaRegistro();
+						VentanaRegistro registro = new VentanaRegistro();
 						registro.setVisible(true);
 						dispose();
-						
+
 					}
 				});
 			}
 		});
-								
-										lblUsuario = new JLabel("Nombre:");
-										lblUsuario.setFont(new Font("Montserrat", Font.PLAIN, 16));
-										pnlIzquierda.add(lblUsuario, "cell 0 5,alignx left,aligny center");
-						
-								txtUsuario = new JTextField();
-								pnlIzquierda.add(txtUsuario, "cell 0 7,growx,aligny center");
-								txtUsuario.setColumns(10);
-				
-						lblContraseya = new JLabel("Contraseña:");
-						lblContraseya.setFont(new Font("Montserrat", Font.PLAIN, 16));
-						pnlIzquierda.add(lblContraseya, "cell 0 10,alignx left,aligny center");
-		
-				passContraseya = new JPasswordField();
-				pnlIzquierda.add(passContraseya, "cell 0 11,growx");
+
+		lblUsuario = new JLabel("Nombre:");
+		lblUsuario.setFont(new Font("Montserrat", Font.PLAIN, 20));
+		pnlIzquierda.add(lblUsuario, "cell 0 5,alignx left,aligny center");
+
+		txtUsuario = new JTextField();
+		pnlIzquierda.add(txtUsuario, "cell 0 7 1 2,grow");
+		txtUsuario.setColumns(10);
+
+		lblContraseya = new JLabel("Contraseña:");
+		lblContraseya.setFont(new Font("Montserrat", Font.PLAIN, 20));
+		pnlIzquierda.add(lblContraseya, "cell 0 10,alignx left,aligny center");
+
+		passContraseya = new JPasswordField();
+		pnlIzquierda.add(passContraseya, "cell 0 11,grow");
 		btnRegistrarse.setFont(new Font("Montserrat", Font.PLAIN, 16));
 		btnRegistrarse.setPreferredSize(new Dimension(120, 50));
 		pnlIzquierda.add(btnRegistrarse, "flowx,cell 0 15,alignx center,aligny center");
@@ -147,19 +141,19 @@ public class VentanaLoginN extends JFrame {
 		btnSalir.setFont(new Font("Montserrat", Font.PLAIN, 16));
 		btnSalir.setPreferredSize(new Dimension(5000, 20));
 		btnSalir.addActionListener(new ActionListener() {
-			
+
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				dispose();
 			}
 		});
-		pnlIzquierda.add(btnSalir, "cell 0 16,alignx center,aligny center");
+		pnlIzquierda.add(btnSalir, "cell 0 16 1 3,alignx center,growy");
 		btnSalir.setIcon(new ImageIcon(imgEscalada));
 		btnSalir.setRolloverIcon(new ImageIcon(imgEscaladaEnc));
 
 		lblRegistrate = new JLabel("¡¡ Registrate !!");
 		lblRegistrate.setFont(new Font("Montserrat", Font.PLAIN, 20));
-		pnlIzquierda.add(lblRegistrate, "cell 0 17,alignx center,aligny center");
+		pnlIzquierda.add(lblRegistrate, "cell 0 19,alignx center,aligny center");
 
 		btnSalir.addMouseMotionListener(new MouseMotionAdapter() {
 			@Override
@@ -174,7 +168,7 @@ public class VentanaLoginN extends JFrame {
 			@Override
 			public void run() {
 				while (true) {
-					lblRegistrate.setForeground(new Color(249, 194, 4));
+					lblRegistrate.setForeground(new Color(243, 254, 247));
 					try {
 						Thread.sleep(500);
 					} catch (InterruptedException e) {
@@ -193,14 +187,15 @@ public class VentanaLoginN extends JFrame {
 		};
 		Thread t1 = new Thread(r1);
 		t1.start();
-		
+
 		addWindowListener(new WindowAdapter() {
-	
+
+			@SuppressWarnings("deprecation")
 			@Override
 			public void windowClosed(WindowEvent e) {
 				t1.stop();
 			}
-	
+
 		});
 	}
 }

@@ -1,7 +1,7 @@
 package es.deusto.spq.client.gui;
 
 import java.awt.BorderLayout;
-import java.awt.EventQueue;
+
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
@@ -9,26 +9,27 @@ import java.awt.GridLayout;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
-import javax.swing.JRadioButton;
-import javax.swing.JSeparator;
+
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
-import javax.swing.JRadioButtonMenuItem;
+
 import javax.swing.ImageIcon;
 import net.miginfocom.swing.MigLayout;
 import java.awt.Font;
 import javax.swing.SwingConstants;
 import java.awt.Color;
-import javax.swing.JComboBox;
-import javax.swing.DefaultComboBoxModel;
-import es.deusto.spq.pojo.*;
+
 import es.deusto.spq.server.jdo.User;
 import es.deusto.spq.client.*;
 import java.awt.Cursor;
 
 public class VentanaRegistro extends JFrame {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
 	private JPanel panel;
 	private JPanel panel_1;
@@ -97,10 +98,9 @@ public class VentanaRegistro extends JFrame {
 		btnRegistrarse.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if (textFieldNombre.getText().equals("") && textFieldContrasenia.getText().equals("")) {
-					
-					     JOptionPane.showMessageDialog(null, "Complete todos los campos",
-				      "ERROR!", JOptionPane.ERROR_MESSAGE);
 
+					JOptionPane.showMessageDialog(null, "Complete todos los campos", "ERROR!",
+							JOptionPane.ERROR_MESSAGE);
 
 				} else {
 //					btnRegistrarse.setEnabled(true);
