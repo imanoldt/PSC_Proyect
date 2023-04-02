@@ -49,7 +49,7 @@ public class ExampleClient {
 			logger.info("User correctly registered");
 		}
 	}
-	public void loginUser(String name, String password) {
+	public boolean loginUser(String name, String password) {
 		WebTarget registerUserWebTarget = webTarget.path("login");
 		Invocation.Builder invocationBuilder = registerUserWebTarget.request(MediaType.APPLICATION_JSON);
 		
@@ -59,9 +59,10 @@ public class ExampleClient {
 		Response response = invocationBuilder.post(Entity.entity(userData, MediaType.APPLICATION_JSON));
 		if (response.getStatus() != Status.OK.getStatusCode()) {
 			logger.error("Error connecting with the server. Code: {}", response.getStatus());
+			return false;
 		} else {
 			logger.info("User correctly logged");
-			
+			return true;
 		}
 	}
 	public void sayMessage(String login, String password, String message) {

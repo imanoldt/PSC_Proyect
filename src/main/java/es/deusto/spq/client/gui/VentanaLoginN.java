@@ -101,8 +101,13 @@ public class VentanaLoginN extends JFrame {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				
-				exampleClient.loginUser(txtUsuario.getText(), passContraseya.getText());
+				boolean bool = exampleClient.loginUser(txtUsuario.getText(), passContraseya.getText());
 				logger.info("Usuario:"+txtUsuario.getText()+" "+ passContraseya.getText());
+				
+				if (bool) {
+					new VentanaPrincipal(txtUsuario.getText(),passContraseya.getText());
+					dispose();
+				}
 				
 				
 			}

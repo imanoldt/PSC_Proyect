@@ -40,7 +40,7 @@ public class LudoFunAccountService {
 			try {
 				user = pm.getObjectById(User.class, userData.getLogin());
 			} catch (Exception e) {
-				e.printStackTrace();
+				//e.printStackTrace();
 				logger.error("Exception launched: {}", e.getMessage());
 			}
 			logger.info("User: {}", user);
