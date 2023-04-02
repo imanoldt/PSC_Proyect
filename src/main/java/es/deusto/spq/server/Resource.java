@@ -94,19 +94,20 @@ public class Resource {
 
 	@POST
 	@Path("/login")
-	public Response loginUser(Usuario userData) {
-		try {
-			tx.begin();
-			logger.info("Checking whether the user already exits or not: '{}'", userData.getName());
+	public Response loginUser(UserData userData) {
+		try
+        {	
+            tx.begin();
+            logger.info("Checking whether the user already exits or not: '{}'", userData.getLogin());
 			User user = null;
 			try {
-				user = pm.getObjectById(User.class, userData.getName());
+				user = pm.getObjectById(User.class, userData.getLogin());
 			} catch (javax.jdo.JDOObjectNotFoundException jonfe) {
 				logger.info("Exception launched: {}", jonfe.getMessage());
 			}
 			logger.info("User: {}", user);
 			if (user != null) {
-				if (!user.getPassword().equals(userData.getPassword())) {
+				if(!user.getPassword().equals(userData.getPassword())) {
 					return Response.serverError().build();
 				}
 			} else {
@@ -114,14 +115,16 @@ public class Resource {
 			}
 			tx.commit();
 			return Response.ok().build();
-		} finally {
-			if (tx.isActive()) {
-				tx.rollback();
-			}
-
+        }
+        finally
+        {
+            if (tx.isActive())
+            {
+                tx.rollback();
+            }
+      
 		}
 	}
-
 	@POST
 
 	@Path("/register")

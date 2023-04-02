@@ -13,6 +13,11 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import java.awt.Font;
 import javax.swing.border.MatteBorder;
+
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
+import es.deusto.spq.client.ExampleClient;
 import net.miginfocom.swing.MigLayout;
 import java.awt.Color;
 import java.awt.Dimension;
@@ -35,8 +40,9 @@ public class VentanaLoginN extends JFrame {
 	private JLabel lblRegistrate;
 	private JLabel lblNewLabel_3;
 	private JLabel lblStravaCopyright;
+	protected static final Logger logger = LogManager.getLogger();
 
-	public VentanaLoginN() {
+	public VentanaLoginN(ExampleClient exampleClient) {
 		setResizable(false);
 		setTitle("LogIn");
 		setVisible(true);
@@ -73,7 +79,7 @@ public class VentanaLoginN extends JFrame {
 		pnlDerechaa.setLayout(new BorderLayout(0, 0));
 
 		lblNewLabel_3 = new JLabel("");
-		lblNewLabel_3.setIcon(new ImageIcon(VentanaLoginN.class.getResource("LudoFun.png")));
+		//lblNewLabel_3.setIcon(new ImageIcon(VentanaLoginN.class.getResource("LudoFun.png")));
 		pnlDerechaa.add(lblNewLabel_3, BorderLayout.CENTER);
 
 		lblStravaCopyright = new JLabel("PSC 2023 CopyRight © Todos los derechos reservados.");
@@ -97,7 +103,11 @@ public class VentanaLoginN extends JFrame {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-
+				
+				exampleClient.loginUser(txtUsuario.getText(), passContraseya.getText());
+				logger.info("Usuario:"+txtUsuario.getText()+" "+ passContraseya.getText());
+				
+				
 			}
 		});
 		btnRegistrarse = new JButton("Registrarse");
