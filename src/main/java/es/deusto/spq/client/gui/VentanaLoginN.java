@@ -68,9 +68,6 @@ public class VentanaLoginN extends JFrame {
 		lblIniciarSesion.setFont(new Font("Monaco", Font.BOLD, 30));
 		pnlIzquierda.add(lblIniciarSesion, "cell 0 0,alignx center,aligny center");
 
-		lblIconoUsu = new JLabel("");
-		lblIconoUsu.setIcon(new ImageIcon("img/basketc.png"));
-		pnlIzquierda.add(lblIconoUsu, "cell 0 2,alignx center,aligny center");
 
 		pnlDerechaa = new JPanel();
 		pnlDerechaa.setBorder(new MatteBorder(0, 3, 0, 0, (Color) new Color(0, 0, 0)));
@@ -78,8 +75,8 @@ public class VentanaLoginN extends JFrame {
 		pnlPrincipal.add(pnlDerechaa);
 		pnlDerechaa.setLayout(new BorderLayout(0, 0));
 
-		lblNewLabel_3 = new JLabel("");
-		//lblNewLabel_3.setIcon(new ImageIcon(VentanaLoginN.class.getResource("LudoFun.png")));
+		lblNewLabel_3 = new JLabel();
+		lblNewLabel_3.setIcon(new ImageIcon("src/main/java/es/deusto/spq/client/utils/LudoFun.png"));
 		pnlDerechaa.add(lblNewLabel_3, BorderLayout.CENTER);
 
 		lblStravaCopyright = new JLabel("PSC 2023 CopyRight © Todos los derechos reservados.");

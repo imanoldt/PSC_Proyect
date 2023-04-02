@@ -110,7 +110,7 @@ public class VentanaRegistro extends JFrame {
 					ExampleClient eC = new ExampleClient("localhost", "8080");
 					eC.registerUser(us.getLogin(), us.getPassword());
 					dispose();
-					//VentanaLoginN vL = new VentanaLoginN();
+					VentanaLoginN vL = new VentanaLoginN(eC);
 				}
 			}
 		});
