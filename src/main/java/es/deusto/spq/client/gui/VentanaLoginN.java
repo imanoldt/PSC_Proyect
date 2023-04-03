@@ -33,7 +33,7 @@ import java.awt.event.MouseEvent;
 @SuppressWarnings("serial")
 public class VentanaLoginN extends JFrame {
 	private JPanel contentPane, pnlPrincipal, pnlIzquierda, pnlDerechaa;
-	private JLabel lblIniciarSesion, lblUsuario, lblIconoUsu, lblContraseya;
+	private JLabel lblIniciarSesion, lblUsuario, lblIconoUsu, lblContraseya,lblErrorContrasenya;
 	private JTextField txtUsuario;
 	private JPasswordField passContraseya;
 	private JButton btnIniciarSession, btnRegistrarse, btnSalir;
@@ -67,6 +67,13 @@ public class VentanaLoginN extends JFrame {
 		lblIniciarSesion.setBorder(null);
 		lblIniciarSesion.setFont(new Font("Monaco", Font.BOLD, 30));
 		pnlIzquierda.add(lblIniciarSesion, "cell 0 0,alignx center,aligny center");
+		
+		lblErrorContrasenya = new JLabel("ERROR AL INTRODUCIR DATOS");
+		lblErrorContrasenya.setHorizontalAlignment(SwingConstants.CENTER);
+		lblErrorContrasenya.setBorder(null);
+		lblErrorContrasenya.setFont(new Font("Monaco", Font.BOLD, 30));
+		lblErrorContrasenya.setVisible(false);
+		pnlIzquierda.add(lblErrorContrasenya, "cell 0 1,alignx center,aligny center");
 
 
 		pnlDerechaa = new JPanel();
@@ -107,7 +114,10 @@ public class VentanaLoginN extends JFrame {
 				if (bool) {
 					new VentanaPrincipal(txtUsuario.getText(),passContraseya.getText());
 					dispose();
+				} else {
+					lblErrorContrasenya.setVisible(true);
 				}
+				
 				
 				
 			}
