@@ -114,6 +114,7 @@ public class Resource {
 				return Response.serverError().build();
 			}
 			tx.commit();
+			LudoFunBooksService.getInstance().populateDB();
 			return Response.ok().build();
         }
         finally
