@@ -1,23 +1,27 @@
 package es.deusto.spq.client.gui;
 
 import java.awt.BorderLayout;
-import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.GraphicsEnvironment;
 import java.awt.GridLayout;
+import java.awt.Image;
+import java.awt.Rectangle;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
-
-import es.deusto.spq.pojo.UserData;
+import javax.swing.JLabel;
+import javax.swing.ImageIcon;
 
 @SuppressWarnings("serial")
 public class VentanaPrincipal extends JFrame {
 	String usuario, contraseña;
-	JPanel contentPane;
-	JPanel topLeftPanel,topRightPanel, leftPanel, rightPanel;
-
+	JPanel contentPane, panel, panel_1;
+	JLabel lblLogo;
 
 	public VentanaPrincipal(String usuario, String contraseña) {
+
+		setLocationRelativeTo(null);
 		setResizable(false);
 		setTitle("LudoFun");
 		setVisible(true);
@@ -25,24 +29,40 @@ public class VentanaPrincipal extends JFrame {
 		setBounds(100, 100, 1160, 761);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
-		contentPane.setLayout(new GridLayout(2,2));
 		setContentPane(contentPane);
+		contentPane.setLayout(new GridLayout(0, 2, 0, 0));
+		panel = new JPanel();
+		contentPane.add(panel);
+		panel.setLayout(new BorderLayout(0, 0));
+		lblLogo = new JLabel();
 		
-		topLeftPanel = new JPanel();
-		topLeftPanel.setBackground(Color.cyan);
-		contentPane.add(topLeftPanel);
 		
-		topRightPanel = new JPanel();
-		topRightPanel.setBackground(Color.LIGHT_GRAY);
-		contentPane.add(topRightPanel);
+		// Cargar la imagen en un ImageIcon
+				ImageIcon imagenIcono = new ImageIcon("src/main/java/es/deusto/spq/client/utils/LudoFun.png");
+
+				// Obtener la imagen del ImageIcon
+				Image imagenOriginal = imagenIcono.getImage();
+
+				// Obtener el tamaño del JLabel
+				int anchoLabel = (int)600;
+				int altoLabel = (int) 600;
+
+				// Crear una nueva imagen escalada que cubra todo el espacio del JLabel
+				Image imagenEscalada = imagenOriginal.getScaledInstance(anchoLabel, altoLabel, Image.SCALE_SMOOTH);
+
+				// Crear un nuevo ImageIcon a partir de la imagen escalada
+				ImageIcon imagenEscaladaIcono = new ImageIcon(imagenEscalada);
+
+				// Establecer el ImageIcon en el JLabel
+				lblLogo.setIcon(imagenEscaladaIcono);
 		
-		leftPanel = new JPanel();
-		leftPanel.setBackground(Color.PINK);
-		contentPane.add(leftPanel);
+		//lblLogo.setIcon(new ImageIcon("src/main/java/es/deusto/spq/client/utils/LudoFun.png"));
 		
-		rightPanel = new JPanel();
-		rightPanel.setBackground(Color.YELLOW);
-		contentPane.add(rightPanel);
-	
+		
+		
+		panel.add(lblLogo, BorderLayout.CENTER);
+		panel_1 = new JPanel();
+		contentPane.add(panel_1);
+
 	}
 }
