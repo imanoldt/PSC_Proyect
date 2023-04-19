@@ -6,10 +6,15 @@ import java.awt.GraphicsEnvironment;
 import java.awt.GridLayout;
 import java.awt.Image;
 import java.awt.Rectangle;
+import java.util.List;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+
+import es.deusto.spq.client.ExampleClient;
+import es.deusto.spq.pojo.Libro;
+
 import javax.swing.JLabel;
 import javax.swing.ImageIcon;
 
@@ -36,7 +41,15 @@ public class VentanaPrincipal extends JFrame {
 		panel.setLayout(new BorderLayout(0, 0));
 		lblLogo = new JLabel();
 		
-		
+		/*PROVISIONAL--mostrar por consola los libros de la bbdd*/
+		ExampleClient eC = new ExampleClient("localhost", "8080");
+		 List<Libro> books=eC.getBooks();
+		 for (Libro libro : books) {
+			    System.out.println(libro.toString());
+			}
+		/*--*/
+		 
+		 
 		// Cargar la imagen en un ImageIcon
 				ImageIcon imagenIcono = new ImageIcon("src/main/java/es/deusto/spq/client/utils/LudoFun.png");
 

@@ -3,6 +3,9 @@ package es.deusto.spq.server;
 import javax.jdo.PersistenceManager;
 import javax.jdo.PersistenceManagerFactory;
 import javax.jdo.Query;
+
+import java.util.List;
+
 import javax.jdo.JDOHelper;
 import javax.jdo.Transaction;
 
@@ -24,7 +27,7 @@ import javax.ws.rs.core.Response.Status;
 
 import org.apache.logging.log4j.Logger;
 import org.apache.logging.log4j.LogManager;
-
+import es.deusto.spq.server.jdo.Book;
 @Path("/resource")
 @Produces(MediaType.APPLICATION_JSON)
 public class Resource {
@@ -156,7 +159,30 @@ public class Resource {
 	 * return Response.ok().build(); } else { return
 	 * Response.status(Response.Status.UNAUTHORIZED).build(); } }
 	 */
+	
+	@GET
+	@Path("/libros")
+	@Produces(MediaType.APPLICATION_JSON)
+	public List<Book> getBooks() {
+	    //obtener lista de los libros de la bbdd
+	    List<Book> books = null;
+	    try {
+	        Query query = pm.newQuery(Book.class);
+	        books = (List<Book>) query.execute();
+	    } finally {
+	        pm.close();
+	    }
+	    return books;
+	}
+	
 
+
+
+
+
+	
+	
+	
 	@GET
 	@Path("/hello")
 	@Produces(MediaType.TEXT_PLAIN)

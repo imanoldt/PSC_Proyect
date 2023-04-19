@@ -5,6 +5,8 @@ import javax.jdo.annotations.Persistent;
 
 
 public class Libro {
+
+
 	private String nombre;
 	private String descripccion;
 	private float precio;
@@ -75,5 +77,8 @@ public class Libro {
 //	public void setSeccion(Seccion seccion) {
 //		this.seccion = seccion;
 //	}
-
+	@Override
+	public String toString() {
+		return "Libro [nombre=" + nombre + ", descripccion=" + descripccion + ", precio=" + precio + "]";
+	}
 }
