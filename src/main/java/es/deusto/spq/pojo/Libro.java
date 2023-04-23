@@ -10,6 +10,7 @@ public class Libro {
 	private String nombre;
 	private String descripccion;
 	private float precio;
+	private String tipo;
 //	private Categoria categoria;
 //	private Seccion seccion;
 
@@ -29,13 +30,22 @@ public class Libro {
 	 * @param categoria
 	 * @param seccion
 	 */
-	public Libro(String nombre, String descripccion, float precio, Categoria categoria, Seccion seccion) {
+	public Libro(String nombre, String descripccion, float precio, Categoria categoria, Seccion seccion,String tipo) {
 		super();
 		this.nombre = nombre;
 		this.descripccion = descripccion;
 		this.precio = precio;
+		this.tipo=tipo;
 //		this.categoria = categoria;
 //		this.seccion = seccion;
+	}
+
+	public String getTipo() {
+		return tipo;
+	}
+
+	public void setTipo(String tipo) {
+		this.tipo = tipo;
 	}
 
 	public String getNombre() {

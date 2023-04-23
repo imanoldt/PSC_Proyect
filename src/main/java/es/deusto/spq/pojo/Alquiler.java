@@ -9,6 +9,7 @@ public class Alquiler {
 	private Date fecha_compra;
 	
 	
+	
 	/**
 	 * constructor vacio
 	 */

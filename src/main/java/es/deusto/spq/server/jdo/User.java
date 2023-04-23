@@ -15,8 +15,6 @@ public class User {
 	String password=null;
 	
 	
-	
-	
 
 	Set<Message> messages = new HashSet<>();
 	

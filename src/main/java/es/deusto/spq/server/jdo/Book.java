@@ -17,6 +17,7 @@ public class Book {
 	String nombre=null;
 	String descripccion=null;
 	float precio=0;
+	String tipo;
 
 	/**
 	 * constructor vacio
@@ -35,11 +36,12 @@ public class Book {
 	 * @param categoria
 	 * @param seccion
 	 */
-	public Book(String nombre, String descripccion, float precio) {
+	public Book(String nombre, String descripccion, float precio,String tipo) {
 		super();
 		this.nombre = nombre;
 		this.descripccion = descripccion;
 		this.precio = precio;
+		this.tipo=tipo;
 	}
 
 	public String getNombre() {
@@ -66,5 +68,11 @@ public class Book {
 		this.precio = precio;
 	}
 
+	public String getTipo() {
+		return tipo;
+	}
 
+	public void setTipo(String tipo) {
+		this.tipo = tipo;
+	}
 }
