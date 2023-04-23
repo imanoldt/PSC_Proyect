@@ -1,8 +1,21 @@
-package es.deusto.spq.pojo;
+package es.deusto.spq.server.jdo;
 
+import javax.jdo.annotations.ForeignKey;
+import javax.jdo.annotations.IdGeneratorStrategy;
+import javax.jdo.annotations.PersistenceCapable;
+import javax.jdo.annotations.Persistent;
+import javax.jdo.annotations.PrimaryKey;
+
+import es.deusto.spq.pojo.Libro;
+
+
+@PersistenceCapable
 public class Compra {
-	
-	private Libro libro;
+	@PrimaryKey
+    @Persistent(valueStrategy = IdGeneratorStrategy.NATIVE)
+	private Long id;
+	@Persistent(defaultFetchGroup = "true")
+	private Book libro;
 	private String usuario;
 	private float precio;
 	
@@ -19,16 +32,16 @@ public class Compra {
 	 * @param usuario
 	 * @param precio
 	 */
-	public Compra(Libro libro, String usuario, float precio) {
+	public Compra(Book libro, String usuario, float precio) {
 		super();
 		this.libro = libro;
 		this.usuario = usuario;
 		this.precio = precio;
 	}
-	public Libro getLibro() {
+	public Book getLibro() {
 		return libro;
 	}
-	public void setLibro(Libro libro) {
+	public void setLibro(Book libro) {
 		this.libro = libro;
 	}
 	public String getUsuario() {
