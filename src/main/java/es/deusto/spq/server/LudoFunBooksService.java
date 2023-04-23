@@ -31,10 +31,10 @@ public class LudoFunBooksService {
 	
 	//TODO hacer un step de Maven que sea "iniciar la BD"
 	public void populateDB() {
-		Book b1 = new Book("El capital","Obra de Karl Marx y Engels en la que bla bla bla",(float) 10.0);
-		Book b2 = new Book("Teo va al parque", "En esta aventura para los mas jovenes bla bla",(float)5.95);
-		Book b3 = new Book("Harry Potter y la piedra","Clasico de la JK en la que un chaval bla bla",(float)9.95);
-		Book b4 = new Book("La biblia","El libro sagrado del cristianismo que bla bla bla",(float) 13.95);
+		Book b1 = new Book("El capital","Obra de Karl Marx y Engels en la que bla bla bla",(float) 10.0,"alquiler");
+		Book b2 = new Book("Teo va al parque", "En esta aventura para los mas jovenes bla bla",(float)5.95,"compra");
+		Book b3 = new Book("Harry Potter y la piedra","Clasico de la JK en la que un chaval bla bla",(float)9.95,"compra");
+		Book b4 = new Book("La biblia","El libro sagrado del cristianismo que bla bla bla",(float) 13.95,"alquiler");
 		
 		
 		tx.begin();
