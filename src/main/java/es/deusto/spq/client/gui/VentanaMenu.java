@@ -16,6 +16,7 @@ import javax.swing.border.BevelBorder;
 import java.awt.Cursor;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import net.miginfocom.swing.MigLayout;
 
 public class VentanaMenu extends JFrame {
 
@@ -29,7 +30,7 @@ public class VentanaMenu extends JFrame {
 		setVisible(true);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-		setBounds(100, 100, 648, 332);
+		setBounds(100, 100, 862, 411);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 
@@ -52,53 +53,22 @@ public class VentanaMenu extends JFrame {
 		panelCentral.setBorder(new BevelBorder(BevelBorder.LOWERED, new Color(0, 0, 0), null, null, null));
 		panelCentral.setBackground(new Color(224, 255, 255));
 		contentPane.add(panelCentral, BorderLayout.CENTER);
-		panelCentral.setLayout(null);
+		panelCentral.setLayout(new MigLayout("", "[100px][][89px][89px]", "[][216.00px][15px]"));
 
 		JButton btnAlquilar = new JButton();
+		btnAlquilar.setIcon(new ImageIcon(VentanaMenu.class.getResource("../utils/rent.png"))); // me
+																													// da
+																													// null
+																													// pointer
+																													// porque?
 
 		btnAlquilar.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-		btnAlquilar.setText("PRUEBA");
 		btnAlquilar.setBorder(null);
 		btnAlquilar.setBackground(new Color(255, 32, 249));
-		btnAlquilar.setBounds(88, 33, 89, 75);
 
 		btnAlquilar.repaint();
 
-		panelCentral.add(btnAlquilar);
-
-		JButton btnCompra = new JButton();
-
-		btnCompra.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-		btnCompra.setText("Prueba");
-		btnCompra.setBorder(null);
-		btnCompra.setBackground(new Color(224, 255, 255));
-		btnCompra.setBounds(258, 33, 89, 75);
-
-		panelCentral.add(btnCompra);
-
-		JButton btnDevolver = new JButton();
-		btnDevolver.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-		btnDevolver.setText("Prueba");
-		btnDevolver.setBorder(null);
-		btnDevolver.setBackground(new Color(224, 255, 255));
-		btnDevolver.setBounds(436, 33, 89, 75);
-
-		panelCentral.add(btnDevolver);
-
-		JLabel lblAlquiler = new JLabel("ALQUILAR");
-		lblAlquiler.setFont(new Font("Tahoma", Font.BOLD, 13));
-		lblAlquiler.setBounds(98, 129, 74, 14);
-		panelCentral.add(lblAlquiler);
-
-		JLabel lblComprar = new JLabel("COMPRAR");
-		lblComprar.setFont(new Font("Tahoma", Font.BOLD, 13));
-		lblComprar.setBounds(258, 130, 74, 14);
-		panelCentral.add(lblComprar);
-
-		JLabel lblDevolver = new JLabel("DEVOLVER");
-		lblDevolver.setFont(new Font("Tahoma", Font.BOLD, 13));
-		lblDevolver.setBounds(436, 130, 74, 14);
-		panelCentral.add(lblDevolver);
+		panelCentral.add(btnAlquilar, "cell 0 1,alignx center,aligny center");
 
 		// FUNCIONALIDAD DE LOS BOTONES
 
@@ -108,6 +78,35 @@ public class VentanaMenu extends JFrame {
 
 			}
 		});
+
+		JButton btnCompra = new JButton();
+		btnCompra.setIcon(new ImageIcon(VentanaMenu.class.getResource("../utils/compra.png")));
+
+		btnCompra.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+		btnCompra.setBorder(null);
+		btnCompra.setBackground(new Color(224, 255, 255));
+
+		panelCentral.add(btnCompra, "cell 2 1,grow");
+
+		JButton btnDevolver = new JButton();
+		btnDevolver.setIcon(new ImageIcon(VentanaMenu.class.getResource("../utils/devolver.png")));
+		btnDevolver.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+		btnDevolver.setBorder(null);
+		btnDevolver.setBackground(new Color(224, 255, 255));
+
+		panelCentral.add(btnDevolver, "cell 3 1,growx,aligny top");
+
+		JLabel lblAlquiler = new JLabel("ALQUILAR");
+		lblAlquiler.setFont(new Font("Tahoma", Font.BOLD, 13));
+		panelCentral.add(lblAlquiler, "cell 0 2,alignx center,growy");
+
+		JLabel lblComprar = new JLabel("COMPRAR");
+		lblComprar.setFont(new Font("Tahoma", Font.BOLD, 13));
+		panelCentral.add(lblComprar, "cell 2 2,alignx left,growy");
+
+		JLabel lblDevolver = new JLabel("DEVOLVER");
+		lblDevolver.setFont(new Font("Tahoma", Font.BOLD, 13));
+		panelCentral.add(lblDevolver, "cell 3 2,alignx left,growy");
 
 		btnCompra.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
