@@ -143,6 +143,7 @@ public class VentanaLoginN extends JFrame {
 
 		btnIniciarSession.addActionListener(new ActionListener() {
 
+			@SuppressWarnings("deprecation")
 			@Override
 			public void actionPerformed(ActionEvent e) {
 
@@ -150,7 +151,8 @@ public class VentanaLoginN extends JFrame {
 				logger.info("Usuario:" + txtUsuario.getText() + " " + passContraseya.getText());
 
 				if (bool) {
-					new VentanaPrincipal(txtUsuario.getText(), passContraseya.getText());
+					//new VentanaPrincipal(txtUsuario.getText(), passContraseya.getText());
+					new VentanaMenu(txtUsuario.getText(), passContraseya.getText());
 					dispose();
 				} else {
 					lblErrorContrasenya.setVisible(true);
