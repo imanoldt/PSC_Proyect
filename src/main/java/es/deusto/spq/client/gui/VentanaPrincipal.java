@@ -5,6 +5,8 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.Image;
+import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -34,11 +36,12 @@ public class VentanaPrincipal extends JFrame {
 	private JPanel panel_2;
 	private JButton btnAlquilar;
 	private JButton btnSalir;
+	List<Libro> books;
 
 	public VentanaPrincipal(String usuario, String contraseña) {
 
 		setLocationRelativeTo(null);
-		setResizable(false);
+		setResizable(true);
 		setTitle("LudoFun");
 		setVisible(true);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -84,7 +87,7 @@ public class VentanaPrincipal extends JFrame {
 		panel_2.add(btnSalir);
 		
 		btnAlquilar = new JButton("Alquilar");
-		btnAlquilar.setEnabled(false);
+		btnAlquilar.setEnabled(true);
 
 		panel_2.add(btnAlquilar);
 		panel_1 = new JPanel();
@@ -104,8 +107,13 @@ public class VentanaPrincipal extends JFrame {
 		
 		btnAlquilar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				//SI TIENES ALGUN LIBRO SELECCIONADO DE LA TABLA UN IF LO COMPRUEBA Y PONE EL BOTON ENABLE Y ALQUILA EL LIBRO 
-				//DAR FUNCIONALIDAD DE ALQUILAR
+				int[] libros = tabla.getSelectedRows();
+				ArrayList<Libro> result = new ArrayList<Libro>();
+				for (int i = 0; i < libros.length; i++) {
+					result.add(books.get(libros[i]));
+				} 
+				ExampleClient ec = new ExampleClient(usuario, contraseña);
+				ec.alquilarLibros(result);
 			}
 		});
 		
@@ -122,7 +130,7 @@ public class VentanaPrincipal extends JFrame {
 	private void cargarDatos() {
 		// TODO Auto-generated method stub
 		ExampleClient eC = new ExampleClient("localhost", "8080");
-		List<Libro> books = eC.getBooks();
+		books = eC.getBooks();
 		for (Libro libro : books) {
 			String[] fila = { libro.getNombre(), libro.getDescripccion(), String.valueOf(libro.getPrecio()) };
 			modelo.addRow(fila);

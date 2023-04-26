@@ -1,5 +1,6 @@
 package es.deusto.spq.client;
 
+import java.util.Iterator;
 import java.util.List;
 import javax.ws.rs.core.GenericType;
 
@@ -124,5 +125,21 @@ public class ExampleClient {
 		
 //		exampleClient.registerUser(USER, PASSWORD);
 //		exampleClient.sayMessage(USER, PASSWORD, "This is a test!...");
+	}
+	public void alquilarLibros(List<Libro> libros) {
+		WebTarget registerUserWebTarget = webTarget.path("libros/alquilar");
+		Invocation.Builder invocationBuilder = registerUserWebTarget.request(MediaType.APPLICATION_JSON);
+		
+		Response response = invocationBuilder.post(Entity.entity(libros, MediaType.APPLICATION_JSON));
+		for (int i = 0; i < libros.size(); i++) {
+			logger.info("Intentando mandar: [" + libros.get(i)+"] "+ libros.get(i).getNombre());
+		} 
+		if (response.getStatus() != Status.OK.getStatusCode()) {
+			logger.error("Error connecting with the server. Code: {}", response.getStatus());
+		} else {
+			logger.info("Libros Alquilados Correctamente");
+		}
+		
+		
 	}
 }

@@ -56,7 +56,8 @@ public class VentanaMenu extends JFrame {
 		panelCentral.setLayout(new MigLayout("", "[100px][][89px][89px]", "[][216.00px][15px]"));
 
 		JButton btnAlquilar = new JButton();
-		btnAlquilar.setIcon(new ImageIcon(VentanaMenu.class.getResource("../utils/rent.png"))); // me
+		btnAlquilar.setText("Boton alquilar");
+		//btnAlquilar.setIcon(new ImageIcon(VentanaMenu.class.getResource("../utils/rent.png"))); // me
 																													// da
 																													// null
 																													// pointer
@@ -80,7 +81,7 @@ public class VentanaMenu extends JFrame {
 		});
 
 		JButton btnCompra = new JButton();
-		btnCompra.setIcon(new ImageIcon(VentanaMenu.class.getResource("../utils/compra.png")));
+		//btnCompra.setIcon(new ImageIcon(VentanaMenu.class.getResource("../utils/compra.png")));
 
 		btnCompra.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		btnCompra.setBorder(null);
@@ -89,11 +90,11 @@ public class VentanaMenu extends JFrame {
 		panelCentral.add(btnCompra, "cell 2 1,grow");
 
 		JButton btnDevolver = new JButton();
-		btnDevolver.setIcon(new ImageIcon(VentanaMenu.class.getResource("../utils/devolver.png")));
+		//btnDevolver.setIcon(new ImageIcon(VentanaMenu.class.getResource("../utils/devolver.png")));
 		btnDevolver.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		btnDevolver.setBorder(null);
 		btnDevolver.setBackground(new Color(224, 255, 255));
-
+		btnDevolver.setText("Boton devolver");
 		panelCentral.add(btnDevolver, "cell 3 1,growx,aligny top");
 
 		JLabel lblAlquiler = new JLabel("ALQUILAR");
