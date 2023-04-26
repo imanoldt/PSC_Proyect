@@ -35,6 +35,7 @@ public class VentanaPrincipal extends JFrame {
 	JButton btnNewButton;
 	private JPanel panel_2;
 	private JButton btnAlquilar;
+	private JButton btnCompra;
 	private JButton btnSalir;
 	List<Libro> books;
 
@@ -88,8 +89,10 @@ public class VentanaPrincipal extends JFrame {
 		
 		btnAlquilar = new JButton("Alquilar");
 		btnAlquilar.setEnabled(true);
+		btnCompra = new JButton("Compra");
+		btnCompra.setEnabled(true);
 
-		panel_2.add(btnAlquilar);
+		
 		panel_1 = new JPanel();
 		contentPane.add(panel_1);
 		panel_1.setLayout(new BorderLayout(0, 0));
@@ -102,9 +105,12 @@ public class VentanaPrincipal extends JFrame {
 		
 		if(tipo=="alquiler") {
 			cargarDatosAlquiler();
+			panel_2.add(btnAlquilar);
 		}else {
 			cargarDatosCompra();
+			panel_2.add(btnCompra);
 		}
+		
 		
 		
 		
