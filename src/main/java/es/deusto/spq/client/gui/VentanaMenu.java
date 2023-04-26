@@ -75,7 +75,7 @@ public class VentanaMenu extends JFrame {
 
 		btnAlquilar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				VentanaPrincipal ventanaPrincipal = new VentanaPrincipal(usuario, contraseña);
+				VentanaPrincipal ventanaPrincipal = new VentanaPrincipal(usuario, contraseña,"alquiler");
 
 			}
 		});
@@ -111,7 +111,7 @@ public class VentanaMenu extends JFrame {
 
 		btnCompra.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				VentanaPrincipal ventanaPrincipal = new VentanaPrincipal(usuario, contraseña);
+				VentanaPrincipal ventanaPrincipal = new VentanaPrincipal(usuario, contraseña,"compra");
 			}
 		});
 

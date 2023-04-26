@@ -71,8 +71,23 @@ public class ExampleClient {
 		}
 	}
 	
-	public List<Libro> getBooks() {
+	public List<Libro> getBooksAlquiler() {
 	    WebTarget booksWebTarget = webTarget.path("librosAlquiler");
+	    Invocation.Builder invocationBuilder = booksWebTarget.request(MediaType.APPLICATION_JSON);
+
+	    Response response = invocationBuilder.get();
+	    if (response.getStatus() != Status.OK.getStatusCode()) {
+	        logger.error("Error connecting with the server. Code: {}", response.getStatus());
+	        return null;
+	    } else {
+	        List<Libro> books = response.readEntity(new GenericType<List<Libro>>() {});
+	        logger.info("Books correctly obtained");
+	        return books;
+	    }
+	}
+
+	public List<Libro> getBooksCompra() {
+	    WebTarget booksWebTarget = webTarget.path("librosCompra");
 	    Invocation.Builder invocationBuilder = booksWebTarget.request(MediaType.APPLICATION_JSON);
 
 	    Response response = invocationBuilder.get();

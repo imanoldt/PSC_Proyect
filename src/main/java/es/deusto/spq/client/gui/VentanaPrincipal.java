@@ -38,7 +38,7 @@ public class VentanaPrincipal extends JFrame {
 	private JButton btnSalir;
 	List<Libro> books;
 
-	public VentanaPrincipal(String usuario, String contraseña) {
+	public VentanaPrincipal(String usuario, String contraseña, String tipo) {
 
 		setLocationRelativeTo(null);
 		setResizable(true);
@@ -99,7 +99,13 @@ public class VentanaPrincipal extends JFrame {
 		lblTablaLibros.setOpaque(true);
 		panel_1.add(lblTablaLibros, BorderLayout.NORTH);
 		panel_1.add(new JScrollPane(tabla), BorderLayout.CENTER);
-		cargarDatos();
+		
+		if(tipo=="alquiler") {
+			cargarDatosAlquiler();
+		}else {
+			cargarDatosCompra();
+		}
+		
 		
 		
 		
@@ -127,10 +133,22 @@ public class VentanaPrincipal extends JFrame {
 
 	}
 
-	private void cargarDatos() {
+	private void cargarDatosAlquiler() {
 		// TODO Auto-generated method stub
 		ExampleClient eC = new ExampleClient("localhost", "8080");
-		books = eC.getBooks();
+		books = eC.getBooksAlquiler();
+		for (Libro libro : books) {
+			String[] fila = { libro.getNombre(), libro.getDescripccion(), String.valueOf(libro.getPrecio()),libro.getTipo() };
+			modelo.addRow(fila);
+			System.out.println(libro.toString());
+		}
+
+	}
+
+	private void cargarDatosCompra() {
+		// TODO Auto-generated method stub
+		ExampleClient eC = new ExampleClient("localhost", "8080");
+		books = eC.getBooksCompra();
 		for (Libro libro : books) {
 			String[] fila = { libro.getNombre(), libro.getDescripccion(), String.valueOf(libro.getPrecio()),libro.getTipo() };
 			modelo.addRow(fila);

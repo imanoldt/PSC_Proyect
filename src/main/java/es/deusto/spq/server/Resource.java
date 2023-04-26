@@ -189,6 +189,21 @@ public class Resource {
 	    }
 	    return books;
 	}
+	@GET
+	@Path("/librosCompra")
+	@Produces(MediaType.APPLICATION_JSON)
+	public List<Book> getBooksCompra() {
+	    //obtener lista de los libros de la bbdd
+		List<Book> books = null;
+	    try {
+	        Query query = pm.newQuery(Book.class);
+	        query.setFilter("tipo == 'compra'");
+	        books = (List<Book>) query.execute();
+	    } finally {
+	        pm.close();
+	    }
+	    return books;
+	}
 	
 	
 
