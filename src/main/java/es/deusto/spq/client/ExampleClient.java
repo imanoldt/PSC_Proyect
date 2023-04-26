@@ -72,7 +72,7 @@ public class ExampleClient {
 	}
 	
 	public List<Libro> getBooks() {
-	    WebTarget booksWebTarget = webTarget.path("libros");
+	    WebTarget booksWebTarget = webTarget.path("librosAlquiler");
 	    Invocation.Builder invocationBuilder = booksWebTarget.request(MediaType.APPLICATION_JSON);
 
 	    Response response = invocationBuilder.get();

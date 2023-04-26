@@ -30,7 +30,7 @@ public class VentanaPrincipal extends JFrame {
 	JPanel contentPane, panel, panel_1;
 	JLabel lblLogo;
 	JLabel lblTablaLibros = new JLabel("TABLA LIBROS");
-	DefaultTableModel modelo = new DefaultTableModel(new Object[] { "Nombre", "Descripcion", "Precio" }, 0);
+	DefaultTableModel modelo = new DefaultTableModel(new Object[] { "Nombre", "Descripcion", "Precio","Tipo" }, 0);
 	JTable tabla = new JTable(modelo);
 	JButton btnNewButton;
 	private JPanel panel_2;
@@ -132,7 +132,7 @@ public class VentanaPrincipal extends JFrame {
 		ExampleClient eC = new ExampleClient("localhost", "8080");
 		books = eC.getBooks();
 		for (Libro libro : books) {
-			String[] fila = { libro.getNombre(), libro.getDescripccion(), String.valueOf(libro.getPrecio()) };
+			String[] fila = { libro.getNombre(), libro.getDescripccion(), String.valueOf(libro.getPrecio()),libro.getTipo() };
 			modelo.addRow(fila);
 			System.out.println(libro.toString());
 		}

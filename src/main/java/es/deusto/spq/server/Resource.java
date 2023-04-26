@@ -174,6 +174,22 @@ public class Resource {
 	    }
 	    return books;
 	}
+	@GET
+	@Path("/librosAlquiler")
+	@Produces(MediaType.APPLICATION_JSON)
+	public List<Book> getBooksAlquiler() {
+	    //obtener lista de los libros de la bbdd
+		List<Book> books = null;
+	    try {
+	        Query query = pm.newQuery(Book.class);
+	        query.setFilter("tipo == 'alquiler'");
+	        books = (List<Book>) query.execute();
+	    } finally {
+	        pm.close();
+	    }
+	    return books;
+	}
+	
 	
 
 
