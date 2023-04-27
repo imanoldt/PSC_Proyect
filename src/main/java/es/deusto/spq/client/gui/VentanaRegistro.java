@@ -32,9 +32,6 @@ import java.awt.Dimension;
 
 public class VentanaRegistro extends JFrame {
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane, panel_1, panel;
 	private JLabel lblNewLabel, lblRegistro, lblNombre, lblContrasenya;
@@ -99,11 +96,9 @@ public class VentanaRegistro extends JFrame {
 		panel_1.add(btnNewButton, "cell 0 18 14 1,grow");
 
 		lblNewLabel = new JLabel();
-		//lblNewLabel.setIcon(new ImageIcon("src/main/java/es/deusto/spq/client/utils/user.png"));
 		
 		
-		
-		
+	
 		// Cargar la imagen en un ImageIcon
 		ImageIcon imagenIcono = new ImageIcon("src/main/java/es/deusto/spq/client/utils/user.png");
 
@@ -134,10 +129,10 @@ public class VentanaRegistro extends JFrame {
 							JOptionPane.ERROR_MESSAGE);
 
 				} else {
-//					btnRegistrarse.setEnabled(true);
+
 
 					User us = new User(textFieldNombre.getText(), textFieldContrasenia.getText());
-//				Usuario u = new Usuario(textFieldNombre.getText(), textFieldContrasenia.getText());
+				
 					ExampleClient eC = new ExampleClient("localhost", "8080");
 					eC.registerUser(us.getLogin(), us.getPassword());
 					dispose();

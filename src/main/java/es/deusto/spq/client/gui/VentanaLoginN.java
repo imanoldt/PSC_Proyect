@@ -28,6 +28,8 @@ import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 
 @SuppressWarnings("serial")
@@ -49,7 +51,7 @@ public class VentanaLoginN extends JFrame {
 		setVisible(true);
 		setResizable(false);
 		setTitle("LogIn");
-
+		setFocusable(true);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
 		contentPane = new JPanel();
@@ -152,7 +154,7 @@ public class VentanaLoginN extends JFrame {
 
 				if (bool) {
 					//new VentanaPrincipal(txtUsuario.getText(), passContraseya.getText());
-					new VentanaMenu(txtUsuario.getText(), passContraseya.getText());
+					new VentanaMenuN(txtUsuario.getText(), passContraseya.getText());
 					dispose();
 				} else {
 					lblErrorContrasenya.setVisible(true);
@@ -175,6 +177,24 @@ public class VentanaLoginN extends JFrame {
 				});
 			}
 		});
+		
+		passContraseya.addKeyListener(new KeyAdapter() {
+		    public void keyPressed(KeyEvent e) {
+		        if (e.getKeyCode()==KeyEvent.VK_ENTER) {
+		            // Activar ActionListener del botón de inicio de sesión
+		        	btnIniciarSession.doClick();
+		        }
+		    }
+		});
+		
+		txtUsuario.addKeyListener(new KeyAdapter() {
+		    public void keyPressed(KeyEvent e) {
+		        if (e.getKeyCode()==KeyEvent.VK_ENTER) {
+		            // Activar ActionListener del botón de inicio de sesión
+		        	btnIniciarSession.doClick();
+		        }
+		    }
+		});
 
 		pnlIzquierda.add(btnSalir, "cell 0 16 1 3,alignx center,growy");
 		btnSalir.setIcon(new ImageIcon(imgEscalada));
@@ -191,7 +211,7 @@ public class VentanaLoginN extends JFrame {
 			}
 		});
 
-		// Hilos
+		// HILOS
 		Runnable r1 = new Runnable() {
 
 			@Override
@@ -226,5 +246,7 @@ public class VentanaLoginN extends JFrame {
 			}
 
 		});
+		
+
 	}
 }
