@@ -30,7 +30,7 @@ public class Libro {
 	 * @param categoria
 	 * @param seccion
 	 */
-	public Libro(String nombre, String descripccion, float precio, Categoria categoria, Seccion seccion,String tipo) {
+	public Libro(String nombre, String descripccion, float precio,String tipo) {
 		super();
 		this.nombre = nombre;
 		this.descripccion = descripccion;

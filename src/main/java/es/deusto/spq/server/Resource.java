@@ -28,6 +28,9 @@ import javax.ws.rs.core.Response.Status;
 import org.apache.logging.log4j.Logger;
 import org.apache.logging.log4j.LogManager;
 import es.deusto.spq.server.jdo.Book;
+import es.deusto.spq.server.jdo.Alquiler;
+
+
 @Path("/resource")
 @Produces(MediaType.APPLICATION_JSON)
 public class Resource {
@@ -205,6 +208,17 @@ public class Resource {
 	    return books;
 	}
 	
+	
+
+	@Path("/AlquilarLibro")
+	public Response alquilarLibro(Alquiler a) {
+		return null;
+//		if (LudoFunAccountService.getInstance().registerUser(userData)) {
+//			return Response.ok().build();
+//		} else {
+//			return Response.status(Response.Status.CONFLICT).build();
+//		}
+	}
 	
 
 

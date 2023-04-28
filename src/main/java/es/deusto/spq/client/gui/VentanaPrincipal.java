@@ -6,6 +6,7 @@ import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.Image;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
 import javax.swing.JFrame;
@@ -16,12 +17,16 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableModel;
 import es.deusto.spq.client.ExampleClient;
 import es.deusto.spq.pojo.Libro;
+import es.deusto.spq.pojo.Alquiler;
 import javax.swing.JLabel;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.SwingConstants;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 @SuppressWarnings("serial")
 public class VentanaPrincipal extends JFrame {
@@ -103,6 +108,7 @@ public class VentanaPrincipal extends JFrame {
 		panel_1.add(lblTablaLibros, BorderLayout.NORTH);
 		panel_1.add(new JScrollPane(tabla), BorderLayout.CENTER);
 		
+		//CONTROL DE LOS BOTONES
 		if(tipo=="alquiler") {
 			cargarDatosAlquiler();
 			panel_2.add(btnAlquilar);
@@ -119,13 +125,32 @@ public class VentanaPrincipal extends JFrame {
 		
 		btnAlquilar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				int[] libros = tabla.getSelectedRows();
-				ArrayList<Libro> result = new ArrayList<Libro>();
-				for (int i = 0; i < libros.length; i++) {
-					result.add(books.get(libros[i]));
-				} 
+				int selectedRow = tabla.getSelectedRow();
+				System.out.println("libro seleccionado: "+selectedRow);
+				String titulo= (String) modelo.getValueAt(selectedRow, 0);
+    			String descrip= (String) modelo.getValueAt(selectedRow, 1);
+				float precio= Float.parseFloat((String) modelo.getValueAt(selectedRow, 2));
+				String tipo=(String) modelo.getValueAt(selectedRow, 3);
+				 System.out.println("caracteristicas: "+titulo);
+				
+				Libro l=new Libro(titulo,descrip,precio,tipo);
+				System.out.println("libro seleccionado: "+l.toString());
+				
+				 DateFormat dateFormat = new SimpleDateFormat("d:MMM:yyyy");
+				 
+			     String date = dateFormat.format(new Date());
+			 
+			     System.out.println(date); 
+				 Alquiler a=new Alquiler(l,usuario,date);
+				
+//			
+//				ArrayList<Libro> result = new ArrayList<Libro>();
+//				for (int i = 0; i < libros.length; i++) {
+//					result.add(books.get(libros[i]));
+//				} 
 				ExampleClient ec = new ExampleClient(usuario, contraseña);
-				ec.alquilarLibros(result);
+				ec.alquilarLibros(a);
+				
 			}
 		});
 		

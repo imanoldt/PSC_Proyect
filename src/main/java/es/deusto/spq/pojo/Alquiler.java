@@ -5,8 +5,8 @@ import java.util.Date;
 public class Alquiler {
 	
 	private Libro libro;
-	private Usuario usuario;
-	private Date fecha_compra;
+	private String usuario;
+	private String fecha_compra;
 	
 	
 	
@@ -21,13 +21,13 @@ public class Alquiler {
 	 * constructor con parametros
 	 * @param libro
 	 * @param usuario
-	 * @param fecha_compra
+	 * @param fecha
 	 */
-	public Alquiler(Libro libro, Usuario usuario, Date fecha_compra) {
+	public Alquiler(Libro libro, String usuario, String fecha) {
 		super();
 		this.libro = libro;
 		this.usuario = usuario;
-		this.fecha_compra = fecha_compra;
+		this.fecha_compra = fecha;
 	}
 	
 	public Libro getLibro() {
@@ -36,16 +36,16 @@ public class Alquiler {
 	public void setLibro(Libro libro) {
 		this.libro = libro;
 	}
-	public Usuario getUsuario() {
+	public String getUsuario() {
 		return usuario;
 	}
-	public void setUsuario(Usuario usuario) {
+	public void setUsuario(String usuario) {
 		this.usuario = usuario;
 	}
-	public Date getFecha_compra() {
+	public String getFecha_compra() {
 		return fecha_compra;
 	}
-	public void setFecha_compra(Date fecha_compra) {
+	public void setFecha_compra(String fecha_compra) {
 		this.fecha_compra = fecha_compra;
 	}
 	
