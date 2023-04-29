@@ -1,5 +1,9 @@
 package es.deusto.spq.client;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
 import javax.ws.rs.core.GenericType;
@@ -16,10 +20,8 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Response.Status;
 
-import es.deusto.spq.pojo.Alquiler;
-import es.deusto.spq.pojo.DirectMessage;
-import es.deusto.spq.pojo.Libro;
-import es.deusto.spq.pojo.MessageData;
+import es.deusto.spq.pojo.AlquilerDTO;
+import es.deusto.spq.pojo.LibroDTO;
 import es.deusto.spq.pojo.UserData;
 
 
@@ -72,7 +74,7 @@ public class ExampleClient {
 		}
 	}
 	
-	public List<Libro> getBooksAlquiler() {
+	public List<LibroDTO> getBooksAlquiler() {
 	    WebTarget booksWebTarget = webTarget.path("librosAlquiler");
 	    Invocation.Builder invocationBuilder = booksWebTarget.request(MediaType.APPLICATION_JSON);
 
@@ -81,13 +83,13 @@ public class ExampleClient {
 	        logger.error("Error connecting with the server. Code: {}", response.getStatus());
 	        return null;
 	    } else {
-	        List<Libro> books = response.readEntity(new GenericType<List<Libro>>() {});
+	        List<LibroDTO> books = response.readEntity(new GenericType<List<LibroDTO>>() {});
 	        logger.info("Books correctly obtained");
 	        return books;
 	    }
 	}
 
-	public List<Libro> getBooksCompra() {
+	public List<LibroDTO> getBooksCompra() {
 	    WebTarget booksWebTarget = webTarget.path("librosCompra");
 	    Invocation.Builder invocationBuilder = booksWebTarget.request(MediaType.APPLICATION_JSON);
 
@@ -96,34 +98,12 @@ public class ExampleClient {
 	        logger.error("Error connecting with the server. Code: {}", response.getStatus());
 	        return null;
 	    } else {
-	        List<Libro> books = response.readEntity(new GenericType<List<Libro>>() {});
+	        List<LibroDTO> books = response.readEntity(new GenericType<List<LibroDTO>>() {});
 	        logger.info("Books correctly obtained");
 	        return books;
 	    }
 	}
-	public void sayMessage(String login, String password, String message) {
-		WebTarget sayHelloWebTarget = webTarget.path("sayMessage");
-		Invocation.Builder invocationBuilder = sayHelloWebTarget.request(MediaType.APPLICATION_JSON);
 
-		DirectMessage directMessage = new DirectMessage();
-		UserData userData = new UserData();
-		userData.setLogin(login);
-		userData.setPassword(password);
-
-		directMessage.setUserData(userData);
-
-		MessageData messageData = new MessageData();
-		messageData.setMessage(message);
-		directMessage.setMessageData(messageData);
-
-		Response response = invocationBuilder.post(Entity.entity(directMessage, MediaType.APPLICATION_JSON));
-		if (response.getStatus() != Status.OK.getStatusCode()) {
-			logger.error("Error connecting with the server. Code: {}", response.getStatus());
-		} else {
-			String responseMessage = response.readEntity(String.class);
-			logger.info("* Message coming from the server: '{}'", responseMessage);
-		}
-	}
 
 	public static void main(String[] args) {
 		
@@ -142,17 +122,26 @@ public class ExampleClient {
 //		exampleClient.registerUser(USER, PASSWORD);
 //		exampleClient.sayMessage(USER, PASSWORD, "This is a test!...");
 	}
-	public boolean alquilarLibros(Alquiler a) {
-		WebTarget registerUserWebTarget = webTarget.path("AlquilarLibro");
+	public boolean alquilarLibros(ArrayList<LibroDTO> libros,String usuario) {
+		WebTarget registerUserWebTarget = webTarget.path("alquilarLibros");
 		Invocation.Builder invocationBuilder = registerUserWebTarget.request(MediaType.APPLICATION_JSON);
 
-
-		Response response = invocationBuilder.post(Entity.entity(a, MediaType.APPLICATION_JSON));
+		//convierte un array de libros x usuario en un array de Alquiler.
+		
+		DateFormat dateFormat = new SimpleDateFormat("d:MMM:yyyy");
+		ArrayList<AlquilerDTO> alquileres = new ArrayList<AlquilerDTO>();
+		for (LibroDTO libro : libros) {
+			alquileres.add(new AlquilerDTO(libro,usuario,new Date()));
+		}
+		
+		
+		
+		Response response = invocationBuilder.post(Entity.entity(alquileres, MediaType.APPLICATION_JSON));
 		if (response.getStatus() != Status.OK.getStatusCode()) {
 			logger.error("Error connecting with the server. Code: {}", response.getStatus());
 			return false;
 		} else {
-			logger.info("User correctly logged");
+			logger.info("Libros Alquilados Correctamente");
 			return true;
 		}
 //		for (int i = 0; i < libros.size(); i++) {
