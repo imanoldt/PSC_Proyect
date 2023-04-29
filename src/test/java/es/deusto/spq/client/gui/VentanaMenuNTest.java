@@ -12,7 +12,7 @@ public class VentanaMenuNTest {
 	@Mock
 	String contraseña;
 	@Mock
-	VentanaRegistro vm;
+	VentanaMenuN vm;
 	
 	@Test
 	public void test() {

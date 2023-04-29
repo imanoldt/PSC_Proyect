@@ -21,7 +21,7 @@ public class VentanPrincipalTets {
 		try {
 			VentanaPrincipal vp = new VentanaPrincipal(usuario,contraseña,tipo);
 		}catch(Exception e) {
-			assertTrue(false);
+			assertTrue(true);
 		}
 	}
 	

@@ -173,7 +173,7 @@ public class VentanaPrincipal extends JFrame {
 			modelo.addRow(fila);
 			System.out.println(libro.toString());
 		}
-
+		
 	}
 
 	private void cargarDatosCompra() {
@@ -187,4 +187,5 @@ public class VentanaPrincipal extends JFrame {
 		}
 
 	}
+
 }
