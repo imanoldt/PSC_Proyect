@@ -1,10 +1,7 @@
 package es.deusto.spq.pojo;
 
-import javax.jdo.annotations.PersistenceCapable;
-import javax.jdo.annotations.Persistent;
 
-
-public class Libro {
+public class LibroDTO {
 
 
 	private String nombre;
@@ -17,7 +14,7 @@ public class Libro {
 	/**
 	 * constructor vacio
 	 */
-	public Libro() {
+	public LibroDTO() {
 
 	}
 
@@ -30,7 +27,7 @@ public class Libro {
 	 * @param categoria
 	 * @param seccion
 	 */
-	public Libro(String nombre, String descripccion, float precio,String tipo) {
+	public LibroDTO(String nombre, String descripccion, float precio,String tipo) {
 		super();
 		this.nombre = nombre;
 		this.descripccion = descripccion;

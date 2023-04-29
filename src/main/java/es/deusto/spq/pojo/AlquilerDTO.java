@@ -2,18 +2,20 @@ package es.deusto.spq.pojo;
 
 import java.util.Date;
 
-public class Alquiler {
+import com.fasterxml.jackson.annotation.JsonTypeInfo.Id;
+
+public class AlquilerDTO {
 	
-	private Libro libro;
+	LibroDTO libro;
 	private String usuario;
-	private String fecha_compra;
+	private Date fecha_compra;
 	
 	
 	
 	/**
 	 * constructor vacio
 	 */
-	public Alquiler() {
+	public AlquilerDTO() {
 		
 	}
 	
@@ -23,17 +25,17 @@ public class Alquiler {
 	 * @param usuario
 	 * @param fecha
 	 */
-	public Alquiler(Libro libro, String usuario, String fecha) {
+	public AlquilerDTO(LibroDTO libro, String usuario, Date fecha) {
 		super();
 		this.libro = libro;
 		this.usuario = usuario;
 		this.fecha_compra = fecha;
 	}
 	
-	public Libro getLibro() {
+	public LibroDTO getLibro() {
 		return libro;
 	}
-	public void setLibro(Libro libro) {
+	public void setLibro(LibroDTO libro) {
 		this.libro = libro;
 	}
 	public String getUsuario() {
@@ -42,10 +44,10 @@ public class Alquiler {
 	public void setUsuario(String usuario) {
 		this.usuario = usuario;
 	}
-	public String getFecha_compra() {
+	public Date getFecha_compra() {
 		return fecha_compra;
 	}
-	public void setFecha_compra(String fecha_compra) {
+	public void setFecha_compra(Date fecha_compra) {
 		this.fecha_compra = fecha_compra;
 	}
 	
