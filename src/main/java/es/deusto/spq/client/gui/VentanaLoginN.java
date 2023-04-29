@@ -35,10 +35,13 @@ import java.awt.event.MouseEvent;
 @SuppressWarnings("serial")
 public class VentanaLoginN extends JFrame {
 	private JPanel contentPane, pnlPrincipal, pnlIzquierda, pnlDerechaa;
-	private JLabel lblIniciarSesion, lblUsuario, lblIconoUsu, lblContraseya, lblErrorContrasenya;
-	private JTextField txtUsuario;
-	private JPasswordField passContraseya;
-	private JButton btnIniciarSession, btnRegistrarse, btnSalir;
+	private JLabel lblIniciarSesion, lblUsuario, lblIconoUsu, lblContraseya;
+	JLabel lblErrorContrasenya;
+	JTextField txtUsuario;
+	JPasswordField passContraseya;
+	JButton btnIniciarSession;
+	private JButton btnRegistrarse;
+	private JButton btnSalir;
 	private JLabel lblRegistrate;
 	private JLabel lblNewLabel_3;
 	private JLabel lblStravaCopyright;
