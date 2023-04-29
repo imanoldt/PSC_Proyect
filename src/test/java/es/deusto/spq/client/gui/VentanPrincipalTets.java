@@ -14,7 +14,7 @@ public class VentanPrincipalTets {
 	@Mock
 	String tipo;
 	@Mock
-	VentanaRegistro vp;
+	VentanaPrincipal vp;
 	
 	@Test
 	public void test() {
