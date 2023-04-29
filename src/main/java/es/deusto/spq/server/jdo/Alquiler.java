@@ -8,18 +8,17 @@ import javax.jdo.annotations.PersistenceCapable;
 import javax.jdo.annotations.Persistent;
 import javax.jdo.annotations.PrimaryKey;
 
-import es.deusto.spq.pojo.Libro;
+import es.deusto.spq.pojo.LibroDTO;
 import es.deusto.spq.pojo.Usuario;
 
-@PersistenceCapable
+@PersistenceCapable(detachable="true")
 public class Alquiler {
 
 	@PrimaryKey
-    @Persistent(valueStrategy = IdGeneratorStrategy.NATIVE)
-	private Long id;
+	private Libro libro;
+	@PrimaryKey
+	private String usuario; 
 	@Persistent(defaultFetchGroup = "true")
-	private Book libro;
-	private String usuario;
 	private Date fecha_compra;
 	
 	
@@ -31,23 +30,17 @@ public class Alquiler {
 		
 	}
 	
-	/**
-	 * constructor con parametros
-	 * @param libro
-	 * @param usuario
-	 * @param fecha_compra
-	 */
-	public Alquiler(Book libro, String usuario, Date fecha_compra) {
+	public Alquiler(Libro libro, String usuario, Date fecha_compra) {
 		super();
 		this.libro = libro;
-		this.usuario = usuario;
+//		this.usuario = usuario;
 		this.fecha_compra = fecha_compra;
 	}
 	
-	public Book getLibro() {
+	public Libro getLibro() {
 		return libro;
 	}
-	public void setLibro(Book libro) {
+	public void setLibro(Libro libro) {
 		this.libro = libro;
 	}
 	public String getUsuario() {

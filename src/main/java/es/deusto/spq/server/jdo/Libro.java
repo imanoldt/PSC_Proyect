@@ -1,29 +1,21 @@
 package es.deusto.spq.server.jdo;
 
-import java.util.HashSet;
-import java.util.Set;
-
-import javax.jdo.annotations.Join;
 import javax.jdo.annotations.PersistenceCapable;
-import javax.jdo.annotations.Persistent;
 import javax.jdo.annotations.PrimaryKey;
 
-import es.deusto.spq.pojo.Categoria;
-import es.deusto.spq.pojo.Seccion;
-
-@PersistenceCapable
-public class Book {
+@PersistenceCapable(detachable="true")
+public class Libro {
 	@PrimaryKey
-	String nombre=null;
-	String descripccion=null;
-	float precio=0;
+	String nombre;
+	String descripccion;
+	float precio;
 	String tipo;
 
 	/**
 	 * constructor vacio
 	 */
 
-	public Book() {
+	public Libro() {
 
 	}
 
@@ -36,7 +28,7 @@ public class Book {
 	 * @param categoria
 	 * @param seccion
 	 */
-	public Book(String nombre, String descripccion, float precio,String tipo) {
+	public Libro(String nombre, String descripccion, float precio,String tipo) {
 		super();
 		this.nombre = nombre;
 		this.descripccion = descripccion;

@@ -2,7 +2,7 @@ package es.deusto.spq.pojo;
 
 public class Compra {
 	
-	private Libro libro;
+	private LibroDTO libro;
 	private String usuario;
 	private float precio;
 	
@@ -19,16 +19,16 @@ public class Compra {
 	 * @param usuario
 	 * @param precio
 	 */
-	public Compra(Libro libro, String usuario, float precio) {
+	public Compra(LibroDTO libro, String usuario, float precio) {
 		super();
 		this.libro = libro;
 		this.usuario = usuario;
 		this.precio = precio;
 	}
-	public Libro getLibro() {
+	public LibroDTO getLibro() {
 		return libro;
 	}
-	public void setLibro(Libro libro) {
+	public void setLibro(LibroDTO libro) {
 		this.libro = libro;
 	}
 	public String getUsuario() {

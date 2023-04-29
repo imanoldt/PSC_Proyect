@@ -6,7 +6,7 @@ import javax.jdo.annotations.PersistenceCapable;
 import javax.jdo.annotations.Persistent;
 import javax.jdo.annotations.PrimaryKey;
 
-import es.deusto.spq.pojo.Libro;
+import es.deusto.spq.pojo.LibroDTO;
 
 
 @PersistenceCapable
@@ -15,7 +15,7 @@ public class Compra {
     @Persistent(valueStrategy = IdGeneratorStrategy.NATIVE)
 	private Long id;
 	@Persistent(defaultFetchGroup = "true")
-	private Book libro;
+	private Libro libro;
 	private String usuario;
 	private float precio;
 	
@@ -32,16 +32,16 @@ public class Compra {
 	 * @param usuario
 	 * @param precio
 	 */
-	public Compra(Book libro, String usuario, float precio) {
+	public Compra(Libro libro, String usuario, float precio) {
 		super();
 		this.libro = libro;
 		this.usuario = usuario;
 		this.precio = precio;
 	}
-	public Book getLibro() {
+	public Libro getLibro() {
 		return libro;
 	}
-	public void setLibro(Book libro) {
+	public void setLibro(Libro libro) {
 		this.libro = libro;
 	}
 	public String getUsuario() {

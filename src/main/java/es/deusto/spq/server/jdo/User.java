@@ -8,15 +8,12 @@ import javax.jdo.annotations.Join;
 import javax.jdo.annotations.Persistent;
 import java.util.HashSet;
 
-@PersistenceCapable
+@PersistenceCapable(detachable="true")
 public class User {
 	@PrimaryKey
 	String login=null;
 	String password=null;
 	
-	
-
-	Set<Message> messages = new HashSet<>();
 	
 	
 	
@@ -25,13 +22,7 @@ public class User {
 		this.password = password;
 	}
 	
-	public void addMessage(Message message) {
-		messages.add(message);
-	}
 
-	public void removeMessage(Message message) {
-		messages.remove(message);
-	}
 
 	public String getLogin() {
 		return this.login;
@@ -45,13 +36,9 @@ public class User {
 		this.password = password;
 	}
 	
-	 public Set<Message> getMessages() {return this.messages;}
 	 
 	 public String toString() {
-		StringBuilder messagesStr = new StringBuilder();
-		for (Message message: this.messages) {
-			messagesStr.append(message.toString() + " - ");
-		}
-        return "User: login --> " + this.login + ", password -->  " + this.password + ", messages --> [" + messagesStr + "]";
+		
+        return "User: login --> " + this.login + ", password -->  " + this.password ;
     }
 }
