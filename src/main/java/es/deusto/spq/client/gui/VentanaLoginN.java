@@ -36,10 +36,10 @@ import java.awt.event.MouseEvent;
 public class VentanaLoginN extends JFrame {
 	private JPanel contentPane, pnlPrincipal, pnlIzquierda, pnlDerechaa;
 	private JLabel lblIniciarSesion, lblUsuario, lblIconoUsu, lblContraseya;
-	JLabel lblErrorContrasenya;
-	JTextField txtUsuario;
-	JPasswordField passContraseya;
-	JButton btnIniciarSession;
+	public JLabel lblErrorContrasenya;
+	public JTextField txtUsuario;
+	public JPasswordField passContraseya;
+	public JButton btnIniciarSession;
 	private JButton btnRegistrarse;
 	private JButton btnSalir;
 	private JLabel lblRegistrate;
