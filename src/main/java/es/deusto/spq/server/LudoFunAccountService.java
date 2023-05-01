@@ -40,19 +40,22 @@ public class LudoFunAccountService {
 
 	public void alquilarLibro(AlquilerDTO alquiler) {
 		
-		Alquiler a = new Alquiler();
-		User u = UserDAO.getInstance().find(alquiler.getUsuario());
+//		Alquiler a = new Alquiler();
+//		User u = UserDAO.getInstance().find(alquiler.getUsuario());
 		Libro l =  LibroDAO.getInstance().find(alquiler.getLibro().getNombre());
 		l.setTipo("ALQUILADO");
+		logger.debug("AccountService: A punto de alquilar el siguiente libro: " + l.toString());
 		LibroDAO.getInstance().update(l);
-		
-		a.setFecha_compra(alquiler.getFecha_compra());
-		a.setLibro(l);
-		a.setUsuario(alquiler.getUsuario());
-				
+//		
+//		a.setFecha_compra(alquiler.getFecha_compra());
+//		a.setLibro(l);
+//		a.setUsuario(alquiler.getUsuario());
+//				
 		
 		//AlquilerDAO.getInstance().Save(a); 
 
+		
+			
 }
 	
 	public boolean registerUser(UserData userData) {

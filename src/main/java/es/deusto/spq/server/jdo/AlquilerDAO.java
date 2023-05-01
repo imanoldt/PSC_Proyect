@@ -69,6 +69,8 @@ public class AlquilerDAO extends DataAccessObjectBase implements IDataAccessObje
 			Query<?> query = pm.newQuery("SELECT FROM " + Alquiler.class.getName() + " WHERE User == '" + user + " AND Libro == '" + libro + "'");
 			query.setUnique(true);
 			result = (Alquiler) query.execute();
+			
+			tx.commit();
 		}catch(Exception e) {
 			logger.error("Error querying an Alquiler : "+ e.getMessage());
 		}finally {

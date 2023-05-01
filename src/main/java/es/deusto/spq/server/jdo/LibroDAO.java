@@ -62,41 +62,55 @@ public class LibroDAO extends DataAccessObjectBase implements IDataAccessObject<
 		PersistenceManager pm = pmf.getPersistenceManager();
 		Transaction tx = pm.currentTransaction();
 		
-		Libro result = null;
+		Libro result = new Libro();
 		try {
 			tx.begin();
 			
-			Query<?> query = pm.newQuery("SELECT FROM " + Libro.class.getName() + " WHERE nombre == '" + nombre + "'");
-			query.setUnique(true);
-			result = (Libro) query.execute();
+			result = pm.getObjectById(Libro.class, nombre);
+			logger.debug("LibroDAO : Searched for " + nombre + " and found " + result.toString() );
+			tx.commit();
+			logger.debug("LibroDAO : Right after commit:" + result.toString());
 		}catch(Exception e) {
-			logger.error("Error querying an Libro : "+ e.getMessage());
+			logger.error("LibroDAO : Error querying an Libro : "+ e.getMessage());
 		}finally {
 			if(tx != null && tx.isActive()) {
 				tx.rollback();
 			}
+			logger.debug("Right before closing:" + result.toString());
 			pm.close();	
 		}
+		logger.debug("Result :" + nombre + " and found " + result.toString() );
 		return result;
 	}
 
 	@Override
 	public void update(Libro object) {
+		
+
+		
 		PersistenceManager pm = pmf.getPersistenceManager();
 		Transaction tx = pm.currentTransaction();
+		logger.info("LibroDAO : Intentando actualizar libro: " + object.getNombre() + " - " + object.getTipo() + " - " + object.getPrecio());
+		
 		
 		try {
 			tx.begin();
-			pm.makePersistent(object);
+			Libro l = pm.getObjectById(Libro.class, object.getNombre());		
+			l.setDescripccion(object.getDescripccion());
+			l.setPrecio(object.getPrecio());
+			l.setTipo(object.getTipo());
+//			pm.makePersistent(object);
 			tx.commit();
+			
 		} catch (Exception e) {
-			logger.error("Error updating object: " + e.getMessage());
+			logger.error("Error updating object: " + object.getNombre() + " : " + e.getMessage());
+			e.printStackTrace();
 		}finally {
 			if (tx != null && tx.isActive()) {
 				tx.rollback();
 			}
 		}
-		pm.close();
+		
 	}
 
 }

@@ -1,6 +1,7 @@
 package es.deusto.spq.server;
 
 import es.deusto.spq.server.jdo.Libro;
+import es.deusto.spq.server.jdo.LibroDAO;
 
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -16,8 +17,7 @@ import org.apache.logging.log4j.Logger;
 
 public class LudoFunBooksService {
 
-	private PersistenceManager pm = null;
-	private Transaction tx = null;
+	
 	protected static final Logger logger = LogManager.getLogger();
 	private static LudoFunBooksService instance;
 
@@ -29,9 +29,7 @@ public class LudoFunBooksService {
 	}
 
 	private LudoFunBooksService() {
-		PersistenceManagerFactory pmf = JDOHelper.getPersistenceManagerFactory("datanucleus.properties");
-		this.pm = pmf.getPersistenceManager();
-		this.tx = pm.currentTransaction();
+		
 	}
 	
 
@@ -128,19 +126,8 @@ public class LudoFunBooksService {
 
 		logger.info("InitDB: Introduciendo libros");		
 		for (Libro book : bks) {
-			try {
-				tx.begin();
-				pm.makePersistent(book);
-				tx.commit();
-			} catch (Exception e) {
-				//e.printStackTrace();
-				logger.error(e.getMessage());
-			}
-			finally {
-				if (tx.isActive()) {
-					tx.rollback();
-				}
-			}
+			LibroDAO.getInstance().Save(book);
+			
 		}
 		
 	}
