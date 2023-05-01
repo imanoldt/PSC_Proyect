@@ -9,7 +9,7 @@ import javax.jdo.annotations.PersistenceCapable;
 import javax.jdo.annotations.Persistent;
 import javax.jdo.annotations.PrimaryKey;
 import javax.jdo.identity.*;
-
+import es.deusto.spq.pojo.LibroDTO;
 
 
 @PersistenceCapable
@@ -17,6 +17,7 @@ public class CompraJdo {
 	@PrimaryKey
     @Persistent(valueStrategy = IdGeneratorStrategy.NATIVE)
 	private Long id;
+
 
 
 	@Persistent
@@ -41,16 +42,16 @@ public class CompraJdo {
 	 * @param usuario
 	 * @param precio
 	 */
-	public CompraJdo(Book libro, String usuario/*, float precio*/) {
+	public CompraJdo(Libro libro, String usuario/*, float precio*/) {
 		super();
 		this.libro = libro;
 		this.usuario = usuario;
 		//this.precio = precio;
 	}
-	public Book getLibro() {
+	public Libro getLibro() {
 		return libro;
 	}
-	public void setLibro(Book libro) {
+	public void setLibro(Libro libro) {
 		this.libro = libro;
 	}
 	public String getUsuario() {

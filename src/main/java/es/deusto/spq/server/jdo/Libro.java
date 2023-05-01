@@ -1,46 +1,24 @@
 package es.deusto.spq.server.jdo;
 
-import java.awt.RenderingHints.Key;
-import java.util.HashSet;
-import java.util.Set;
-
 import javax.jdo.annotations.IdGeneratorStrategy;
-import javax.jdo.annotations.Join;
 import javax.jdo.annotations.PersistenceCapable;
 import javax.jdo.annotations.Persistent;
 import javax.jdo.annotations.PrimaryKey;
 
-import es.deusto.spq.pojo.Categoria;
-import es.deusto.spq.pojo.Seccion;
-
-@PersistenceCapable
-public class Book {
+@PersistenceCapable(detachable="true")
+public class Libro {
 	@PrimaryKey
-    @Persistent(valueStrategy = IdGeneratorStrategy.NATIVE)
+	@Persistent(valueStrategy = IdGeneratorStrategy.NATIVE)
 	private Long id;
-	String nombre=null;
-	String descripccion=null;
-	float precio=0;
+	String nombre;
+	String descripccion;
+	float precio;
 	String tipo;
-
-	/**
-	 * constructor vacio
-	 */
-
-	public Book() {
+	
+	public Libro() {
 
 	}
-
-	/**
-	 * constructor con parametros
-	 * 
-	 * @param nombre
-	 * @param descripccion
-	 * @param precio
-	 * @param categoria
-	 * @param seccion
-	 */
-	public Book(String nombre, String descripccion, float precio,String tipo) {
+	public Libro(String nombre, String descripccion, float precio,String tipo) {
 		super();
 		this.nombre = nombre;
 		this.descripccion = descripccion;
@@ -52,6 +30,11 @@ public class Book {
 		return nombre;
 	}
 
+	@Override
+	public String toString() {
+		return "Libro [id=" + id + ", nombre=" + nombre + ", descripccion=" + descripccion + ", precio=" + precio
+				+ ", tipo=" + tipo + "]";
+	}
 	public void setNombre(String nombre) {
 		this.nombre = nombre;
 	}
@@ -79,15 +62,11 @@ public class Book {
 	public void setTipo(String tipo) {
 		this.tipo = tipo;
 	}
-	
-    public Long getId() {
+	public Long getId() {
 		return id;
 	}
-
 	public void setId(Long id) {
 		this.id = id;
 	}
-    
-
-
+	
 }

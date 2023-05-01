@@ -16,8 +16,8 @@ import javax.swing.JTable;
 import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableModel;
 import es.deusto.spq.client.ExampleClient;
-import es.deusto.spq.pojo.Libro;
-import es.deusto.spq.pojo.Alquiler;
+import es.deusto.spq.pojo.LibroDTO;
+import es.deusto.spq.pojo.AlquilerDTO;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.ImageIcon;
@@ -45,7 +45,8 @@ public class VentanaPrincipal extends JFrame {
 	private JButton btnCompra;
 	private JButton btnSalir;
 	private JButton btnReturn;
-	List<Libro> books;
+	List<LibroDTO> books;
+
 
 	public VentanaPrincipal(String usuario, String contraseña, String tipo) {
 
@@ -161,32 +162,44 @@ public class VentanaPrincipal extends JFrame {
 		
 		btnAlquilar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				int selectedRow = tabla.getSelectedRow();
-				System.out.println("libro seleccionado: "+selectedRow);
-				long id= Long.parseLong((String) modelo.getValueAt(selectedRow, 0));
-				String titulo= (String) modelo.getValueAt(selectedRow, 1);
-    			String descrip= (String) modelo.getValueAt(selectedRow, 2);
-				float precio= Float.parseFloat((String) modelo.getValueAt(selectedRow, 3));
-				String tipo=(String) modelo.getValueAt(selectedRow, 4);
-				 System.out.println("caracteristicas: "+titulo);
+				//Este codigo no tira porque se tiene que poder elegir mas de una row a la vez.
+//				int selectedRow = tabla.getSelectedRow();
+//				System.out.println("libro seleccionado: "+selectedRow);
+//				String titulo= (String) modelo.getValueAt(selectedRow, 0);
+//    			String descrip= (String) modelo.getValueAt(selectedRow, 1);
+//				float precio= Float.parseFloat((String) modelo.getValueAt(selectedRow, 2));
+//				String tipo=(String) modelo.getValueAt(selectedRow, 3);
+//				 System.out.println("caracteristicas: "+titulo);
+//				
+//				Libro l=new Libro(titulo,descrip,precio,tipo);
+//				System.out.println("libro seleccionado: "+l.toString());
+//				
+//				 DateFormat dateFormat = new SimpleDateFormat("d:MMM:yyyy");
+//				 
+//			     String date = dateFormat.format(new Date());
+//			 
+//			     System.out.println(date); 
+//				 Alquiler a=new Alquiler(l,usuario,date);
+//				 ExampleClient ec = new ExampleClient("localhost", "8080");
+//				ec.alquilarLibros(a);
+				ExampleClient ec = new ExampleClient("localhost", "8080");
 				
-				Libro l=new Libro(titulo,descrip,precio,tipo);
-				System.out.println("libro seleccionado: "+l.toString());
 				
-				 DateFormat dateFormat = new SimpleDateFormat("d:MMM:yyyy");
+				int[] libros = tabla.getSelectedRows();
+				ArrayList<LibroDTO> result = new ArrayList<LibroDTO>();
+				for (int i = 0; i < libros.length; i++) {
+					result.add(books.get(libros[i]));
+					System.out.println(books.get(libros[i]).getNombre());
+				} 
+				btnAlquilar.setEnabled(false);
+				for (int i = libros.length-1; i>=0 ; i--) {
+					modelo.removeRow(libros[i]);
+				}
+				//TODO ponerle una ventana emergente de "Se ha alquilado el libro". Así además se hace mas natural la actualización de la tabla.
 				 
-			     String date = dateFormat.format(new Date());
-			 
-			     System.out.println(date); 
-				 Alquiler a=new Alquiler(l,usuario,date);
+				 
+				 ec.alquilarLibros(result,usuario);
 				
-//			
-//				ArrayList<Libro> result = new ArrayList<Libro>();
-//				for (int i = 0; i < libros.length; i++) {
-//					result.add(books.get(libros[i]));
-//				} 
-				ExampleClient ec = new ExampleClient(usuario, contraseña);
-				ec.alquilarLibros();
 				
 			}
 		});
@@ -212,12 +225,14 @@ public class VentanaPrincipal extends JFrame {
 
 	private void cargarDatosAlquiler() {
 		// TODO Auto-generated method stub
+		
 		ExampleClient eC = new ExampleClient("localhost", "8080");
 		books = eC.getBooksAlquiler();
-		for (Libro libro : books) {
-			String[] fila = {String.valueOf(libro.getId()), libro.getNombre(), libro.getDescripccion(), String.valueOf(libro.getPrecio()),libro.getTipo() };
+		for (LibroDTO libro : books) {
+			String[] fila = { libro.getNombre(), libro.getDescripccion(), String.valueOf(libro.getPrecio()),libro.getTipo() };
 			modelo.addRow(fila);
-			System.out.println(libro.toString());
+			//System.out.println(libro.toString());
+			
 		}
 		
 	}

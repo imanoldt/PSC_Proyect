@@ -4,18 +4,16 @@ import javax.jdo.PersistenceManager;
 import javax.jdo.PersistenceManagerFactory;
 import javax.jdo.Query;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.jdo.JDOHelper;
 import javax.jdo.Transaction;
 
 import es.deusto.spq.server.jdo.User;
-import es.deusto.spq.server.jdo.Message;
-import es.deusto.spq.pojo.DirectMessage;
-import es.deusto.spq.pojo.MessageData;
-import es.deusto.spq.pojo.UserData;
-import es.deusto.spq.pojo.Usuario;
+import es.deusto.spq.pojo.AlquilerDTO;
 
+import es.deusto.spq.pojo.UserData;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
@@ -27,9 +25,9 @@ import javax.ws.rs.core.Response.Status;
 
 import org.apache.logging.log4j.Logger;
 import org.apache.logging.log4j.LogManager;
-import es.deusto.spq.server.jdo.Book;
+import es.deusto.spq.server.jdo.Libro;
+import es.deusto.spq.server.jdo.Alquiler;
 import es.deusto.spq.pojo.Compra;
-
 
 @Path("/resource")
 @Produces(MediaType.APPLICATION_JSON)
@@ -46,48 +44,48 @@ public class Resource {
 		this.pm = pmf.getPersistenceManager();
 		this.tx = pm.currentTransaction();
 	}
-
-	@POST
-	@Path("/sayMessage")
-	public Response sayMessage(DirectMessage directMessage) {
-		User user = null;
-		try {
-			tx.begin();
-			logger.info("Creating query ...");
-
-			try (Query<?> q = pm.newQuery("SELECT FROM " + User.class.getName() + " WHERE login == \""
-					+ directMessage.getUserData().getLogin() + "\" &&  password == \""
-					+ directMessage.getUserData().getPassword() + "\"")) {
-				q.setUnique(true);
-				user = (User) q.execute();
-
-				logger.info("User retrieved: {}", user);
-				if (user != null) {
-					Message message = new Message(directMessage.getMessageData().getMessage());
-					user.getMessages().add(message);
-					pm.makePersistent(user);
-				}
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
-			tx.commit();
-		} finally {
-			if (tx.isActive()) {
-				tx.rollback();
-			}
-		}
-
-		if (user != null) {
-			cont++;
-			logger.info(" * Client number: {}", cont);
-			MessageData messageData = new MessageData();
-			messageData.setMessage(directMessage.getMessageData().getMessage());
-			return Response.ok(messageData).build();
-		} else {
-			return Response.status(Status.BAD_REQUEST)
-					.entity("Login details supplied for message delivery are not correct").build();
-		}
-	}
+//  
+//	@POST
+//	@Path("/sayMessage")
+//	public Response sayMessage(DirectMessage directMessage) {
+//		User user = null;
+//		try {
+//			tx.begin();
+//			logger.info("Creating query ...");
+//
+//			try (Query<?> q = pm.newQuery("SELECT FROM " + User.class.getName() + " WHERE login == \""
+//					+ directMessage.getUserData().getLogin() + "\" &&  password == \""
+//					+ directMessage.getUserData().getPassword() + "\"")) {
+//				q.setUnique(true);
+//				user = (User) q.execute();
+//
+//				logger.info("User retrieved: {}", user);
+//				if (user != null) {
+//					Message message = new Message(directMessage.getMessageData().getMessage());
+//					user.getMessages().add(message);
+//					pm.makePersistent(user);
+//				}
+//			} catch (Exception e) {
+//				e.printStackTrace();
+//			}
+//			tx.commit();
+//		} finally {
+//			if (tx.isActive()) {
+//				tx.rollback();
+//			}
+//		}
+//
+//		if (user != null) {
+//			cont++;
+//			logger.info(" * Client number: {}", cont);
+//			MessageData messageData = new MessageData();
+//			messageData.setMessage(directMessage.getMessageData().getMessage());
+//			return Response.ok(messageData).build();
+//		} else {
+//			return Response.status(Status.BAD_REQUEST)
+//					.entity("Login details supplied for message delivery are not correct").build();
+//		}
+//	}
 
 	/*
 	 * @POST
@@ -120,7 +118,7 @@ public class Resource {
 				return Response.serverError().build();
 			}
 			tx.commit();
-			LudoFunBooksService.getInstance().populateDB();
+			
 			return Response.ok().build();
         }
         finally
@@ -129,7 +127,7 @@ public class Resource {
             {
                 tx.rollback();
             }
-      
+            pm.close();
 		}
 	}
 	@POST
@@ -137,6 +135,7 @@ public class Resource {
 	@Path("/register")
 	public Response registerUser(UserData userData) {
 		if (LudoFunAccountService.getInstance().registerUser(userData)) {
+			LudoFunBooksService.getInstance().populateDB();
 			return Response.ok().build();
 		} else {
 			return Response.status(Response.Status.CONFLICT).build();
@@ -165,13 +164,12 @@ public class Resource {
 	
 	@GET
 	@Path("/libros")
-	@Produces(MediaType.APPLICATION_JSON)
-	public List<Book> getBooks() {
+	public List<Libro> getBooks() {
 	    //obtener lista de los libros de la bbdd
-	    List<Book> books = null;
+	    List<Libro> books = null;
 	    try {
-	        Query query = pm.newQuery(Book.class);
-	        books = (List<Book>) query.execute();
+	        Query query = pm.newQuery(Libro.class);
+	        books = (List<Libro>) query.execute();
 	    } finally {
 	        pm.close();
 	    }
@@ -180,13 +178,13 @@ public class Resource {
 	@GET
 	@Path("/librosAlquiler")
 	@Produces(MediaType.APPLICATION_JSON)
-	public List<Book> getBooksAlquiler() {
+	public List<Libro> getBooksAlquiler() {
 	    //obtener lista de los libros de la bbdd
-		List<Book> books = null;
+		List<Libro> books = null;
 	    try {
-	        Query query = pm.newQuery(Book.class);
+	        Query query = pm.newQuery(Libro.class);
 	        query.setFilter("tipo == 'alquiler'");
-	        books = (List<Book>) query.execute();
+	        books = (List<Libro>) query.execute();
 	    } finally {
 	        pm.close();
 	    }
@@ -195,13 +193,13 @@ public class Resource {
 	@GET
 	@Path("/librosCompra")
 	@Produces(MediaType.APPLICATION_JSON)
-	public List<Book> getBooksCompra() {
+	public List<Libro> getBooksCompra() {
 	    //obtener lista de los libros de la bbdd
-		List<Book> books = null;
+		List<Libro> books = null;
 	    try {
-	        Query query = pm.newQuery(Book.class);
+	        Query query = pm.newQuery(Libro.class);
 	        query.setFilter("tipo == 'compra'");
-	        books = (List<Book>) query.execute();
+	        books = (List<Libro>) query.execute();
 	    } finally {
 	        pm.close();
 	    }
@@ -213,22 +211,31 @@ public class Resource {
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response compraLibros(Compra c) {
 	
+
 		if (LudoFunAccountService.getInstance().registerCompra(c)) {
 			return Response.ok().build();
 		} else {
 			return Response.status(Response.Status.CONFLICT).build();
 		}
 	}
+	@POST
+	@Path("alquilarLibros")
+	@Consumes(MediaType.APPLICATION_JSON)
+	public Response getLibrosAlquiladosUsuario(ArrayList<AlquilerDTO> alquileres) {
+		logger.info("Recibidos alquileres:");
+		for (AlquilerDTO alquiler : alquileres) {
+			logger.info(" " + alquiler.getUsuario() +  ": " +alquiler.getLibro() + " - " + alquiler.getFecha_compra());
+			LudoFunAccountService.getInstance().alquilarLibro(alquiler);
+		}
+		
+		return Response.ok("//TODO ALQUILAR LIBROS").build();
 
-//	@Path("/AlquilarLibro")
-//	public Response alquilarLibro(Alquiler a) {
-//		
-////		if (LudoFunAccountService.getInstance().registerUser(userData)) {
-////			return Response.ok().build();
-////		} else {
-////			return Response.status(Response.Status.CONFLICT).build();
-////		}
-//	}
+	}
+
+	
+	
+	
+	
 	
 
 

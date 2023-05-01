@@ -10,9 +10,17 @@ import org.apache.logging.log4j.Logger;
 
 import es.deusto.spq.pojo.Compra;
 import es.deusto.spq.pojo.UserData;
-import es.deusto.spq.server.jdo.Book;
 import es.deusto.spq.server.jdo.CompraJdo;
+
+import es.deusto.spq.pojo.AlquilerDTO;
+import es.deusto.spq.pojo.UserData;
+import es.deusto.spq.server.jdo.Alquiler;
+import es.deusto.spq.server.jdo.AlquilerDAO;
+import es.deusto.spq.server.jdo.Libro;
+import es.deusto.spq.server.jdo.LibroDAO;
+>>>>>>> Alquilar
 import es.deusto.spq.server.jdo.User;
+import es.deusto.spq.server.jdo.UserDAO;
 import es.deusto.spq.pojo.UserData;
 
 
@@ -36,6 +44,26 @@ public class LudoFunAccountService {
 		this.tx = pm.currentTransaction();
 	}
 
+	public void alquilarLibro(AlquilerDTO alquiler) {
+		
+		Alquiler a = new Alquiler();
+//		User u = UserDAO.getInstance().find(alquiler.getUsuario());
+		Libro l =  LibroDAO.getInstance().find(alquiler.getLibro().getNombre());
+		l.setTipo("ALQUILADO");
+		logger.debug("AccountService: A punto de alquilar el siguiente libro: " + l.toString());
+		LibroDAO.getInstance().update(l);
+		
+		a.setFecha_compra(alquiler.getFecha_compra());
+		a.setLibro(l.getNombre());
+		a.setUsuario(alquiler.getUsuario());
+				
+		
+		AlquilerDAO.getInstance().Save(a); 
+
+		
+			
+}
+	
 	public boolean registerUser(UserData userData) {
 		try {
 			tx.begin();

@@ -137,7 +137,7 @@ public class VentanaMenuN extends JFrame {
 			@Override
 			public void mouseClicked(MouseEvent arg0) {
 				
-				VentanaPrincipal ventanaPrincipal = new VentanaPrincipal(usuario, contraseña, "alquiler");
+				VentanaPrincipal ventanaPrincipal = new VentanaPrincipal(usuario,contraseña,"alquiler");
 			}
 //			@Override
 //			public void mouseExited(MouseEvent e) {
@@ -154,7 +154,7 @@ public class VentanaMenuN extends JFrame {
 		lblIconCompra.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				VentanaPrincipal ventanaPrincipal = new VentanaPrincipal(usuario, contraseña, "compra");
+				VentanaPrincipal ventanaPrincipal = new VentanaPrincipal(usuario,contraseña,"compra");
 			}
 		});
 
