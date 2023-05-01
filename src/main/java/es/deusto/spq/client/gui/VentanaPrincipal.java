@@ -44,6 +44,7 @@ public class VentanaPrincipal extends JFrame {
 	private JButton btnAlquilar;
 	private JButton btnCompra;
 	private JButton btnSalir;
+	private JButton btnReturn;
 	List<Libro> books;
 
 	public VentanaPrincipal(String usuario, String contraseña, String tipo) {
@@ -91,8 +92,10 @@ public class VentanaPrincipal extends JFrame {
 		panel.add(panel_2, BorderLayout.SOUTH);
 		
 		btnSalir = new JButton("Salir");
+		btnReturn = new JButton("Volver");
 
 		panel_2.add(btnSalir);
+		panel_2.add(btnReturn);
 		
 		btnAlquilar = new JButton("Alquilar");
 		btnAlquilar.setEnabled(true);
@@ -160,10 +163,11 @@ public class VentanaPrincipal extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				int selectedRow = tabla.getSelectedRow();
 				System.out.println("libro seleccionado: "+selectedRow);
-				String titulo= (String) modelo.getValueAt(selectedRow, 0);
-    			String descrip= (String) modelo.getValueAt(selectedRow, 1);
-				float precio= Float.parseFloat((String) modelo.getValueAt(selectedRow, 2));
-				String tipo=(String) modelo.getValueAt(selectedRow, 3);
+				long id= Long.parseLong((String) modelo.getValueAt(selectedRow, 0));
+				String titulo= (String) modelo.getValueAt(selectedRow, 1);
+    			String descrip= (String) modelo.getValueAt(selectedRow, 2);
+				float precio= Float.parseFloat((String) modelo.getValueAt(selectedRow, 3));
+				String tipo=(String) modelo.getValueAt(selectedRow, 4);
 				 System.out.println("caracteristicas: "+titulo);
 				
 				Libro l=new Libro(titulo,descrip,precio,tipo);
@@ -187,6 +191,15 @@ public class VentanaPrincipal extends JFrame {
 			}
 		});
 		
+		btnReturn.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				new VentanaMenuN(usuario, contraseña);
+				dispose();
+			}
+		});
+		
 		btnSalir.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				System.exit(0);
@@ -202,7 +215,7 @@ public class VentanaPrincipal extends JFrame {
 		ExampleClient eC = new ExampleClient("localhost", "8080");
 		books = eC.getBooksAlquiler();
 		for (Libro libro : books) {
-			String[] fila = { libro.getNombre(), libro.getDescripccion(), String.valueOf(libro.getPrecio()),libro.getTipo() };
+			String[] fila = {String.valueOf(libro.getId()), libro.getNombre(), libro.getDescripccion(), String.valueOf(libro.getPrecio()),libro.getTipo() };
 			modelo.addRow(fila);
 			System.out.println(libro.toString());
 		}
