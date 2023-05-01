@@ -17,6 +17,7 @@ import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Response.Status;
 
 import es.deusto.spq.pojo.Alquiler;
+import es.deusto.spq.pojo.Compra;
 import es.deusto.spq.pojo.DirectMessage;
 import es.deusto.spq.pojo.Libro;
 import es.deusto.spq.pojo.MessageData;
@@ -142,19 +143,22 @@ public class ExampleClient {
 //		exampleClient.registerUser(USER, PASSWORD);
 //		exampleClient.sayMessage(USER, PASSWORD, "This is a test!...");
 	}
-	public boolean alquilarLibros(Alquiler a) {
-		WebTarget registerUserWebTarget = webTarget.path("AlquilarLibro");
-		Invocation.Builder invocationBuilder = registerUserWebTarget.request(MediaType.APPLICATION_JSON);
-
-
-		Response response = invocationBuilder.post(Entity.entity(a, MediaType.APPLICATION_JSON));
-		if (response.getStatus() != Status.OK.getStatusCode()) {
-			logger.error("Error connecting with the server. Code: {}", response.getStatus());
-			return false;
-		} else {
-			logger.info("User correctly logged");
-			return true;
-		}
+	
+	public boolean alquilarLibros() {
+		return false;
+//		WebTarget registerUserWebTarget = webTarget.path("AlquilarLibro");
+//		Invocation.Builder invocationBuilder = registerUserWebTarget.request(MediaType.APPLICATION_JSON);
+//
+//
+//		Response response = invocationBuilder.post(Entity.entity(a, MediaType.APPLICATION_JSON));
+//		if (response.getStatus() != Status.OK.getStatusCode()) {
+//			logger.error("Error connecting with the server. Code: {}", response.getStatus());
+//			return false;
+//		} else {
+//			logger.info("User correctly logged");
+//			return true;
+//		}
+	
 //		for (int i = 0; i < libros.size(); i++) {
 //			logger.info("Intentando mandar: [" + libros.get(i)+"] "+ libros.get(i).getNombre());
 //		} 
@@ -165,5 +169,40 @@ public class ExampleClient {
 //		}
 //		
 		
+	}
+
+	public boolean comprarLibro(Compra compra) {
+		System.out.println("EXAMPLE-CLIENT");
+		WebTarget registerUserWebTarget = webTarget.path("ComprarLibro");
+		Invocation.Builder invocationBuilder = registerUserWebTarget.request(MediaType.APPLICATION_JSON);
+
+
+		Response response = invocationBuilder.post(Entity.entity(compra, MediaType.APPLICATION_JSON));
+		if (response.getStatus() != Status.OK.getStatusCode()) {
+			logger.error("Error connecting with the server. Code: {}", response.getStatus());
+			return false;
+		} else {
+			logger.info("User correctly logged");
+			return true;
+		}
+		
+	}
+
+	public boolean comprarLibro(long id, String titulo, String descrip, float precio, String tipo, String usuario) {
+		System.out.println("EXAMPLE-CLIENT");
+		WebTarget registerUserWebTarget = webTarget.path("ComprarLibro");
+		Invocation.Builder invocationBuilder = registerUserWebTarget.request(MediaType.APPLICATION_JSON);
+
+		Libro l=new Libro(titulo,descrip,precio,tipo);
+		l.setId(id);
+		Compra compra=new Compra(l,usuario);
+		Response response = invocationBuilder.post(Entity.entity(compra, MediaType.APPLICATION_JSON));
+		if (response.getStatus() != Status.OK.getStatusCode()) {
+			logger.error("Error connecting with the server. Code: {}", response.getStatus());
+			return false;
+		} else {
+			logger.info("User correctly logged");
+			return true;
+		}
 	}
 }

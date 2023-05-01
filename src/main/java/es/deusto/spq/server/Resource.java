@@ -28,7 +28,7 @@ import javax.ws.rs.core.Response.Status;
 import org.apache.logging.log4j.Logger;
 import org.apache.logging.log4j.LogManager;
 import es.deusto.spq.server.jdo.Book;
-import es.deusto.spq.server.jdo.Alquiler;
+import es.deusto.spq.pojo.Compra;
 
 
 @Path("/resource")
@@ -208,17 +208,27 @@ public class Resource {
 	    return books;
 	}
 	
+	@POST
+	@Path("/ComprarLibro")
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response compraLibros(Compra c) {
 	
-
-	@Path("/AlquilarLibro")
-	public Response alquilarLibro(Alquiler a) {
-		return null;
-//		if (LudoFunAccountService.getInstance().registerUser(userData)) {
-//			return Response.ok().build();
-//		} else {
-//			return Response.status(Response.Status.CONFLICT).build();
-//		}
+		if (LudoFunAccountService.getInstance().registerCompra(c)) {
+			return Response.ok().build();
+		} else {
+			return Response.status(Response.Status.CONFLICT).build();
+		}
 	}
+
+//	@Path("/AlquilarLibro")
+//	public Response alquilarLibro(Alquiler a) {
+//		
+////		if (LudoFunAccountService.getInstance().registerUser(userData)) {
+////			return Response.ok().build();
+////		} else {
+////			return Response.status(Response.Status.CONFLICT).build();
+////		}
+//	}
 	
 
 

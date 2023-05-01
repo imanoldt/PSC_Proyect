@@ -1,8 +1,10 @@
 package es.deusto.spq.server.jdo;
 
+import java.awt.RenderingHints.Key;
 import java.util.HashSet;
 import java.util.Set;
 
+import javax.jdo.annotations.IdGeneratorStrategy;
 import javax.jdo.annotations.Join;
 import javax.jdo.annotations.PersistenceCapable;
 import javax.jdo.annotations.Persistent;
@@ -14,6 +16,8 @@ import es.deusto.spq.pojo.Seccion;
 @PersistenceCapable
 public class Book {
 	@PrimaryKey
+    @Persistent(valueStrategy = IdGeneratorStrategy.NATIVE)
+	private Long id;
 	String nombre=null;
 	String descripccion=null;
 	float precio=0;
@@ -75,4 +79,15 @@ public class Book {
 	public void setTipo(String tipo) {
 		this.tipo = tipo;
 	}
+	
+    public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
+	}
+    
+
+
 }

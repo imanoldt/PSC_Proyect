@@ -18,7 +18,7 @@ public class CompraTest {
     @Before
     public void setUp() {
         MockitoAnnotations.initMocks(this);
-        compra = new Compra(libroMock, "usuario", 10.0f);
+        //compra = new Compra(libroMock, "usuario", 10.0f);
     }
 
     @Test
@@ -44,14 +44,14 @@ public class CompraTest {
         assertEquals("otro_usuario", compra.getUsuario());
     }
 
-    @Test
-    public void testGetPrecio() {
-        assertEquals(10.0f, compra.getPrecio(), 0.0f);
-    }
-
-    @Test
-    public void testSetPrecio() {
-        compra.setPrecio(20.0f);
-        assertEquals(20.0f, compra.getPrecio(), 0.0f);
-    }
+//    @Test
+//    public void testGetPrecio() {
+//        assertEquals(10.0f, compra.getPrecio(), 0.0f);
+//    }
+//
+//    @Test
+//    public void testSetPrecio() {
+//        compra.setPrecio(20.0f);
+//        assertEquals(20.0f, compra.getPrecio(), 0.0f);
+//    }
 }

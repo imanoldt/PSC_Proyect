@@ -19,6 +19,7 @@ import es.deusto.spq.client.ExampleClient;
 import es.deusto.spq.pojo.Libro;
 import es.deusto.spq.pojo.Alquiler;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.SwingConstants;
@@ -27,6 +28,7 @@ import java.awt.event.ActionEvent;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import es.deusto.spq.pojo.Compra;
 
 @SuppressWarnings("serial")
 public class VentanaPrincipal extends JFrame {
@@ -35,7 +37,7 @@ public class VentanaPrincipal extends JFrame {
 	JPanel contentPane, panel, panel_1;
 	JLabel lblLogo;
 	JLabel lblTablaLibros = new JLabel("TABLA LIBROS");
-	DefaultTableModel modelo = new DefaultTableModel(new Object[] { "Nombre", "Descripcion", "Precio","Tipo" }, 0);
+	DefaultTableModel modelo = new DefaultTableModel(new Object[] {"Id", "Nombre", "Descripcion", "Precio","Tipo" }, 0);
 	JTable tabla = new JTable(modelo);
 	JButton btnNewButton;
 	private JPanel panel_2;
@@ -118,7 +120,38 @@ public class VentanaPrincipal extends JFrame {
 		}
 		
 		
-		
+		/*--Comprar Libro--*/
+		btnCompra.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				int selectedRow = tabla.getSelectedRow();
+				System.out.println("libro seleccionado: "+selectedRow);
+				long id= Long.parseLong((String) modelo.getValueAt(selectedRow, 0));
+				String titulo= (String) modelo.getValueAt(selectedRow, 1);
+    			String descrip= (String) modelo.getValueAt(selectedRow, 2);
+				float precio= Float.parseFloat((String) modelo.getValueAt(selectedRow, 3));
+				String tipo=(String) modelo.getValueAt(selectedRow, 4);
+				 System.out.println("caracteristicas: "+titulo);
+				
+				Libro l=new Libro(titulo,descrip,precio,tipo);
+				System.out.println("libro seleccionado: "+l.toString());
+				
+				Compra compra=new Compra(l,usuario);
+				
+				
+				
+//			
+//				ArrayList<Libro> result = new ArrayList<Libro>();
+//				for (int i = 0; i < libros.length; i++) {
+//					result.add(books.get(libros[i]));
+//				} 
+				System.out.println("LIBRO SELECCIONADO PARA COMPRA: "+compra);
+				ExampleClient eC = new ExampleClient("localhost", "8080");
+				eC.comprarLibro(id,titulo,descrip,precio,tipo,usuario);
+				
+				JOptionPane.showMessageDialog(null, "Libro comprado exitosamente", "Compra realizada", JOptionPane.INFORMATION_MESSAGE);
+
+			}
+		});
 		
 		
 		//FUNCIONALIDAD
@@ -149,7 +182,7 @@ public class VentanaPrincipal extends JFrame {
 //					result.add(books.get(libros[i]));
 //				} 
 				ExampleClient ec = new ExampleClient(usuario, contraseña);
-				ec.alquilarLibros(a);
+				ec.alquilarLibros();
 				
 			}
 		});
@@ -181,7 +214,7 @@ public class VentanaPrincipal extends JFrame {
 		ExampleClient eC = new ExampleClient("localhost", "8080");
 		books = eC.getBooksCompra();
 		for (Libro libro : books) {
-			String[] fila = { libro.getNombre(), libro.getDescripccion(), String.valueOf(libro.getPrecio()),libro.getTipo() };
+			String[] fila = {String.valueOf(libro.getId()), libro.getNombre(), libro.getDescripccion(), String.valueOf(libro.getPrecio()),libro.getTipo() };
 			modelo.addRow(fila);
 			System.out.println(libro.toString());
 		}

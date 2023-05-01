@@ -6,6 +6,7 @@ import javax.jdo.annotations.Persistent;
 
 public class Libro {
 
+	private Long id;
 
 	private String nombre;
 	private String descripccion;
@@ -87,6 +88,15 @@ public class Libro {
 //	public void setSeccion(Seccion seccion) {
 //		this.seccion = seccion;
 //	}
+	
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
+	}
+
 	@Override
 	public String toString() {
 		return "Libro [nombre=" + nombre + ", descripccion=" + descripccion + ", precio=" + precio + "]";

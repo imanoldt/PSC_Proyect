@@ -8,9 +8,13 @@ import javax.jdo.Transaction;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import es.deusto.spq.pojo.Compra;
 import es.deusto.spq.pojo.UserData;
+import es.deusto.spq.server.jdo.Book;
+import es.deusto.spq.server.jdo.CompraJdo;
 import es.deusto.spq.server.jdo.User;
 import es.deusto.spq.pojo.UserData;
+
 
 public class LudoFunAccountService {
 
@@ -92,5 +96,28 @@ public class LudoFunAccountService {
 				tx.rollback();
 			}
 		}
+	}
+
+	public boolean registerCompra(Compra c) {
+		
+		   
+		 Book l = new Book(c.getLibro().getNombre(), c.getLibro().getDescripccion(), c.getLibro().getPrecio(), c.getLibro().getTipo());
+		 l.setId(c.getLibro().getId());   
+		 CompraJdo compra = new CompraJdo(l, c.getUsuario());
+		  compra.setBookKey(l.getId());
+		    try {
+		        tx.begin();
+		        //logger.info("AÑADIENDO LIBRO: ",compra.getLibro().getId(),  compra.getLibro().getNombre(),compra.getUsuario());
+		        pm.makePersistent(compra);
+		        logger.info("Purchase added: {}", compra);
+		        tx.commit();
+		        return true;
+		    } catch (Exception e) {
+		        logger.error("Exception thrown while adding purchase: {}", e.getMessage());
+		        if (tx.isActive()) {
+		            tx.rollback();
+		        }
+		        return false;
+		    }
 	}
 }
