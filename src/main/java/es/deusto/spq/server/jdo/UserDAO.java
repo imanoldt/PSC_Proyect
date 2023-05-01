@@ -58,7 +58,7 @@ public class UserDAO extends DataAccessObjectBase implements IDataAccessObject<U
 		return Useres;
 	}
 
-	public User find(String nombre) {
+	public User find(String login) {
 		PersistenceManager pm = pmf.getPersistenceManager();
 		Transaction tx = pm.currentTransaction();
 		
@@ -66,9 +66,11 @@ public class UserDAO extends DataAccessObjectBase implements IDataAccessObject<U
 		try {
 			tx.begin();
 			
-			Query<?> query = pm.newQuery("SELECT FROM " + User.class.getName() + " WHERE login == '" + nombre + "'");
+			Query<?> query = pm.newQuery("SELECT FROM " + User.class.getName() + " WHERE login == '" + login + "'");
 			query.setUnique(true);
 			result = (User) query.execute();
+			
+			tx.commit();
 		}catch(Exception e) {
 			logger.error("Error querying an User : "+ e.getMessage());
 		}finally {
@@ -77,6 +79,7 @@ public class UserDAO extends DataAccessObjectBase implements IDataAccessObject<U
 			}
 			pm.close();	
 		}
+		logger.info("Searched for " + login + " and found " + result.toString() );
 		return result;
 	}
 
@@ -90,7 +93,8 @@ public class UserDAO extends DataAccessObjectBase implements IDataAccessObject<U
 			pm.makePersistent(object);
 			tx.commit();
 		} catch (Exception e) {
-			logger.error("Error updating object: " + e.getMessage());
+			logger.error("Error updating object: " + e.getStackTrace());
+
 		}finally {
 			if (tx != null && tx.isActive()) {
 				tx.rollback();

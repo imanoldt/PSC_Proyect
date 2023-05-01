@@ -118,7 +118,7 @@ public class Resource {
 				return Response.serverError().build();
 			}
 			tx.commit();
-			LudoFunBooksService.getInstance().populateDB();
+			
 			return Response.ok().build();
         }
         finally
@@ -127,7 +127,7 @@ public class Resource {
             {
                 tx.rollback();
             }
-      
+            pm.close();
 		}
 	}
 	@POST
@@ -135,6 +135,7 @@ public class Resource {
 	@Path("/register")
 	public Response registerUser(UserData userData) {
 		if (LudoFunAccountService.getInstance().registerUser(userData)) {
+			LudoFunBooksService.getInstance().populateDB();
 			return Response.ok().build();
 		} else {
 			return Response.status(Response.Status.CONFLICT).build();
@@ -212,7 +213,7 @@ public class Resource {
 	public Response getLibrosAlquiladosUsuario(ArrayList<AlquilerDTO> alquileres) {
 		logger.info("Recibidos alquileres:");
 		for (AlquilerDTO alquiler : alquileres) {
-			//logger.info(" " + alquiler.getUsuario() +  ": " +alquiler.getLibro() + " - " + alquiler.getFecha_compra());
+			logger.info(" " + alquiler.getUsuario() +  ": " +alquiler.getLibro() + " - " + alquiler.getFecha_compra());
 			LudoFunAccountService.getInstance().alquilarLibro(alquiler);
 		}
 		

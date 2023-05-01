@@ -25,6 +25,7 @@ public class DataAccessObjectBase  {
 			if (tx != null && tx.isActive()) {
 				tx.rollback();
 			}
+			pm.close();
 		}
 	}
 	public void saveObject(Object object) {

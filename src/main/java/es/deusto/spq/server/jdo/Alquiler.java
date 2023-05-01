@@ -2,6 +2,7 @@ package es.deusto.spq.server.jdo;
 
 import java.util.Date;
 
+import javax.jdo.annotations.ForeignKey;
 import javax.jdo.annotations.IdGeneratorStrategy;
 import javax.jdo.annotations.Join;
 import javax.jdo.annotations.PersistenceCapable;
@@ -15,8 +16,10 @@ import es.deusto.spq.pojo.Usuario;
 public class Alquiler {
 
 	@PrimaryKey
+	@ForeignKey
 	private Libro libro;
 	@PrimaryKey
+	@ForeignKey
 	private String usuario; 
 	@Persistent(defaultFetchGroup = "true")
 	private Date fecha_compra;

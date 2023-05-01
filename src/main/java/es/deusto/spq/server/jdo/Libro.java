@@ -10,30 +10,23 @@ public class Libro {
 	String descripccion;
 	float precio;
 	String tipo;
-
-	/**
-	 * constructor vacio
-	 */
-
+	
 	public Libro() {
 
 	}
-
-	/**
-	 * constructor con parametros
-	 * 
-	 * @param nombre
-	 * @param descripccion
-	 * @param precio
-	 * @param categoria
-	 * @param seccion
-	 */
 	public Libro(String nombre, String descripccion, float precio,String tipo) {
 		super();
 		this.nombre = nombre;
 		this.descripccion = descripccion;
 		this.precio = precio;
 		this.tipo=tipo;
+	}
+	
+
+	@Override
+	public String toString() {
+		return "Libro [nombre=" + nombre + ", descripccion=" + descripccion + ", precio=" + precio + ", tipo=" + tipo
+				+ "]";
 	}
 
 	public String getNombre() {
