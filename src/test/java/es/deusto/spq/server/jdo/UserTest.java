@@ -1,15 +1,29 @@
 package es.deusto.spq.server.jdo;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotEquals;
 import static org.mockito.Mockito.*;
 
 import java.util.HashSet;
 import java.util.Set;
 
+import org.junit.Before;
 import org.junit.Test;
+import org.mockito.Mock;
+
+import es.deusto.spq.pojo.Compra;
+import es.deusto.spq.pojo.Libro;
 
 public class UserTest {
-
+	
+	@Mock
+	User u;
+	
+	@Before
+	public void setUp() {
+		u = new User("user", "pass");
+	}
     @Test
     public void testAddMessage() {
         // Creamos un mock de la clase Message
@@ -54,5 +68,36 @@ public class UserTest {
         assertEquals(true, user.getMessages().contains(message1));
         assertEquals(true, user.getMessages().contains(message2));
     }
-
+    @Test
+    public void testGetLogin() {
+    	assertEquals("user", u.getLogin());
+    }
+    @Test
+    public void testGetPassword() {
+    	assertEquals("pass", u.getPassword());
+    }
+    @Test
+    public void testSetPassword() {
+    	u.setPassword("word");
+    	assertEquals("word", u.getPassword());
+    }
+    @Test
+    public void testToString() {
+    	Set<Message> messages = new HashSet<>();
+    	StringBuilder messagesStr = new StringBuilder();
+		for (Message message: messages) {
+			messagesStr.append(message.toString() + " - ");
+		}
+		assertEquals(messagesStr, messagesStr);
+    	assertEquals("User: login --> " + u.getLogin() + ", password -->  " + u.getPassword() + ", messages --> [" + messagesStr + "]", "User: login --> " + u.getLogin() + ", password -->  " + u.getPassword() + ", messages --> [" + messagesStr + "]");
+    }
+    @Test
+    public void testNotToString() {
+    	Set<Message> messages = new HashSet<>();
+    	StringBuilder messagesStr = new StringBuilder();
+		for (Message message: messages) {
+			messagesStr.append(message.toString() + " - ");
+		}
+    	assertNotEquals("User: login --> " + u.getLogin() + ", password -->  " + u.getPassword() + ", messages --> [" + messagesStr + "]", "User: login --> " + u.getLogin() + ", password -->  " + u.getPassword() + ", messages --> [" + messagesStr +"asd"+ "]");
+    }
 }

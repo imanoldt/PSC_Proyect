@@ -186,7 +186,7 @@ public class VentanaPrincipal extends JFrame {
 //					result.add(books.get(libros[i]));
 //				} 
 				ExampleClient ec = new ExampleClient(usuario, contraseña);
-				ec.alquilarLibros();
+//				ec.alquilarLibros();
 				
 			}
 		});

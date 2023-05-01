@@ -28,7 +28,7 @@ public class LudoFunBooksService {
 		return instance;
 	}
 
-	private LudoFunBooksService() {
+	public LudoFunBooksService() {
 		PersistenceManagerFactory pmf = JDOHelper.getPersistenceManagerFactory("datanucleus.properties");
 		this.pm = pmf.getPersistenceManager();
 		this.tx = pm.currentTransaction();

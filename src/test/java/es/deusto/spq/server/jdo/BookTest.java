@@ -17,6 +17,7 @@ public class BookTest {
     public void setUp() {
         MockitoAnnotations.initMocks(this);
         mockedBook = new Book("El Quijote", "Libro de aventuras", 20.5f, "Literatura");
+        mockedBook.setId((long)2);
     }
 
     @Test
@@ -61,5 +62,15 @@ public class BookTest {
     public void testSetTipo() {
         mockedBook.setTipo("Ciencia ficción");
         assertEquals("Ciencia ficción", mockedBook.getTipo());
+    }
+    @Test
+    public void testGetId() {
+        assertEquals((long)2, mockedBook.getId(), 1);
+    }
+
+    @Test
+    public void testSetId() {
+        mockedBook.setId((long) 1);
+        assertEquals((long)1, mockedBook.getId(), 1);
     }
 }

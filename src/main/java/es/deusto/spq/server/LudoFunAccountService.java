@@ -30,7 +30,7 @@ public class LudoFunAccountService {
 		return instance;
 	}
 
-	private LudoFunAccountService() {
+	public LudoFunAccountService() {
 		PersistenceManagerFactory pmf = JDOHelper.getPersistenceManagerFactory("datanucleus.properties");
 		this.pm = pmf.getPersistenceManager();
 		this.tx = pm.currentTransaction();
