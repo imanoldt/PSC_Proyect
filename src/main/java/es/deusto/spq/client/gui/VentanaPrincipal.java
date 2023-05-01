@@ -154,7 +154,11 @@ public class VentanaPrincipal extends JFrame {
 					result.add(books.get(libros[i]));
 					System.out.println(books.get(libros[i]).getNombre());
 				} 
-				 
+				btnAlquilar.setEnabled(false);
+				for (int i = libros.length-1; i>=0 ; i--) {
+					modelo.removeRow(libros[i]);
+				}
+				//TODO ponerle una ventana emergente de "Se ha alquilado el libro". Así además se hace mas natural la actualización de la tabla.
 				 
 				 
 				 ec.alquilarLibros(result,usuario);
@@ -175,12 +179,14 @@ public class VentanaPrincipal extends JFrame {
 
 	private void cargarDatosAlquiler() {
 		// TODO Auto-generated method stub
+		
 		ExampleClient eC = new ExampleClient("localhost", "8080");
 		books = eC.getBooksAlquiler();
 		for (LibroDTO libro : books) {
 			String[] fila = { libro.getNombre(), libro.getDescripccion(), String.valueOf(libro.getPrecio()),libro.getTipo() };
 			modelo.addRow(fila);
 			//System.out.println(libro.toString());
+			
 		}
 
 	}

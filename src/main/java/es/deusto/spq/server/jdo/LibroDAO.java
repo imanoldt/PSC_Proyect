@@ -95,9 +95,10 @@ public class LibroDAO extends DataAccessObjectBase implements IDataAccessObject<
 		
 		PersistenceManager pm = pmf.getPersistenceManager();
 		Transaction tx = pm.currentTransaction();
-		logger.debug("LibroDAO : Intentando actualizar libro: " + object.getNombre() + " - " + object.getTipo() + " - " + object.getPrecio());
 		
 		Libro l = find(object.getNombre());
+		logger.debug("LibroDAO : Intentando actualizar libro: " + object.getNombre() + " - " + object.getTipo() + " - " + object.getPrecio());
+	
 		try {
 			tx.begin();
 					
@@ -105,8 +106,9 @@ public class LibroDAO extends DataAccessObjectBase implements IDataAccessObject<
 			l.setPrecio(object.getPrecio());
 			l.setTipo(object.getTipo());
 //			pm.makePersistent(object);
+			logger.debug("LibroDAO: update :  a punto de commit : " + l.toString())	;
 			tx.commit();
-			
+			logger.debug("LibroDAO:  despues de commit : " + l.toString());
 		} catch (Exception e) {
 			logger.error("Error updating object: " + object.getNombre() + " : " + e.getMessage());
 			e.printStackTrace();
@@ -115,7 +117,22 @@ public class LibroDAO extends DataAccessObjectBase implements IDataAccessObject<
 				tx.rollback();
 			}
 		}
+		pm.close();
 		
+	}
+	public void alquilar(String nombre) {
+		PersistenceManager pm = pmf.getPersistenceManager();
+		Transaction tx = pm.currentTransaction();
+		
+		Libro l = find(nombre);
+		try {
+			//TODO hacer una función para facilitar el alquilar y desalquilar libros
+		} catch (Exception e) {
+			// TODO: handle exception
+		} finally {
+			
+		}
+		pm.close();
 	}
 
 }
