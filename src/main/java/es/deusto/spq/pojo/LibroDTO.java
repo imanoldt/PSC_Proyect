@@ -3,7 +3,7 @@ package es.deusto.spq.pojo;
 
 public class LibroDTO {
 
-
+	private Long id;
 	private String nombre;
 	private String descripccion;
 	private float precio;
@@ -87,5 +87,13 @@ public class LibroDTO {
 	@Override
 	public String toString() {
 		return "Libro [nombre=" + nombre + ", descripccion=" + descripccion + ", precio=" + precio + "]";
+	}
+
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
 	}
 }

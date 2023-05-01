@@ -1,11 +1,15 @@
 package es.deusto.spq.server.jdo;
 
+import javax.jdo.annotations.IdGeneratorStrategy;
 import javax.jdo.annotations.PersistenceCapable;
+import javax.jdo.annotations.Persistent;
 import javax.jdo.annotations.PrimaryKey;
 
 @PersistenceCapable(detachable="true")
 public class Libro {
 	@PrimaryKey
+	@Persistent(valueStrategy = IdGeneratorStrategy.NATIVE)
+	private Long id;
 	String nombre;
 	String descripccion;
 	float precio;
@@ -22,17 +26,16 @@ public class Libro {
 		this.tipo=tipo;
 	}
 	
-
-	@Override
-	public String toString() {
-		return "Libro [nombre=" + nombre + ", descripccion=" + descripccion + ", precio=" + precio + ", tipo=" + tipo
-				+ "]";
-	}
-
+	
 	public String getNombre() {
 		return nombre;
 	}
 
+	@Override
+	public String toString() {
+		return "Libro [id=" + id + ", nombre=" + nombre + ", descripccion=" + descripccion + ", precio=" + precio
+				+ ", tipo=" + tipo + "]";
+	}
 	public void setNombre(String nombre) {
 		this.nombre = nombre;
 	}
@@ -60,4 +63,11 @@ public class Libro {
 	public void setTipo(String tipo) {
 		this.tipo = tipo;
 	}
+	public Long getId() {
+		return id;
+	}
+	public void setId(Long id) {
+		this.id = id;
+	}
+	
 }

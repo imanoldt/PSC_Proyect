@@ -7,6 +7,7 @@ import javax.jdo.Transaction;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.datanucleus.exceptions.NucleusDataStoreException;
 
 public class DataAccessObjectBase  {
 	protected static PersistenceManagerFactory pmf = JDOHelper.getPersistenceManagerFactory("datanucleus.properties");
@@ -36,7 +37,11 @@ public class DataAccessObjectBase  {
 			tx.begin();
 			pm.makePersistent(object);
 			tx.commit();
-		} catch (Exception e) {
+		}catch (NucleusDataStoreException e) {
+			logger.error("NucleusDataStoreException : " + e.getMessage());
+			tx.rollback();
+		}
+		catch (Exception e) {
 			logger.error("Error storing object: " + e.getMessage());
 		}finally {
 			if (tx != null && tx.isActive()) {

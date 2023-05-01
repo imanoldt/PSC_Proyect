@@ -61,12 +61,17 @@ public class LibroDAO extends DataAccessObjectBase implements IDataAccessObject<
 	public Libro find(String nombre) {
 		PersistenceManager pm = pmf.getPersistenceManager();
 		Transaction tx = pm.currentTransaction();
-		
+		//ESTO NO FUNCIONABA ASI QUE PUSE LAS LLAMADAS DE DEBUG PARA VER DONDE DEJABA DE FUNCIONAR
+		// Y ENTONCES EMPIEZA A FUNCIONAR
+		// NO TOCAR SIN BUEN MOTIVO
 		Libro result = new Libro();
 		try {
 			tx.begin();
 			
-			result = pm.getObjectById(Libro.class, nombre);
+			//result = pm.getObjectById(Libro.class, nombre);
+			Query<?> query = pm.newQuery("SELECT FROM " + Libro.class.getName() + " WHERE nombre == '" + nombre + "'");
+			query.setUnique(true);
+			result = (Libro) query.execute();
 			logger.debug("LibroDAO : Searched for " + nombre + " and found " + result.toString() );
 			tx.commit();
 			logger.debug("LibroDAO : Right after commit:" + result.toString());
@@ -90,12 +95,12 @@ public class LibroDAO extends DataAccessObjectBase implements IDataAccessObject<
 		
 		PersistenceManager pm = pmf.getPersistenceManager();
 		Transaction tx = pm.currentTransaction();
-		logger.info("LibroDAO : Intentando actualizar libro: " + object.getNombre() + " - " + object.getTipo() + " - " + object.getPrecio());
+		logger.debug("LibroDAO : Intentando actualizar libro: " + object.getNombre() + " - " + object.getTipo() + " - " + object.getPrecio());
 		
-		
+		Libro l = find(object.getNombre());
 		try {
 			tx.begin();
-			Libro l = pm.getObjectById(Libro.class, object.getNombre());		
+					
 			l.setDescripccion(object.getDescripccion());
 			l.setPrecio(object.getPrecio());
 			l.setTipo(object.getTipo());

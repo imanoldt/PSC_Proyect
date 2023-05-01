@@ -13,13 +13,12 @@ import es.deusto.spq.pojo.LibroDTO;
 import es.deusto.spq.pojo.Usuario;
 
 @PersistenceCapable(detachable="true")
+@Join
 public class Alquiler {
-
 	@PrimaryKey
-	@ForeignKey
-	private Libro libro;
-	@PrimaryKey
-	@ForeignKey
+	@Persistent(valueStrategy = IdGeneratorStrategy.NATIVE)
+	private Long id;
+	private String libro;
 	private String usuario; 
 	@Persistent(defaultFetchGroup = "true")
 	private Date fecha_compra;
@@ -33,17 +32,17 @@ public class Alquiler {
 		
 	}
 	
-	public Alquiler(Libro libro, String usuario, Date fecha_compra) {
+	public Alquiler(String libro, String usuario, Date fecha_compra) {
 		super();
 		this.libro = libro;
 //		this.usuario = usuario;
 		this.fecha_compra = fecha_compra;
 	}
 	
-	public Libro getLibro() {
+	public String getLibro() {
 		return libro;
 	}
-	public void setLibro(Libro libro) {
+	public void setLibro(String libro) {
 		this.libro = libro;
 	}
 	public String getUsuario() {
