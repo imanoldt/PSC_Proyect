@@ -14,6 +14,8 @@ import es.deusto.spq.server.jdo.User;
 import es.deusto.spq.pojo.AlquilerDTO;
 
 import es.deusto.spq.pojo.UserData;
+import es.deusto.spq.pojo.Usuario;
+
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
@@ -44,7 +46,7 @@ public class Resource {
 		this.pm = pmf.getPersistenceManager();
 		this.tx = pm.currentTransaction();
 	}
-//  
+
 //	@POST
 //	@Path("/sayMessage")
 //	public Response sayMessage(DirectMessage directMessage) {

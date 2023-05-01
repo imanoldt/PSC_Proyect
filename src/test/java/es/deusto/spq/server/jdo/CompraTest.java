@@ -7,22 +7,23 @@ import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mock;
 
+import es.deusto.spq.pojo.Compra;
+import es.deusto.spq.pojo.Libro;
+
 
 public class CompraTest {
 
 	@Mock
-	private Book libroMock;
+	private Libro libroMock;
 	private String usuarioMock;
-	private float precioMock;
 
-	private CompraJdo compra;
+	private Compra compra;
 
 	@Before
 	public void setUp() {
-		libroMock = mock(Book.class);
+		libroMock = mock(Libro.class);
 		usuarioMock = "usuario1";
-		precioMock = 10.0f;
-		//compra = new Compra(libroMock, usuarioMock, precioMock);
+		compra = new Compra(libroMock, usuarioMock);
 	}
 
 	@Test
@@ -32,7 +33,7 @@ public class CompraTest {
 
 	@Test
 	public void testSetLibro() {
-		Book libroMock2 = mock(Book.class);
+		Libro libroMock2 = mock(Libro.class);
 		compra.setLibro(libroMock2);
 		assertEquals(libroMock2, compra.getLibro());
 	}

@@ -21,13 +21,9 @@ import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Response.Status;
 
 import es.deusto.spq.pojo.Compra;
-import es.deusto.spq.pojo.DirectMessage;
 import es.deusto.spq.pojo.Libro;
-import es.deusto.spq.pojo.MessageData;
-
 import es.deusto.spq.pojo.AlquilerDTO;
 import es.deusto.spq.pojo.LibroDTO;
-
 import es.deusto.spq.pojo.UserData;
 
 
@@ -49,7 +45,7 @@ public class ExampleClient {
 		webTarget = client.target(String.format("http://%s:%s/rest/resource", hostname, port));
 	}
 
-	public void registerUser(String login, String password) {
+	public boolean registerUser(String login, String password) {
 		WebTarget registerUserWebTarget = webTarget.path("register");
 		Invocation.Builder invocationBuilder = registerUserWebTarget.request(MediaType.APPLICATION_JSON);
 
@@ -59,8 +55,10 @@ public class ExampleClient {
 		Response response = invocationBuilder.post(Entity.entity(userData, MediaType.APPLICATION_JSON));
 		if (response.getStatus() != Status.OK.getStatusCode()) {
 			logger.error("Error connecting with the server. Code: {}", response.getStatus());
+			return false;
 		} else {
 			logger.info("User correctly registered");
+			return true;
 		}
 	}
 	public boolean loginUser(String name, String password) {
@@ -159,25 +157,6 @@ public class ExampleClient {
 //			logger.info("Libros Alquilados Correctamente");
 //		}
 //		
-		
-	}
-
-	public boolean comprarLibro(Compra compra) {
-		System.out.println("EXAMPLE-CLIENT");
-		WebTarget registerUserWebTarget = webTarget.path("ComprarLibro");
-		Invocation.Builder invocationBuilder = registerUserWebTarget.request(MediaType.APPLICATION_JSON);
-
-
-		Response response = invocationBuilder.post(Entity.entity(compra, MediaType.APPLICATION_JSON));
-		if (response.getStatus() != Status.OK.getStatusCode()) {
-			logger.error("Error connecting with the server. Code: {}", response.getStatus());
-			return false;
-		} else {
-			logger.info("User correctly logged");
-			return true;
-		}
-		
-	}
 
 	public boolean comprarLibro(long id, String titulo, String descrip, float precio, String tipo, String usuario) {
 		System.out.println("EXAMPLE-CLIENT");

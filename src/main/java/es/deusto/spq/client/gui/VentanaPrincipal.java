@@ -162,26 +162,6 @@ public class VentanaPrincipal extends JFrame {
 		
 		btnAlquilar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				//Este codigo no tira porque se tiene que poder elegir mas de una row a la vez.
-//				int selectedRow = tabla.getSelectedRow();
-//				System.out.println("libro seleccionado: "+selectedRow);
-//				String titulo= (String) modelo.getValueAt(selectedRow, 0);
-//    			String descrip= (String) modelo.getValueAt(selectedRow, 1);
-//				float precio= Float.parseFloat((String) modelo.getValueAt(selectedRow, 2));
-//				String tipo=(String) modelo.getValueAt(selectedRow, 3);
-//				 System.out.println("caracteristicas: "+titulo);
-//				
-//				Libro l=new Libro(titulo,descrip,precio,tipo);
-//				System.out.println("libro seleccionado: "+l.toString());
-//				
-//				 DateFormat dateFormat = new SimpleDateFormat("d:MMM:yyyy");
-//				 
-//			     String date = dateFormat.format(new Date());
-//			 
-//			     System.out.println(date); 
-//				 Alquiler a=new Alquiler(l,usuario,date);
-//				 ExampleClient ec = new ExampleClient("localhost", "8080");
-//				ec.alquilarLibros(a);
 				ExampleClient ec = new ExampleClient("localhost", "8080");
 				
 				
@@ -199,7 +179,7 @@ public class VentanaPrincipal extends JFrame {
 				 
 				 
 				 ec.alquilarLibros(result,usuario);
-				
+
 				
 			}
 		});
