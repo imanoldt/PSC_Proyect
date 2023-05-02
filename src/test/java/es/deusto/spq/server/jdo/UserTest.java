@@ -40,7 +40,7 @@ public class UserTest {
     public void testToString() {
     	
     	
-    	assertEquals("User: login --> " + "user" + ", password -->  " + "pass" + "]",
-    				 "User: login --> " + u.getLogin() + ", password -->  " + u.getPassword()  + "]");
+    	assertEquals("User: login --> " + "user" + ", password -->  " + "pass",
+    				 u.toString());
     }
 }
