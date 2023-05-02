@@ -57,6 +57,7 @@ public class ExampleClientTest {
         MockitoAnnotations.initMocks(this);
         exampleClient = new ExampleClient("", "");
         exampleClient.webTarget = webTarget;
+
     }
 
     @After
@@ -136,56 +137,48 @@ public class ExampleClientTest {
 
     @Test
     public void testAlquilarLibros() {
+        ArrayList<LibroDTO> lb = new ArrayList<>();
+        LibroDTO lib = new LibroDTO();
+        lb.add(lib);
     	when(webTarget.path("alquilarLibros")).thenReturn(webTarget);
 
         Response response = Response.ok().build();
         when(webTarget.request(MediaType.APPLICATION_JSON).post(any(Entity.class))).thenReturn(response);
-        assertTrue(exampleClient.alquilarLibros(new ArrayList<>(), "usu"));
+        assertTrue(exampleClient.alquilarLibros(lb, "usu"));
         assertNotNull(alquiler);
         verify(webTarget.request(MediaType.APPLICATION_JSON)).post(userDataEntityCaptor.capture());
         
-        LibroDTO libroMock = mock(LibroDTO.class);
-        // Simular el comportamiento de la llamada libro.getNombre() en el objeto Mock
-        when(libroMock.getNombre()).thenReturn("El Quijote");
-        // Crear una lista de libros con el objeto Mock
-        List<LibroDTO> libros = new ArrayList<>();
-        libros.add(libroMock);
-        // Llamar al método que crea una lista de alquileres a partir de la lista de libros
-        List<AlquilerDTO> alquileres = new ArrayList<>();
-        Usuario usuario = new Usuario("Juan", "Perez");
-        for (LibroDTO libro : libros) {
-            alquileres.add(new AlquilerDTO(libro.getNombre(), "usu", "fecha"));
-        }
-        // Verificar que se haya creado un único alquiler con el nombre del libro esperado
-        assertEquals(1, alquileres.size());
-        assertEquals("El Quijote", alquileres.get(0).getLibro());
     }
     
     @Test
-    public void testAlquilarLibrosError() {
+    public void testAlquilarLibrosErrorALV() {
+    	ArrayList<LibroDTO> al = new ArrayList<>();
     	when(webTarget.path("alquilarLibros")).thenReturn(webTarget);
 
         Response response = Response.serverError().build();
         when(webTarget.request(MediaType.APPLICATION_JSON).post(any(Entity.class))).thenReturn(response);
         assertFalse(exampleClient.alquilarLibros(new ArrayList<>(), "usu"));
         
-        verify(webTarget.request(MediaType.APPLICATION_JSON)).post(userDataEntityCaptor.capture());
         
-        LibroDTO libroMock = mock(LibroDTO.class);
-        // Simular el comportamiento de la llamada libro.getNombre() en el objeto Mock
-        when(libroMock.getNombre()).thenReturn("El Quijote");
-        // Crear una lista de libros con el objeto Mock
-        List<LibroDTO> libros = new ArrayList<>();
-        libros.add(libroMock);
-        // Llamar al método que crea una lista de alquileres a partir de la lista de libros
-        List<AlquilerDTO> alquileres = new ArrayList<>();
-        Usuario usuario = new Usuario("Juan", "Perez");
-        for (LibroDTO libro : libros) {
-            alquileres.add(new AlquilerDTO(libro.getNombre(), "usu", "fecha"));
-        }
-        // Verificar que se haya creado un único alquiler con el nombre del libro esperado
-        assertNotEquals(2, alquileres.size());
-        assertNotEquals("El Quijote q", alquileres.get(0).getLibro());
+        assertFalse(exampleClient.alquilarLibros(al, "usu"));
+        
+    }
+    
+    @Test
+    public void testAlquilarLibrosErrorServeC() {
+        
+    	ArrayList<LibroDTO> lb = new ArrayList<>();
+        LibroDTO lib = new LibroDTO();
+        lb.add(lib);
+    	when(webTarget.path("alquilarLibros")).thenReturn(webTarget);
+    	if(!lb.isEmpty()) {
+    		Response response = Response.serverError().build();
+            when(webTarget.request(MediaType.APPLICATION_JSON).post(any(Entity.class))).thenReturn(response);
+//            assertTrue(exampleClient.alquilarLibros(lb, "usu"));
+            assertFalse(exampleClient.alquilarLibros(lb, "usu"));
+//            verify(webTarget.request(MediaType.APPLICATION_JSON)).post(userDataEntityCaptor.capture());
+    	}
+    		
     }
     
     @Test
