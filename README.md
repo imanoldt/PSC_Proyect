@@ -15,7 +15,7 @@ Ejecute el siguiente comando para compilar todo y mejorar las clases de base de 
  >
 Asegúrese de que la base de datos se haya configurado correctamente. Use el contenido del archivo *create-message.sql* para crear la base de datos y otorgar privilegios. Por ejemplo,
 
-	mysql –uroot -p < sql/ludofunDB.sql
+	mysql –uroot -p < sql/create-ludofunDB.sql
 
 Ejecute el siguiente comando para crear un esquema de base de datos para esta muestra.
 
