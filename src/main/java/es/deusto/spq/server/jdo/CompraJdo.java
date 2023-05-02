@@ -9,7 +9,6 @@ import javax.jdo.annotations.PersistenceCapable;
 import javax.jdo.annotations.Persistent;
 import javax.jdo.annotations.PrimaryKey;
 import javax.jdo.identity.*;
-import es.deusto.spq.pojo.LibroDTO;
 
 
 @PersistenceCapable
@@ -24,7 +23,7 @@ public class CompraJdo {
 	private long bookKey;
 
 	@NotPersistent
-	private Book libro;
+	private Libro libro;
 
 	private String usuario;
 	//private float precio;

@@ -21,7 +21,6 @@ import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Response.Status;
 
 import es.deusto.spq.pojo.Compra;
-import es.deusto.spq.pojo.Libro;
 import es.deusto.spq.pojo.AlquilerDTO;
 import es.deusto.spq.pojo.LibroDTO;
 import es.deusto.spq.pojo.UserData;
@@ -38,7 +37,7 @@ public class ExampleClient {
 //	private static final String PASSWORD = "dipina";
 
 	private Client client;
-	private WebTarget webTarget;
+	WebTarget webTarget;
 
 	public ExampleClient(String hostname, String port) {
 		client = ClientBuilder.newClient();
@@ -132,10 +131,9 @@ public class ExampleClient {
 
 		//convierte un array de libros x usuario en un array de Alquiler.
 		
-		DateFormat dateFormat = new SimpleDateFormat("d:MMM:yyyy");
 		ArrayList<AlquilerDTO> alquileres = new ArrayList<AlquilerDTO>();
 		for (LibroDTO libro : libros) {
-			alquileres.add(new AlquilerDTO(libro,usuario,new Date()));
+			alquileres.add(new AlquilerDTO(libro.getNombre(),usuario,new Date().toString()));
 		}
 		
 		
@@ -155,15 +153,15 @@ public class ExampleClient {
 //			logger.error("Error connecting with the server. Code: {}", response.getStatus());
 //		} else {
 //			logger.info("Libros Alquilados Correctamente");
-//		}
-//		
+		}
+		
 
 	public boolean comprarLibro(long id, String titulo, String descrip, float precio, String tipo, String usuario) {
 		System.out.println("EXAMPLE-CLIENT");
 		WebTarget registerUserWebTarget = webTarget.path("ComprarLibro");
 		Invocation.Builder invocationBuilder = registerUserWebTarget.request(MediaType.APPLICATION_JSON);
 
-		Libro l=new Libro(titulo,descrip,precio,tipo);
+		LibroDTO l=new LibroDTO(titulo,descrip,precio,tipo);
 		l.setId(id);
 		Compra compra=new Compra(l,usuario);
 		Response response = invocationBuilder.post(Entity.entity(compra, MediaType.APPLICATION_JSON));

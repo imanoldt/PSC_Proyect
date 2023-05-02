@@ -9,7 +9,9 @@ import org.junit.Test;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
-public class LibroTest {
+import es.deusto.spq.server.jdo.Libro;
+
+public class LibroDTOTest {
 	@Mock
 	Libro lib;
 	

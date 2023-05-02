@@ -12,7 +12,7 @@ import static org.mockito.Mockito.when;
 public class CompraTest {
 
     @Mock
-    private Libro libroMock;
+    private LibroDTO libroMock;
 
     private Compra compra;
 
@@ -33,7 +33,7 @@ public class CompraTest {
 
     @Test
     public void testSetLibro() {
-        Libro nuevoLibro = new Libro("Libro1","Desc1",10,"Tipe1");
+        LibroDTO nuevoLibro = new LibroDTO("Libro1","Desc1",10,"Tipe1");
         compra.setLibro(nuevoLibro);
         assertEquals(nuevoLibro, compra.getLibro());
     }

@@ -7,23 +7,23 @@ import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mock;
 
-import es.deusto.spq.pojo.Compra;
-import es.deusto.spq.pojo.Libro;
+import es.deusto.spq.server.jdo.CompraJdo;
+import es.deusto.spq.server.jdo.Libro;
 
 
-public class CompraTest {
+public class CompraJdoTest {
 
 	@Mock
 	private Libro libroMock;
 	private String usuarioMock;
 
-	private Compra compra;
+	private CompraJdo compra;
 
 	@Before
 	public void setUp() {
 		libroMock = mock(Libro.class);
 		usuarioMock = "usuario1";
-		compra = new Compra(libroMock, usuarioMock);
+		compra = new CompraJdo(libroMock, usuarioMock);
 	}
 
 	@Test

@@ -24,6 +24,9 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.SwingConstants;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.awt.event.ActionEvent;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -37,7 +40,7 @@ public class VentanaPrincipal extends JFrame {
 	JPanel contentPane, panel, panel_1;
 	JLabel lblLogo;
 	JLabel lblTablaLibros = new JLabel("TABLA LIBROS");
-	DefaultTableModel modelo = new DefaultTableModel(new Object[] {"Id", "Nombre", "Descripcion", "Precio","Tipo" }, 0);
+	DefaultTableModel modelo = new DefaultTableModel(new Object[] {/*"Id",*/ "Nombre", "Descripcion", "Precio","Tipo" }, 0);
 	JTable tabla = new JTable(modelo);
 	JButton btnNewButton;
 	private JPanel panel_2;
@@ -66,6 +69,7 @@ public class VentanaPrincipal extends JFrame {
 		lblLogo = new JLabel();
 		lblLogo.setOpaque(true);
 		lblLogo.setBackground(new Color(236, 250, 244));
+		
 
 		// Cargar la imagen en un ImageIcon
 		ImageIcon imagenIcono = new ImageIcon("src/main/java/es/deusto/spq/client/utils/LudoFun.png");
@@ -118,60 +122,55 @@ public class VentanaPrincipal extends JFrame {
 		if(tipo=="alquiler") {
 			cargarDatosAlquiler();
 			panel_2.add(btnAlquilar);
-		}else {
+		}else if(tipo=="compra"){
 			cargarDatosCompra();
 			panel_2.add(btnCompra);
 		}
+		//TODO FUNCIONALIDAD FANCY DE BOTON <- NO FUNCIONA TODAVIA
+		tabla.addMouseListener(new MouseAdapter() {
+			public void MouseClicked(MouseEvent e) {
+				btnAlquilar.setEnabled(true);
+			}
+		});
 		
 		
 		/*--Comprar Libro--*/
 		btnCompra.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				int selectedRow = tabla.getSelectedRow();
-				System.out.println("libro seleccionado: "+selectedRow);
-				long id= Long.parseLong((String) modelo.getValueAt(selectedRow, 0));
-				String titulo= (String) modelo.getValueAt(selectedRow, 1);
-    			String descrip= (String) modelo.getValueAt(selectedRow, 2);
-				float precio= Float.parseFloat((String) modelo.getValueAt(selectedRow, 3));
-				String tipo=(String) modelo.getValueAt(selectedRow, 4);
-				 System.out.println("caracteristicas: "+titulo);
 				
-				Libro l=new Libro(titulo,descrip,precio,tipo);
-				System.out.println("libro seleccionado: "+l.toString());
-				
-				Compra compra=new Compra(l,usuario);
-				
-				
-				
-//			
-//				ArrayList<Libro> result = new ArrayList<Libro>();
-//				for (int i = 0; i < libros.length; i++) {
-//					result.add(books.get(libros[i]));
-//				} 
-				System.out.println("LIBRO SELECCIONADO PARA COMPRA: "+compra);
 				ExampleClient eC = new ExampleClient("localhost", "8080");
-				eC.comprarLibro(id,titulo,descrip,precio,tipo,usuario);
+				LibroDTO result = null;
 				
+				int[] libros = tabla.getSelectedRows();
+				
+				for (int i = 0; i < libros.length; i++) {
+					result = books.get(i);
+					System.out.println("Comprando Libro : " + books.get(libros[i]).getNombre());
+					eC.comprarLibro(result.getId(), result.getNombre(), result.getDescripccion(), result.getPrecio(), result.getTipo(), usuario);
+				}	
+				for (int i = libros.length-1; i>=0 ; i--) {
+					modelo.removeRow(libros[i]);
+				}
+							
 				JOptionPane.showMessageDialog(null, "Libro comprado exitosamente", "Compra realizada", JOptionPane.INFORMATION_MESSAGE);
 
 			}
 		});
 		
 		
-		//FUNCIONALIDAD
+		//FUNCIONALIDAD DE ALQUILER
 		
 		btnAlquilar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				ExampleClient ec = new ExampleClient("localhost", "8080");
 				
-				
+				//btnAlquilar.setEnabled(false);
 				int[] libros = tabla.getSelectedRows();
 				ArrayList<LibroDTO> result = new ArrayList<LibroDTO>();
 				for (int i = 0; i < libros.length; i++) {
 					result.add(books.get(libros[i]));
 					System.out.println(books.get(libros[i]).getNombre());
 				} 
-				btnAlquilar.setEnabled(false);
 				for (int i = libros.length-1; i>=0 ; i--) {
 					modelo.removeRow(libros[i]);
 				}
@@ -221,8 +220,8 @@ public class VentanaPrincipal extends JFrame {
 		// TODO Auto-generated method stub
 		ExampleClient eC = new ExampleClient("localhost", "8080");
 		books = eC.getBooksCompra();
-		for (Libro libro : books) {
-			String[] fila = {String.valueOf(libro.getId()), libro.getNombre(), libro.getDescripccion(), String.valueOf(libro.getPrecio()),libro.getTipo() };
+		for (LibroDTO libro : books) {
+			String[] fila = {/*String.valueOf(libro.getId()),*/ libro.getNombre(), libro.getDescripccion(), String.valueOf(libro.getPrecio()),libro.getTipo() };
 			modelo.addRow(fila);
 			System.out.println(libro.toString());
 		}

@@ -21,7 +21,7 @@ public class Alquiler {
 	private String libro;
 	private String usuario; 
 	@Persistent(defaultFetchGroup = "true")
-	private Date fecha_compra;
+	private String fecha_compra;
 	
 	
 	
@@ -32,7 +32,7 @@ public class Alquiler {
 		
 	}
 	
-	public Alquiler(String libro, String usuario, Date fecha_compra) {
+	public Alquiler(String libro, String usuario, String fecha_compra) {
 		super();
 		this.libro = libro;
 //		this.usuario = usuario;
@@ -51,10 +51,10 @@ public class Alquiler {
 	public void setUsuario(String usuario) {
 		this.usuario = usuario;
 	}
-	public Date getFecha_compra() {
+	public String getFecha_compra() {
 		return fecha_compra;
 	}
-	public void setFecha_compra(Date fecha_compra) {
+	public void setFecha_compra(String fecha_compra) {
 		this.fecha_compra = fecha_compra;
 	}
 }

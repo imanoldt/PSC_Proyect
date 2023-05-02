@@ -8,26 +8,26 @@ import static org.mockito.Mockito.when;
 import org.junit.Before;
 import org.junit.Test;
 
-public class AlquilerTest {
+public class AlquilerDTOTest {
 
-    private Alquiler alquiler;
-    private Libro libro;
+    private AlquilerDTO alquiler;
+    private LibroDTO libro;
     private String usuario;
     private String fecha;
 
     @Before
     public void setUp() {
-        libro = mock(Libro.class);
+        libro = mock(LibroDTO.class);
         when(libro.getNombre()).thenReturn("Libro 1");
 
         usuario = "usuario1";
         fecha = "2023-04-30";
-        alquiler = new Alquiler(libro, usuario, fecha);
+        //TODO alquiler = new AlquilerDTO(libro, usuario, fecha);
     }
     
     @Test
     public void testConstructV() {
-        assertNotNull(alquiler = new Alquiler());
+        assertNotNull(alquiler = new AlquilerDTO());
     }
     
     @Test
@@ -37,10 +37,10 @@ public class AlquilerTest {
     
     @Test
     public void testSetLibro() {
-    	libro = new Libro();
+    	libro = new LibroDTO();
     	libro.setNombre("l2");
-    	alquiler.setLibro(libro);
-        assertEquals("l2", alquiler.getLibro().getNombre());
+    	//TODO alquiler.setLibro(libro);
+        assertEquals("l2", alquiler.getLibro());
     }
 
     @Test
