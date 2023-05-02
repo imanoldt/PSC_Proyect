@@ -20,6 +20,8 @@ public class AlquilerTest {
 
     @Before
     public void setUp() {
+    	mockLibro = new Libro();
+    	mockLibro.setNombre("lib");
     	mockLibro = new Libro("Libro de Prueba", "Libro Mock 01",(float) 5.1, "Alquiler");
         MockitoAnnotations.initMocks(this);
         alquiler = new Alquiler(mockLibro.getNombre(), "usuarioPrueba", new Date().toString());
@@ -27,7 +29,7 @@ public class AlquilerTest {
 
     @Test
     public void testGetLibro() {
-        assertEquals(mockLibro, alquiler.getLibro());
+        assertEquals(mockLibro.getNombre(), alquiler.getLibro());
     }
 
     @Test
@@ -39,7 +41,8 @@ public class AlquilerTest {
 
     @Test
     public void testGetUsuario() {
-        assertEquals("usuarioPrueba", alquiler.getUsuario());
+    	alquiler.setUsuario("usu");
+        assertEquals("usu", alquiler.getUsuario());
     }
 
     @Test

@@ -7,11 +7,13 @@ import static org.mockito.Mockito.when;
 
 import org.junit.Before;
 import org.junit.Test;
+import org.mockito.Mock;
 
 public class AlquilerDTOTest {
-
-    private AlquilerDTO alquiler;
-    private LibroDTO libro;
+	@Mock
+    AlquilerDTO alquiler;
+	@Mock
+    LibroDTO libro;
     private String usuario;
     private String fecha;
 
@@ -19,6 +21,11 @@ public class AlquilerDTOTest {
     public void setUp() {
         libro = mock(LibroDTO.class);
         when(libro.getNombre()).thenReturn("Libro 1");
+        
+        alquiler = new AlquilerDTO();
+        alquiler.setLibro("lib");
+        alquiler.setUsuario("usu");
+        alquiler.setFecha_compra("2023-04-30");
 
         usuario = "usuario1";
         fecha = "2023-04-30";
@@ -27,30 +34,29 @@ public class AlquilerDTOTest {
     
     @Test
     public void testConstructV() {
-        assertNotNull(alquiler = new AlquilerDTO());
+        assertNotNull(alquiler);
     }
     
     @Test
     public void testGetLibro() {
-        assertEquals(libro, alquiler.getLibro());
+        assertEquals("lib", alquiler.getLibro());
     }
     
     @Test
     public void testSetLibro() {
-    	libro = new LibroDTO();
-    	libro.setNombre("l2");
-    	//TODO alquiler.setLibro(libro);
+    	alquiler = new AlquilerDTO();
+    	alquiler.setLibro("l2");
         assertEquals("l2", alquiler.getLibro());
     }
 
     @Test
     public void testGetUsuario() {
-        assertEquals(usuario, alquiler.getUsuario());
+        assertEquals("usu", alquiler.getUsuario());
     }
 
     @Test
     public void testGetFechaCompra() {
-        assertEquals(fecha, alquiler.getFecha_compra());
+        assertEquals("2023-04-30", alquiler.getFecha_compra());
     }
     
     @Test

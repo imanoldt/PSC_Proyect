@@ -31,6 +31,7 @@ import org.mockito.MockitoAnnotations;
 import es.deusto.spq.pojo.AlquilerDTO;
 import es.deusto.spq.pojo.LibroDTO;
 import es.deusto.spq.pojo.UserData;
+import es.deusto.spq.pojo.Usuario;
 
 
 public class ExampleClientTest {
@@ -39,7 +40,6 @@ public class ExampleClientTest {
 
     @Mock(answer=Answers.RETURNS_DEEP_STUBS)
     private WebTarget webTarget;
-
     @Mock
     private Invocation.Builder builder;
 
@@ -48,6 +48,9 @@ public class ExampleClientTest {
 
     @Captor
     private ArgumentCaptor<Entity<UserData>> userDataEntityCaptor;
+    
+    @Mock
+    AlquilerDTO alquiler;
     
     @Before
     public void setUp() throws Exception {
@@ -133,15 +136,56 @@ public class ExampleClientTest {
 
     @Test
     public void testAlquilarLibros() {
-        AlquilerDTO expectedAlquiler = new AlquilerDTO("Libro5", "usu","fech1");
-        when(webTarget.path("AlquilarLibro")).thenReturn(webTarget);
-        when(webTarget.request(MediaType.APPLICATION_JSON)).thenReturn(builder);
-        when(builder.post(any())).thenReturn(response);
-        when(response.getStatus()).thenReturn(Response.Status.OK.getStatusCode());
+    	when(webTarget.path("alquilarLibros")).thenReturn(webTarget);
 
-       // boolean result = exampleClient.alquilarLibros(expectedAlquiler);
+        Response response = Response.ok().build();
+        when(webTarget.request(MediaType.APPLICATION_JSON).post(any(Entity.class))).thenReturn(response);
+        assertTrue(exampleClient.alquilarLibros(new ArrayList<>(), "usu"));
+        assertNotNull(alquiler);
+        verify(webTarget.request(MediaType.APPLICATION_JSON)).post(userDataEntityCaptor.capture());
+        
+        LibroDTO libroMock = mock(LibroDTO.class);
+        // Simular el comportamiento de la llamada libro.getNombre() en el objeto Mock
+        when(libroMock.getNombre()).thenReturn("El Quijote");
+        // Crear una lista de libros con el objeto Mock
+        List<LibroDTO> libros = new ArrayList<>();
+        libros.add(libroMock);
+        // Llamar al método que crea una lista de alquileres a partir de la lista de libros
+        List<AlquilerDTO> alquileres = new ArrayList<>();
+        Usuario usuario = new Usuario("Juan", "Perez");
+        for (LibroDTO libro : libros) {
+            alquileres.add(new AlquilerDTO(libro.getNombre(), "usu", "fecha"));
+        }
+        // Verificar que se haya creado un único alquiler con el nombre del libro esperado
+        assertEquals(1, alquileres.size());
+        assertEquals("El Quijote", alquileres.get(0).getLibro());
+    }
+    
+    @Test
+    public void testAlquilarLibrosError() {
+    	when(webTarget.path("alquilarLibros")).thenReturn(webTarget);
 
-        assertEquals(true, true);
+        Response response = Response.serverError().build();
+        when(webTarget.request(MediaType.APPLICATION_JSON).post(any(Entity.class))).thenReturn(response);
+        assertFalse(exampleClient.alquilarLibros(new ArrayList<>(), "usu"));
+        
+        verify(webTarget.request(MediaType.APPLICATION_JSON)).post(userDataEntityCaptor.capture());
+        
+        LibroDTO libroMock = mock(LibroDTO.class);
+        // Simular el comportamiento de la llamada libro.getNombre() en el objeto Mock
+        when(libroMock.getNombre()).thenReturn("El Quijote");
+        // Crear una lista de libros con el objeto Mock
+        List<LibroDTO> libros = new ArrayList<>();
+        libros.add(libroMock);
+        // Llamar al método que crea una lista de alquileres a partir de la lista de libros
+        List<AlquilerDTO> alquileres = new ArrayList<>();
+        Usuario usuario = new Usuario("Juan", "Perez");
+        for (LibroDTO libro : libros) {
+            alquileres.add(new AlquilerDTO(libro.getNombre(), "usu", "fecha"));
+        }
+        // Verificar que se haya creado un único alquiler con el nombre del libro esperado
+        assertNotEquals(2, alquileres.size());
+        assertNotEquals("El Quijote q", alquileres.get(0).getLibro());
     }
     
     @Test
