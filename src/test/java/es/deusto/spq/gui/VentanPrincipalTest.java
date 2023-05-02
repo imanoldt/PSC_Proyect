@@ -9,7 +9,7 @@ import es.deusto.spq.client.gui.VentanaPrincipal;
 import es.deusto.spq.client.gui.VentanaRegistro;
 
 
-public class VentanPrincipalTets {
+public class VentanPrincipalTest {
 	@Mock
 	VentanaRegistro vr;
 	

@@ -160,15 +160,6 @@
 					<fork>false</fork>
 					<props>${config.files.dir}/datanucleus.properties</props>
 				</configuration>
-				<executions>
-					<execution>
-						<!-- links the enhance to the compile phase -->
-						<phase>compile</phase>
-						<goals>
-							<goal>enhance</goal>
-						</goals>
-					</execution>
-				</executions>
 			</plugin>
 			<plugin>
 				<groupId>org.eclipse.jetty</groupId>

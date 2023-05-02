@@ -132,20 +132,24 @@ public class ExampleClient {
 		//convierte un array de libros x usuario en un array de Alquiler.
 		
 		ArrayList<AlquilerDTO> alquileres = new ArrayList<AlquilerDTO>();
-		for (LibroDTO libro : libros) {
-			alquileres.add(new AlquilerDTO(libro.getNombre(),usuario,new Date().toString()));
-		}
-		
-		
-		
-		Response response = invocationBuilder.post(Entity.entity(alquileres, MediaType.APPLICATION_JSON));
-		if (response.getStatus() != Status.OK.getStatusCode()) {
-			logger.error("Error connecting with the server. Code: {}", response.getStatus());
+		if(!libros.isEmpty()) {
+			for (LibroDTO libro : libros) {
+				alquileres.add(new AlquilerDTO(libro.getNombre(),usuario,new Date().toString()));
+			}
+			Response response = invocationBuilder.post(Entity.entity(alquileres, MediaType.APPLICATION_JSON));
+			if (response.getStatus() != Status.OK.getStatusCode()) {
+				logger.error("Error connecting with the server. Code: {}", response.getStatus());
+				return false;
+			} else {
+				logger.info("Libros Alquilados Correctamente");
+				return true;
+			}
+		}else {
 			return false;
-		} else {
-			logger.info("Libros Alquilados Correctamente");
-			return true;
 		}
+		
+		
+		
 //		for (int i = 0; i < libros.size(); i++) {
 //			logger.info("Intentando mandar: [" + libros.get(i)+"] "+ libros.get(i).getNombre());
 //		} 
