@@ -1,43 +1,67 @@
 package es.deusto.spq.client.gui;
 
-import java.awt.EventQueue;
-
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JTable;
 import javax.swing.border.EmptyBorder;
+import javax.swing.table.DefaultTableModel;
+
 import java.awt.BorderLayout;
 import javax.swing.JLabel;
 import javax.swing.SwingConstants;
 import java.awt.Font;
 import java.awt.Color;
-import java.awt.GridLayout;
+
 import java.awt.Image;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 
 import net.miginfocom.swing.MigLayout;
-import javax.swing.JButton;
+
 import javax.swing.ImageIcon;
 import java.awt.Cursor;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import javax.swing.JTextField;
-import java.awt.event.MouseMotionAdapter;
+
+import javax.swing.JMenuBar;
+import javax.swing.JMenuItem;
+import javax.swing.JMenu;
+import java.awt.GridLayout;
 
 public class VentanaMenuN extends JFrame {
 
+	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
 	private JTextField txInfo;
+	DefaultTableModel model = new DefaultTableModel(
+			new Object[] { /* "Id", */ "Nombre", "Descripcion", "Precio", "Tipo" }, 0) {
+		private static final long serialVersionUID = 1L;
+
+		@Override
+		public boolean isCellEditable(int row, int column) {
+			return false;
+		}
+	};
+	JTable tabla = new JTable(model);
+	DefaultTableModel model_2 = new DefaultTableModel(
+			new Object[] { /* "Id", */ "Nombre", "Descripcion", "Precio", "Tipo" }, 0) {
+		private static final long serialVersionUID = 1L;
+
+		@Override
+		public boolean isCellEditable(int row, int column) {
+			return false;
+		}
+	};
+	JTable tabla_2 = new JTable(model_2);
 
 	public VentanaMenuN(String usuario, String contraseña) {
-		
+
 		setBounds(100, 100, 969, 416);
 		setLocationRelativeTo(null);
 		setVisible(true);
 		setResizable(false);
 		setTitle("Menu");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		
 
 		// IMAGENES
 		ImageIcon imagenIcono = new ImageIcon("src/main/java/es/deusto/spq/client/utils/rent.png");
@@ -69,6 +93,18 @@ public class VentanaMenuN extends JFrame {
 		ImageIcon imagenEscaladaIcono2 = new ImageIcon(imagenEscalada2);
 		ImageIcon imagenEscaladaIcono3 = new ImageIcon(imagenEscalada3);
 
+		JMenuBar menuBar = new JMenuBar();
+		setJMenuBar(menuBar);
+
+		JMenu mnMenu = new JMenu("Administrador");
+		menuBar.add(mnMenu);
+
+		JMenuItem mnItemAnyadir = new JMenuItem("Añadir libro nuevo");
+		mnMenu.add(mnItemAnyadir);
+
+		JMenuItem mnItemEliminar = new JMenuItem("Eliminar libro");
+		mnMenu.add(mnItemEliminar);
+
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
@@ -87,7 +123,8 @@ public class VentanaMenuN extends JFrame {
 		JPanel pnlSur = new JPanel();
 		pnlSur.setBackground(new Color(224, 255, 255));
 		pnlPrincipal.add(pnlSur, BorderLayout.CENTER);
-		pnlSur.setLayout(new MigLayout("", "[][][][][][][][][][][][][][][][][][][grow]", "[][][grow][34.00][29.00][][]"));
+		pnlSur.setLayout(
+				new MigLayout("", "[][][][][][][][][][][][][][][][][][][grow]", "[][][grow][34.00][29.00][][]"));
 
 		JLabel lblIconAlquiler = new JLabel();
 
@@ -102,12 +139,12 @@ public class VentanaMenuN extends JFrame {
 		pnlSur.add(lblIconAlquiler, "cell 3 2 1 3,alignx center,growy");
 		pnlSur.add(lblIconCompra, "cell 9 2 1 3,alignx center,growy");
 		pnlSur.add(lblIconDevolver, "cell 15 2 1 3,alignx center,growy");
-		
+
 		JPanel panel = new JPanel();
 		panel.setBackground(new Color(175, 238, 238));
 		pnlSur.add(panel, "cell 18 0 1 7,grow");
 		panel.setLayout(new BorderLayout(0, 0));
-		
+
 		txInfo = new JTextField();
 		txInfo.setHorizontalAlignment(SwingConstants.CENTER);
 		txInfo.setOpaque(true);
@@ -117,6 +154,10 @@ public class VentanaMenuN extends JFrame {
 		txInfo.setText("Bienvenid@ de nuevo, " + usuario);
 		panel.add(txInfo, BorderLayout.NORTH);
 		txInfo.setColumns(10);
+
+		JPanel pnlPanelSur = new JPanel();
+		panel.add(pnlPanelSur, BorderLayout.CENTER);
+		pnlPanelSur.setLayout(new GridLayout(2, 0, 0, 0));
 
 		JLabel lblAlquiler = new JLabel("Alquiler");
 		lblAlquiler.setFont(new Font("Montserrat", Font.PLAIN, 20));
@@ -133,10 +174,14 @@ public class VentanaMenuN extends JFrame {
 
 		pnlSur.add(lblDevolver, "cell 15 6,alignx center,growy");
 
+		pnlPanelSur.add(new JScrollPane(tabla));
+		pnlPanelSur.add(new JScrollPane(tabla_2));
+		tabla.getTableHeader().setResizingAllowed(false);
+
 		lblIconAlquiler.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent arg0) {
-               
+
 				VentanaPrincipal ventanaPrincipal = new VentanaPrincipal(usuario, contraseña, "alquiler");
 				dispose();
 			}

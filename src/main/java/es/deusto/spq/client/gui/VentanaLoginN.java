@@ -35,7 +35,7 @@ import java.awt.event.MouseEvent;
 @SuppressWarnings("serial")
 public class VentanaLoginN extends JFrame {
 	private JPanel contentPane, pnlPrincipal, pnlIzquierda, pnlDerechaa;
-	private JLabel lblIniciarSesion, lblUsuario, lblIconoUsu, lblContraseya;
+	private JLabel lblIniciarSesion, lblUsuario, lblContraseya;
 	public JLabel lblErrorContrasenya;
 	public JTextField txtUsuario;
 	public JPasswordField passContraseya;
@@ -219,33 +219,28 @@ public class VentanaLoginN extends JFrame {
 
 			@Override
 			public void run() {
-				while (true) {
-					lblRegistrate.setForeground(new Color(243, 254, 247));
-					try {
-						Thread.sleep(500);
-					} catch (InterruptedException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
-					}
-					lblRegistrate.setForeground(Color.BLACK);
-					try {
-						Thread.sleep(500);
-					} catch (InterruptedException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
-					}
-				}
+			    while (!Thread.currentThread().isInterrupted()) {
+			        try {
+			            lblRegistrate.setForeground(new Color(243, 254, 247));
+			            Thread.sleep(500);
+			            lblRegistrate.setForeground(new Color(221,84,114,255));
+			            Thread.sleep(500);
+			        } catch (InterruptedException e) {
+			            Thread.currentThread().interrupt(); // Restores interrupted state
+			            break;
+			        }
+			    }
 			}
+
 		};
 		Thread t1 = new Thread(r1);
 		t1.start();
 
 		addWindowListener(new WindowAdapter() {
 
-			@SuppressWarnings("deprecation")
 			@Override
 			public void windowClosed(WindowEvent e) {
-				t1.stop();
+				 t1.interrupt(); // interrupt the thread
 			}
 
 		});
