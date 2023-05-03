@@ -13,7 +13,7 @@ Ejecute el siguiente comando para compilar todo y mejorar las clases de base de 
 	
 	mvn compile
  > Compilar el código fuente de un proyecto Maven.
- >
+ 
 Asegúrese de que la base de datos se haya configurado correctamente. Use el contenido del archivo *create-message.sql* para crear la base de datos y otorgar privilegios. Por ejemplo,
 
 	mysql –uroot -p < sql/create-ludofunDB.sql
@@ -21,10 +21,15 @@ Asegúrese de que la base de datos se haya configurado correctamente. Use el con
 Ejecute el siguiente comando para crear un esquema de base de datos para esta muestra.
 
 	mvn datanucleus:schema-create
+	
+Ejecute el siguiente comando para realizar el enhance de base de datos para esta muestra.
+
+	mvn datanucleus:enhance
 
 Para iniciar el servidor, ejecute el comando
 
 	mvn jetty:run
+ > A partir de ahora, el "enhance" queda separado del "compile"
 
 Ahora, el código de muestra del cliente se puede ejecutar en una nueva ventana de comandos con
 
