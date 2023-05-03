@@ -2,6 +2,7 @@
 # LudoFun
 
 Este proyecto se basa en el complemento **DataNucleus** y  **Maven**. Compruebe la configuración de la base de datos en el archivo *datanucleus.properties* y la dependencia del controlador JDBC especificada en el archivo *pom.xml*. Además, el proyecto contiene los códigos de ejemplo de servidor y cliente.
+## Test 🧪
 
 ## Ejecución 🤖
 
