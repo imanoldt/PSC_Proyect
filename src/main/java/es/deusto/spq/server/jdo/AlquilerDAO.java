@@ -19,10 +19,10 @@ public class AlquilerDAO extends DataAccessObjectBase implements IDataAccessObje
 		return instance;
 	}
 	@Override
-	public void Save(Alquiler object) {
+	public boolean Save(Alquiler object) {
 				
 		logger.info("Saving Alquiler :" + object.getUsuario() +" : " +  object.getLibro() + "With DAO");
-		super.saveObject(object);
+		return super.saveObject(object);
 		
 	}
 

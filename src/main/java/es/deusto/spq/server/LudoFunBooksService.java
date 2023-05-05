@@ -29,9 +29,10 @@ public class LudoFunBooksService {
 	}
 
 	private LudoFunBooksService() {
-		
 	}
-	
+	public boolean AddLibro(Libro Lib) {
+		return LibroDAO.getInstance().Save(Lib);
+	}
 
 	public void populateDB() {
 		ArrayList<Libro> bks = new ArrayList<Libro>();

@@ -97,7 +97,15 @@ public class Resource {
 	 * Response.ok().build(); } else { //Este es el error especifico 409 return
 	 * Response.serverError().status(Response.Status.CONFLICT).build(); } }
 	 */
-
+	@POST
+	@Path("/anadirLibro")
+	public Response anadirLibro(Libro libro) {
+		if (LudoFunBooksService.getInstance().AddLibro(libro)) {
+			return Response.ok().build();
+		} else {
+			return Response.serverError().build();
+		}
+	}
 	@POST
 	@Path("/login")
 	public Response loginUser(UserData userData) {
@@ -133,7 +141,6 @@ public class Resource {
 		}
 	}
 	@POST
-
 	@Path("/register")
 	public Response registerUser(UserData userData) {
 		if (LudoFunAccountService.getInstance().registerUser(userData)) {

@@ -11,8 +11,8 @@ import java.util.HashSet;
 @PersistenceCapable(detachable="true")
 public class User {
 	@PrimaryKey
-	String login=null;
-	String password=null;
+	String login;
+	String password;
 	
 	
 	

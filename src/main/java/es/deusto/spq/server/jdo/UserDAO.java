@@ -19,9 +19,9 @@ public class UserDAO extends DataAccessObjectBase implements IDataAccessObject<U
 		return instance;
 	}
 	@Override
-	public void Save(User object) {
+	public boolean Save(User object) {
 		logger.info("Saving User :" + object.getLogin() + " With DAO");
-		super.saveObject(object);
+		return super.saveObject(object);
 		
 	}
 

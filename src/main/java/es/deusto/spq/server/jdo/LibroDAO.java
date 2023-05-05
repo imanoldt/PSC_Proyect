@@ -19,9 +19,10 @@ public class LibroDAO extends DataAccessObjectBase implements IDataAccessObject<
 		return instance;
 	}
 	@Override
-	public void Save(Libro object) {
+	public boolean Save(Libro object) {
+		
 		logger.info("Saving Libro :" + object.getNombre() + " With DAO");
-		super.saveObject(object);
+		return super.saveObject(object);
 		
 	}
 

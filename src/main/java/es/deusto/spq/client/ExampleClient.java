@@ -32,16 +32,30 @@ import org.apache.logging.log4j.Logger;
 public class ExampleClient {
 
 	protected static final Logger logger = LogManager.getLogger();
-
+	private static String hostname;
+	private static String port;
+	private static String user;
+	private static String password;
 //	private static final String USER = "dipina";
 //	private static final String PASSWORD = "dipina";
 
 	private Client client;
 	WebTarget webTarget;
+	//TODO Implementar el patron singleton
+		public static ExampleClient instance;
+	
+	
 
 	public ExampleClient(String hostname, String port) {
 		client = ClientBuilder.newClient();
 		webTarget = client.target(String.format("http://%s:%s/rest/resource", hostname, port));
+		
+	}
+	public static ExampleClient getInstance() {
+		if (instance == null) {
+			logger.error("Error: No hay Instance de ExampleClient");
+		}
+		return instance;
 	}
 
 	public boolean registerUser(String login, String password) {
@@ -61,8 +75,8 @@ public class ExampleClient {
 		}
 	}
 	public boolean loginUser(String name, String password) {
-		WebTarget registerUserWebTarget = webTarget.path("login");
-		Invocation.Builder invocationBuilder = registerUserWebTarget.request(MediaType.APPLICATION_JSON);
+		WebTarget loginUserWebTarget = webTarget.path("login");
+		Invocation.Builder invocationBuilder = loginUserWebTarget.request(MediaType.APPLICATION_JSON);
 		
 		UserData userData = new UserData();
 		userData.setLogin(name);
@@ -75,6 +89,20 @@ public class ExampleClient {
 			logger.info("User correctly logged");
 			return true;
 		}
+	}
+	
+	public boolean anadirLibro(LibroDTO lib) {
+		WebTarget booksWebTarget = webTarget.path("anadirLibro");
+	    Invocation.Builder invocationBuilder = booksWebTarget.request(MediaType.APPLICATION_JSON);
+	    
+	    Response response = invocationBuilder.post(Entity.entity(lib, MediaType.APPLICATION_JSON));
+	    if (response.getStatus() != Status.OK.getStatusCode()) {
+	    	logger.error("Error anadiendo el libro. Code : {}", response.getStatus());
+	    	return false;
+	    } else {
+	    	logger.info("Libros anadidos correctamente");
+	    	return true;
+	    }
 	}
 	
 	public List<LibroDTO> getBooksAlquiler() {
@@ -115,12 +143,11 @@ public class ExampleClient {
 			System.exit(0);
 		}
 
-		String hostname = args[0];
-		String port = args[1];
-		ExampleClient exampleClient = new ExampleClient(hostname, port);
+		hostname = args[0];
+		port = args[1];
+		instance = new ExampleClient(hostname, port);
 		
-		VentanaLoginN vent = new VentanaLoginN(exampleClient);
-
+		VentanaLoginN vent = new VentanaLoginN();
 		
 //		exampleClient.registerUser(USER, PASSWORD);
 //		exampleClient.sayMessage(USER, PASSWORD, "This is a test!...");
@@ -176,5 +203,18 @@ public class ExampleClient {
 			logger.info("User correctly logged");
 			return true;
 		}
+	}
+	
+	public static String getUser() {
+		return user;
+	}
+	public static void setUser(String user) {
+		ExampleClient.user = user;
+	}
+	public static String getPassword() {
+		return password;
+	}
+	public static void setPassword(String password) {
+		ExampleClient.password = password;
 	}
 }

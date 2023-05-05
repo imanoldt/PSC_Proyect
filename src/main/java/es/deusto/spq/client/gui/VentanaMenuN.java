@@ -202,71 +202,74 @@ public class VentanaMenuN extends JFrame {
 		});
 
 		mnItemAnyadir.addActionListener(new ActionListener() {
+			
 			public void actionPerformed(ActionEvent e) {
-//				System.out.println("HOLAAAAAA");
-//				String title = JOptionPane.showInputDialog(null, "Introduce el título del libro:");
-//				String descripcion = JOptionPane.showInputDialog(null, "Introduce la descripcion del libro:");
-//				Float precio = Float.parseFloat(JOptionPane.showInputDialog(null, "Introduce el precio del libro:"));
-				String title = "";
-				while (title == null || title.isEmpty()) {
-					title = JOptionPane.showInputDialog(null, "Introduce el título del libro:");
-					if (title == null || title.isEmpty()) {
-						JOptionPane.showMessageDialog(null, "Debes introducir un título válido", "Advertencia",
-								JOptionPane.WARNING_MESSAGE);
-					}
-				}
-
-				String descripcion = "";
-				while (descripcion == null || descripcion.isEmpty()) {
-					descripcion = JOptionPane.showInputDialog(null, "Introduce la descripción del libro:");
-					if (descripcion == null || descripcion.isEmpty()) {
-						JOptionPane.showMessageDialog(null, "Debes introducir una descripción válida", "Advertencia",
-								JOptionPane.WARNING_MESSAGE);
-					}
-				}
-
-				Float precio = null;
-				while (precio == null) {
-					String precioString = JOptionPane.showInputDialog(null, "Introduce el precio del libro:");
-					if (precioString == null || precioString.trim().isEmpty()) {
-						JOptionPane.showMessageDialog(null, "Debes introducir un precio válido", "Advertencia",
-								JOptionPane.WARNING_MESSAGE);
-					} else {
-						try {
-							precio = Float.parseFloat(precioString);
-						} catch (NumberFormatException e1) {
-							JOptionPane.showMessageDialog(null, "Debes introducir un precio válido", "Advertencia",
-									JOptionPane.WARNING_MESSAGE);
-						}
-					}
-				}
-
-				String[] opciones = { "Alquilar", "Comprar" };
-
-				while (true) {
-					int opcion = JOptionPane.showOptionDialog(null, "¿Desea alquilar o comprar?", "Opciones",
-							JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null,
-							new String[] { "Alquilar", "Comprar" }, null);
-
-					if (opcion == JOptionPane.YES_OPTION) {
-						System.out.println("Alquilando");
-						System.out.println(opcion);
-						LibroDTO nuevoLibro = new LibroDTO(title, descripcion, precio, "Alquilar");
-						System.out.println(nuevoLibro);
-
-						break;
-					} else if (opcion == JOptionPane.NO_OPTION) {
-						System.out.println("Comprando");
-						System.out.println(opcion);
-						LibroDTO nuevoLibro = new LibroDTO(title, descripcion, precio, "Comprar");
-						System.out.println(nuevoLibro);
-						break;
-					} else if (opcion == JOptionPane.CLOSED_OPTION) {
-						System.out.println(opcion);
-						JOptionPane.showMessageDialog(null, "Debe seleccionar una opción.");
-					}
-
-				}
+				AnadirLibroOptionPane a = new AnadirLibroOptionPane();
+//				
+////				System.out.println("HOLAAAAAA");
+////				String title = JOptionPane.showInputDialog(null, "Introduce el título del libro:");
+////				String descripcion = JOptionPane.showInputDialog(null, "Introduce la descripcion del libro:");
+////				Float precio = Float.parseFloat(JOptionPane.showInputDialog(null, "Introduce el precio del libro:"));
+//				String title = "";
+//				while (title == null || title.isEmpty()) {
+//					title = JOptionPane.showInputDialog(null, "Introduce el título del libro:");
+//					if (title == null || title.isEmpty()) {
+//						JOptionPane.showMessageDialog(null, "Debes introducir un título válido", "Advertencia",
+//								JOptionPane.WARNING_MESSAGE);
+//					}
+//				}
+//
+//				String descripcion = "";
+//				while (descripcion == null || descripcion.isEmpty()) {
+//					descripcion = JOptionPane.showInputDialog(null, "Introduce la descripción del libro:");
+//					if (descripcion == null || descripcion.isEmpty()) {
+//						JOptionPane.showMessageDialog(null, "Debes introducir una descripción válida", "Advertencia",
+//								JOptionPane.WARNING_MESSAGE);
+//					}
+//				}
+//
+//				Float precio = null;
+//				while (precio == null) {
+//					String precioString = JOptionPane.showInputDialog(null, "Introduce el precio del libro:");
+//					if (precioString == null || precioString.trim().isEmpty()) {
+//						JOptionPane.showMessageDialog(null, "Debes introducir un precio válido", "Advertencia",
+//								JOptionPane.WARNING_MESSAGE);
+//					} else {
+//						try {
+//							precio = Float.parseFloat(precioString);
+//						} catch (NumberFormatException e1) {
+//							JOptionPane.showMessageDialog(null, "Debes introducir un precio válido", "Advertencia",
+//									JOptionPane.WARNING_MESSAGE);
+//						}
+//					}
+//				}
+//
+//				String[] opciones = { "Alquilar", "Comprar" };
+//
+//				while (true) {
+//					int opcion = JOptionPane.showOptionDialog(null, "¿Desea alquilar o comprar?", "Opciones",
+//							JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null,
+//							new String[] { "Alquilar", "Comprar" }, null);
+//
+//					if (opcion == JOptionPane.YES_OPTION) {
+//						System.out.println("Alquilando");
+//						System.out.println(opcion);
+//						LibroDTO nuevoLibro = new LibroDTO(title, descripcion, precio, "Alquilar");
+//						System.out.println(nuevoLibro);
+//
+//						break;
+//					} else if (opcion == JOptionPane.NO_OPTION) {
+//						System.out.println("Comprando");
+//						System.out.println(opcion);
+//						LibroDTO nuevoLibro = new LibroDTO(title, descripcion, precio, "Comprar");
+//						System.out.println(nuevoLibro);
+//						break;
+//					} else if (opcion == JOptionPane.CLOSED_OPTION) {
+//						System.out.println(opcion);
+//						JOptionPane.showMessageDialog(null, "Debe seleccionar una opción.");
+//					}
+//
+//				}
 
 			}
 		});

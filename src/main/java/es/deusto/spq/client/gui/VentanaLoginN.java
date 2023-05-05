@@ -47,7 +47,7 @@ public class VentanaLoginN extends JFrame {
 	private JLabel lblStravaCopyright;
 	protected static final Logger logger = LogManager.getLogger();
 
-	public VentanaLoginN(ExampleClient exampleClient) {
+	public VentanaLoginN() {
 
 		setBounds(100, 100, 1160, 761);
 		setLocationRelativeTo(null);
@@ -152,7 +152,7 @@ public class VentanaLoginN extends JFrame {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 
-				boolean bool = exampleClient.loginUser(txtUsuario.getText(), passContraseya.getText());
+				boolean bool = ExampleClient.getInstance().loginUser(txtUsuario.getText(), passContraseya.getText());
 				logger.info("Usuario:" + txtUsuario.getText() + " " + passContraseya.getText());
 
 				if (bool) {

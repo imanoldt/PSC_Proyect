@@ -21,7 +21,7 @@ public class VentanaLoginNTest {
 	@Before
 	public void setUp() {
 		MockitoAnnotations.initMocks(this);
-		ventanaLogin = new VentanaLoginN(exampleClient);
+		ventanaLogin = new VentanaLoginN();
 	}
 	
 	@Test

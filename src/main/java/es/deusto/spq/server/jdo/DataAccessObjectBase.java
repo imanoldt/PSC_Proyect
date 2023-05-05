@@ -29,10 +29,10 @@ public class DataAccessObjectBase  {
 			pm.close();
 		}
 	}
-	public void saveObject(Object object) {
+	public boolean saveObject(Object object) {
 		PersistenceManager pm = pmf.getPersistenceManager();
 		Transaction tx = pm.currentTransaction();
-		
+		boolean result = true;
 		try {
 			tx.begin();
 			pm.makePersistent(object);
@@ -40,14 +40,17 @@ public class DataAccessObjectBase  {
 		}catch (NucleusDataStoreException e) {
 			logger.error("NucleusDataStoreException : " + e.getMessage());
 			tx.rollback();
+			result = false;
 		}
 		catch (Exception e) {
 			logger.error("Error storing object: " + e.getMessage());
+			result = false;
 		}finally {
 			if (tx != null && tx.isActive()) {
 				tx.rollback();
 			}
 		}
 		pm.close();
+		return result;
 	}
 }
