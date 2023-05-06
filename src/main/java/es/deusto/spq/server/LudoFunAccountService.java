@@ -9,6 +9,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import es.deusto.spq.pojo.Compra;
+import es.deusto.spq.pojo.LibroDTO;
 import es.deusto.spq.pojo.UserData;
 import es.deusto.spq.server.jdo.CompraJdo;
 
@@ -22,7 +23,6 @@ import es.deusto.spq.server.jdo.LibroDAO;
 import es.deusto.spq.server.jdo.User;
 import es.deusto.spq.server.jdo.UserDAO;
 import es.deusto.spq.pojo.UserData;
-
 
 public class LudoFunAccountService {
 
@@ -45,25 +45,22 @@ public class LudoFunAccountService {
 	}
 
 	public void alquilarLibro(AlquilerDTO alquiler) {
-		
+
 		Alquiler a = new Alquiler();
 //		User u = UserDAO.getInstance().find(alquiler.getUsuario());
-		Libro l =  LibroDAO.getInstance().find(alquiler.getLibro());
+		Libro l = LibroDAO.getInstance().find(alquiler.getLibro());
 		l.setTipo("ALQUILADO");
 		logger.debug("AccountService: A punto de alquilar el siguiente libro: " + l.toString());
 		LibroDAO.getInstance().update(l);
-		
+
 		a.setFecha_compra(alquiler.getFecha_compra());
 		a.setLibro(l.getNombre());
 		a.setUsuario(alquiler.getUsuario());
-				
-		
-		AlquilerDAO.getInstance().Save(a); 
 
-		
-			
-}
-	
+		AlquilerDAO.getInstance().Save(a);
+
+	}
+
 	public boolean registerUser(UserData userData) {
 		try {
 			tx.begin();
@@ -72,7 +69,7 @@ public class LudoFunAccountService {
 			try {
 				user = pm.getObjectById(User.class, userData.getLogin());
 			} catch (Exception e) {
-				//e.printStackTrace();
+				// e.printStackTrace();
 				logger.error("Exception launched: {}", e.getMessage());
 			}
 			logger.info("User: {}", user);
@@ -127,25 +124,49 @@ public class LudoFunAccountService {
 	}
 
 	public boolean registerCompra(Compra c) {
+
+		Libro l = new Libro(c.getLibro().getNombre(), c.getLibro().getDescripccion(), c.getLibro().getPrecio(),
+				c.getLibro().getTipo());
+		l.setId(c.getLibro().getId());
+		CompraJdo compra = new CompraJdo(l, c.getUsuario());
+		compra.setBookKey(l.getId());
+		try {
+			tx.begin();
+			// logger.info("AÑADIENDO LIBRO: ",compra.getLibro().getId(),
+			// compra.getLibro().getNombre(),compra.getUsuario());
+			pm.makePersistent(compra);
+			logger.info("Purchase added: {}", compra);
+			tx.commit();
+			return true;
+		} catch (Exception e) {
+			logger.error("Exception thrown while adding purchase: {}", e.getMessage());
+			if (tx.isActive()) {
+				tx.rollback();
+			}
+			return false;
+		}
+	}
+
+	public boolean registerActualizarLibro(LibroDTO libro) {
+
+		Libro l = new Libro(libro.getNombre(),libro.getDescripccion(), libro.getPrecio(),
+				libro.getTipo());
+		l.setId(libro.getId());
 		
-		   
-		 Libro l = new Libro(c.getLibro().getNombre(), c.getLibro().getDescripccion(), c.getLibro().getPrecio(), c.getLibro().getTipo());
-		 l.setId(c.getLibro().getId());   
-		 CompraJdo compra = new CompraJdo(l, c.getUsuario());
-		  compra.setBookKey(l.getId());
-		    try {
-		        tx.begin();
-		        //logger.info("AÑADIENDO LIBRO: ",compra.getLibro().getId(),  compra.getLibro().getNombre(),compra.getUsuario());
-		        pm.makePersistent(compra);
-		        logger.info("Purchase added: {}", compra);
-		        tx.commit();
-		        return true;
-		    } catch (Exception e) {
-		        logger.error("Exception thrown while adding purchase: {}", e.getMessage());
-		        if (tx.isActive()) {
-		            tx.rollback();
-		        }
-		        return false;
-		    }
+		try {
+			tx.begin();
+			// logger.info("AÑADIENDO LIBRO: ",compra.getLibro().getId(),
+			// compra.getLibro().getNombre(),compra.getUsuario());
+			pm.makePersistent(l);
+			logger.info("Purchase added: {}", l);
+			tx.commit();
+			return true;
+		} catch (Exception e) {
+			logger.error("Exception thrown while adding purchase: {}", e.getMessage());
+			if (tx.isActive()) {
+				tx.rollback();
+			}
+			return false;
+		}
 	}
 }

@@ -141,6 +141,7 @@ public class VentanaPrincipal extends JFrame {
 					result = books.get(i);
 					System.out.println("Comprando Libro : " + books.get(libros[i]).getNombre());
 					eC.comprarLibro(books.get(libros[i]).getId(), books.get(libros[i]).getNombre(), books.get(libros[i]).getDescripccion(), result.getPrecio(),books.get(libros[i]).getTipo(), usuario);
+					eC.actualizarLibroCommprado(books.get(libros[i]).getId(), books.get(libros[i]).getNombre(), books.get(libros[i]).getDescripccion(), result.getPrecio(),books.get(libros[i]).getTipo(), usuario);
 				}	
 				for (int i = libros.length-1; i>=0 ; i--) {
 					modelo.removeRow(libros[i]);
