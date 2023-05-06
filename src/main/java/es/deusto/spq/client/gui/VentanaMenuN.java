@@ -6,6 +6,8 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableModel;
+
+import es.deusto.spq.client.ExampleClient;
 import es.deusto.spq.pojo.LibroDTO;
 
 import java.awt.BorderLayout;
@@ -24,6 +26,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.util.List;
+
 import javax.swing.JTextField;
 
 import javax.swing.JMenuBar;
@@ -37,8 +41,9 @@ public class VentanaMenuN extends JFrame {
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
 	private JTextField txInfo;
+	List<LibroDTO> books;
 	DefaultTableModel model = new DefaultTableModel(
-			new Object[] { /* "Id", */ "Nombre", "Descripcion", "Precio", "Tipo" }, 0) {
+			new Object[] { /* "Id", */ "Nombre", "Descripcion", "Precio" }, 0) {
 		private static final long serialVersionUID = 1L;
 
 		@Override
@@ -47,8 +52,8 @@ public class VentanaMenuN extends JFrame {
 		}
 	};
 	JTable tabla = new JTable(model);
-	DefaultTableModel model_2 = new DefaultTableModel(
-			new Object[] { /* "Id", */ "Nombre", "Descripcion", "Precio", "Tipo" }, 0) {
+	DefaultTableModel modelComprar = new DefaultTableModel(
+			new Object[] { /* "Id", */ "Nombre", "Descripcion", "Precio"}, 0) {
 		private static final long serialVersionUID = 1L;
 
 		@Override
@@ -56,7 +61,7 @@ public class VentanaMenuN extends JFrame {
 			return false;
 		}
 	};
-	JTable tabla_2 = new JTable(model_2);
+	JTable tabla_2 = new JTable(modelComprar);
 
 	public VentanaMenuN(String usuario, String contraseña) {
 
@@ -282,7 +287,23 @@ public class VentanaMenuN extends JFrame {
 
 			}
 		});
+		cargarDatosCompra(usuario);
+	}
+	
+	private void cargarDatosCompra(String usuario) {
+		// TODO Auto-generated method stub
+		ExampleClient eC = new ExampleClient("localhost", "8080");
+		books = eC.getBooksCompraUsuario(usuario);
+		if(books!=null) {
+			for (LibroDTO libro : books) {
+				String[] fila = {/*String.valueOf(libro.getId()),*/ libro.getNombre(), libro.getDescripccion(), String.valueOf(libro.getPrecio())};
+				modelComprar.addRow(fila);
+				System.out.println(libro.toString());
+			}
+		}else {
+			System.out.println("VACIO");
+		}
+		
 
 	}
-
 }

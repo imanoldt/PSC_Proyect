@@ -29,6 +29,7 @@ import org.apache.logging.log4j.Logger;
 import org.apache.logging.log4j.LogManager;
 import es.deusto.spq.server.jdo.Libro;
 import es.deusto.spq.server.jdo.Alquiler;
+import es.deusto.spq.server.jdo.CompraJdo;
 import es.deusto.spq.pojo.Compra;
 
 @Path("/resource")
@@ -227,6 +228,55 @@ public class Resource {
 			return Response.status(Response.Status.CONFLICT).build();
 		}
 	}
+	/**
+	 * metodo coger libros que tiene un usuario especifico comprados
+	 * @param usuario
+	 * @return
+	 */
+	@POST
+	@Path("/librosCompraU")
+	@Produces(MediaType.APPLICATION_JSON)
+	public List<Libro> getBooksCompraUsuario(String usuario) {
+
+		List<Libro> books = new ArrayList();
+		List<Long> ids = new ArrayList();
+
+		// coger ids de los libros que hay en la tabla compra con ese usuario
+		try {
+			// System.out.println("ENTRA");
+			Query query = pm.newQuery(CompraJdo.class);
+			System.out.println("QUERY:" + query);
+			query.setResult("bookKey");
+			query.setFilter("usuario == '" + usuario + "'");
+			System.out.println("QUERY2:" + query);
+			ids = (List<Long>) query.execute();
+
+		} finally {
+
+		}
+
+		// buscar los libros que tiene esos ids
+		try {
+			List<Libro> libros = new ArrayList();
+			for (int i = 0; i < ids.size(); i++) {
+
+				Query query = pm.newQuery(Libro.class);
+				System.out.println("QUERY3:" + query);
+				query.setFilter("id ==" + ids.get(i));
+				System.out.println("QUERY4:" + query);
+				libros = (List<Libro>) query.execute();
+				books.addAll(libros);
+			}
+
+		} finally {
+			pm.close();
+		}
+
+		return books;
+	}
+	
+	
+	
 	@POST
 	@Path("alquilarLibros")
 	@Consumes(MediaType.APPLICATION_JSON)
