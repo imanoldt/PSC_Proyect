@@ -155,6 +155,21 @@ public class ExampleClient {
 		}
 	}
 	
+	public List<LibroDTO> getBooksUsuarioUsuario(String usuario) {
+		WebTarget booksWebTarget = webTarget.path("librosAlquilarU");
+		Invocation.Builder invocationBuilder = booksWebTarget.request(MediaType.APPLICATION_JSON);
+
+		Response response = invocationBuilder.post(Entity.entity(usuario, MediaType.APPLICATION_JSON));
+		if (response.getStatus() != Status.OK.getStatusCode()) {
+			logger.error("Error connecting with the server. Code: {}", response.getStatus());
+			return null;
+		} else {
+			List<LibroDTO> books = response.readEntity(new GenericType<List<LibroDTO>>() {
+			});
+			logger.info("Books correctly obtained");
+			return books;
+		}
+	}
 
 	public static void main(String[] args) {
 		
@@ -258,6 +273,7 @@ public class ExampleClient {
 	public static void setPassword(String password) {
 		ExampleClient.password = password;
 	}
+	
 	
 	
 }

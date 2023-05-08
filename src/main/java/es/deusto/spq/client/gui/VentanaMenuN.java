@@ -46,7 +46,7 @@ public class VentanaMenuN extends JFrame {
 	private JTextField txInfo;
 	List<LibroDTO> books;
 	protected static final Logger logger = LogManager.getLogger();
-	DefaultTableModel model = new DefaultTableModel(new Object[] { /* "Id", */ "Nombre", "Descripcion", "Precio" }, 0) {
+	DefaultTableModel modelAlquiler = new DefaultTableModel(new Object[] { /* "Id", */ "Nombre", "Descripcion", "Precio" }, 0) {
 		private static final long serialVersionUID = 1L;
 
 		@Override
@@ -54,7 +54,7 @@ public class VentanaMenuN extends JFrame {
 			return false;
 		}
 	};
-	JTable tabla = new JTable(model);
+	JTable tabla = new JTable(modelAlquiler);
 	DefaultTableModel modelComprar = new DefaultTableModel(
 			new Object[] { /* "Id", */ "Nombre", "Descripcion", "Precio" }, 0) {
 		private static final long serialVersionUID = 1L;
@@ -291,6 +291,23 @@ public class VentanaMenuN extends JFrame {
 			}
 		});
 		cargarDatosCompra(usuario);
+		cargarDatosAlquilar(usuario);
+	}
+
+	private void cargarDatosAlquilar(String usuario) {
+		// TODO Auto-generated method stub
+		ExampleClient eC = new ExampleClient("localhost", "8080");
+		books = eC.getBooksUsuarioUsuario(usuario);
+		if (books != null) {
+			for (LibroDTO libro : books) {
+				String[] fila = { /* String.valueOf(libro.getId()), */ libro.getNombre(), libro.getDescripccion(),
+						String.valueOf(libro.getPrecio()) };
+				modelAlquiler.addRow(fila);
+				System.out.println(libro.toString());
+			}
+		} else {
+			System.out.println("VACIO");
+		}
 	}
 
 	private void cargarDatosCompra(String usuario) {

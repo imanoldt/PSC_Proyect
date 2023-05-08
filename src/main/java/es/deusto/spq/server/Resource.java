@@ -249,10 +249,10 @@ public class Resource {
 		try {
 			// System.out.println("ENTRA");
 			Query query = pm.newQuery(CompraJdo.class);
-			System.out.println("QUERY:" + query);
+			//System.out.println("QUERY:" + query);
 			query.setResult("bookKey");
 			query.setFilter("usuario == '" + usuario + "'");
-			System.out.println("QUERY2:" + query);
+			//System.out.println("QUERY2:" + query);
 			ids = (List<Long>) query.execute();
 
 		} finally {
@@ -265,8 +265,51 @@ public class Resource {
 			for (int i = 0; i < ids.size(); i++) {
 
 				Query query = pm.newQuery(Libro.class);
-				System.out.println("QUERY3:" + query);
+				//System.out.println("QUERY3:" + query);
 				query.setFilter("id ==" + ids.get(i));
+				//System.out.println("QUERY4:" + query);
+				libros = (List<Libro>) query.execute();
+				books.addAll(libros);
+			}
+
+		} finally {
+			pm.close();
+		}
+
+		return books;
+	}
+
+	
+	@POST
+	@Path("/librosAlquilarU")
+	@Produces(MediaType.APPLICATION_JSON)
+	public List<Libro> getBooksAlquilarUsuario(String usuario) {
+
+		List<Libro> books = new ArrayList();
+		List<String> titulos = new ArrayList();
+
+		// coger ids de los libros que hay en la tabla compra con ese usuario
+		try {
+			// System.out.println("ENTRA");
+			Query query = pm.newQuery(Alquiler.class);
+			query.setResult("libro");
+			query.setFilter("usuario == '" + usuario + "'");
+			System.out.println("QUERY2:" + query);
+			titulos = (List<String>) query.execute();
+			System.out.println("LONGITUD: "+ titulos.size());
+
+		} finally {
+
+		}
+
+		// buscar los libros que tiene esos ids
+		try {
+			List<Libro> libros = new ArrayList();
+			for (int i = 0; i < titulos.size(); i++) {
+				System.out.println("entra");
+				Query query = pm.newQuery(Libro.class);
+				System.out.println("QUERY3:" + query);
+				query.setFilter("nombre == '" + titulos.get(i)+"'");
 				System.out.println("QUERY4:" + query);
 				libros = (List<Libro>) query.execute();
 				books.addAll(libros);
@@ -279,6 +322,8 @@ public class Resource {
 		return books;
 	}
 
+	
+	
 	/**
 	 * Actualizar libro comprado a vendido
 	 */
