@@ -24,10 +24,7 @@ public class Alquiler {
 	private String fecha_compra;
 	
 	
-	
-	/**
-	 * constructor vacio
-	 */
+
 	public Alquiler() {
 		
 	}
