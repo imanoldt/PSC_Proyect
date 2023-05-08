@@ -14,6 +14,8 @@ import es.deusto.spq.pojo.LibroDTO;
 import java.awt.BorderLayout;
 import javax.swing.JLabel;
 import javax.swing.SwingConstants;
+import javax.swing.SwingUtilities;
+
 import java.awt.Font;
 import java.awt.Color;
 
@@ -283,12 +285,23 @@ public class VentanaMenuN extends JFrame {
 		});
 
 		mnItemEliminar.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				System.out.println("ADIOOOSSSS");
-				int id = Integer
-						.parseInt(JOptionPane.showInputDialog(null, "Introduce el ID del libro que desea eliminar:"));
+			  public void actionPerformed(ActionEvent e) {
 
-			}
+			        SwingUtilities.invokeLater(new Runnable() {
+			            public void run() {
+			                BookSelectionDialog dialog = new BookSelectionDialog(null);
+			                dialog.setVisible(true);
+
+			                String selectedBook = dialog.getSelectedBook();
+			                if (selectedBook != null) {
+			                    // Realizar la eliminación del libro aquí
+			                    System.out.println("Libro seleccionado: " + selectedBook);
+			                } else {
+			                    System.out.println("No se seleccionó ningún libro.");
+			                }
+			            }
+			        });
+			    }
 		});
 		cargarDatosCompra(usuario);
 		cargarDatosAlquilar(usuario);
@@ -309,6 +322,7 @@ public class VentanaMenuN extends JFrame {
 			System.out.println("VACIO");
 		}
 	}
+
 
 	private void cargarDatosCompra(String usuario) {
 		// TODO Auto-generated method stub

@@ -119,6 +119,20 @@ public class ExampleClient {
 	        return books;
 	    }
 	}
+	public List<LibroDTO> getAllBooks() {
+	    WebTarget booksWebTarget = webTarget.path("getBooks");
+	    Invocation.Builder invocationBuilder = booksWebTarget.request(MediaType.APPLICATION_JSON);
+
+	    Response response = invocationBuilder.get();
+	    if (response.getStatus() != Status.OK.getStatusCode()) {
+	        logger.error("Error connecting with the server. Code: {}", response.getStatus());
+	        return null;
+	    } else {
+	        List<LibroDTO> books = response.readEntity(new GenericType<List<LibroDTO>>() {});
+	        logger.info("Books correctly obtained");
+	        return books;
+	    }
+	}
 
 	public List<LibroDTO> getBooksCompra() {
 	    WebTarget booksWebTarget = webTarget.path("librosCompra");

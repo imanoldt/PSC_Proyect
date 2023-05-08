@@ -174,7 +174,7 @@ public class Resource {
 	 */
 
 	@GET
-	@Path("/libros")
+	@Path("/getBooks")
 	public List<Libro> getBooks() {
 		// obtener lista de los libros de la bbdd
 		List<Libro> books = null;
