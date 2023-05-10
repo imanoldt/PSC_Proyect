@@ -30,20 +30,31 @@ public class LudoFunAccountService {
 	private Transaction tx = null;
 	protected static final Logger logger = LogManager.getLogger();
 	private static LudoFunAccountService instance;
-
+	/**
+	 * @brief Devuelve la instancia única de LudoFunAccountService utilizando el patrón Singleton.
+	 * @details Si la instancia aún no ha sido creada, se crea una nueva instancia y se devuelve.
+	 * @return La instancia única de LudoFunAccountService.
+	 */
 	public static LudoFunAccountService getInstance() {
 		if (instance == null) {
 			instance = new LudoFunAccountService();
 		}
 		return instance;
 	}
-
+	/**
+	 * @brief Constructor de la clase LudoFunAccountService.
+	 * @details Crea una instancia de LudoFunAccountService y establece el PersistenceManager y la Transaction.
+	 */
 	public LudoFunAccountService() {
 		PersistenceManagerFactory pmf = JDOHelper.getPersistenceManagerFactory("datanucleus.properties");
 		this.pm = pmf.getPersistenceManager();
 		this.tx = pm.currentTransaction();
 	}
-
+	/**
+	 * Alquila un libro.
+	 *
+	 * @param alquiler Objeto AlquilerDTO que contiene la información del alquiler.
+	 */
 	public void alquilarLibro(AlquilerDTO alquiler) {
 
 		Alquiler a = new Alquiler();
@@ -60,7 +71,12 @@ public class LudoFunAccountService {
 		AlquilerDAO.getInstance().Save(a);
 
 	}
-
+	/**
+	 * Registra un nuevo usuario.
+	 *
+	 * @param userData Datos del usuario a registrar.
+	 * @return True si el registro es exitoso, False si el usuario ya existe.
+	 */
 	public boolean registerUser(UserData userData) {
 		try {
 			tx.begin();
@@ -90,7 +106,12 @@ public class LudoFunAccountService {
 			}
 		}
 	}
-
+	/**
+	 * Autentica a un usuario.
+	 *
+	 * @param userData Datos del usuario para la autenticación.
+	 * @return True si la autenticación es exitosa, False en caso contrario.
+	 */
 	public boolean loginUser(UserData userData) {
 		try {
 			tx.begin();
@@ -122,7 +143,12 @@ public class LudoFunAccountService {
 			}
 		}
 	}
-
+	/**
+	 * Registra una compra.
+	 *
+	 * @param c Objeto Compra que contiene los detalles de la compra.
+	 * @return True si el registro es exitoso, False en caso contrario.
+	 */
 	public boolean registerCompra(Compra c) {
 
 		Libro l = new Libro(c.getLibro().getNombre(), c.getLibro().getDescripccion(), c.getLibro().getPrecio(),
@@ -146,7 +172,12 @@ public class LudoFunAccountService {
 			return false;
 		}
 	}
-
+	/**
+	 * Actualiza la información de un libro.
+	 *
+	 * @param libro Objeto LibroDTO que contiene los nuevos detalles del libro.
+	 * @return True si la actualización es exitosa, False en caso contrario.
+	 */
 	public boolean registerActualizarLibro(LibroDTO libro) {
 
 		Libro l = new Libro(libro.getNombre(),libro.getDescripccion(), libro.getPrecio(),

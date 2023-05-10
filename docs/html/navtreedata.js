@@ -24,12 +24,30 @@
 */
 var NAVTREE =
 [
-  [ "PSC_Proyect", "index.html", ]
+  [ "PSC_Proyect", "index.html", [
+    [ "Packages", "namespaces.html", [
+      [ "Package List", "namespaces.html", null ]
+    ] ],
+    [ "Classes", "annotated.html", [
+      [ "Class List", "annotated.html", "annotated_dup" ],
+      [ "Class Index", "classes.html", null ],
+      [ "Class Hierarchy", "hierarchy.html", "hierarchy" ],
+      [ "Class Members", "functions.html", [
+        [ "All", "functions.html", "functions_dup" ],
+        [ "Functions", "functions_func.html", "functions_func" ],
+        [ "Variables", "functions_vars.html", null ]
+      ] ]
+    ] ],
+    [ "Files", "files.html", [
+      [ "File List", "files.html", "files_dup" ]
+    ] ]
+  ] ]
 ];
 
 var NAVTREEINDEX =
 [
-"index.html"
+"_alquiler_8java.html",
+"classes_1_1deusto_1_1spq_1_1server_1_1jdo_1_1_alquiler_test.html#acc9ca62becdbd35b676c74ceb449a726"
 ];
 
 var SYNCONMSG = 'click to disable panel synchronisation';
