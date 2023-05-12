@@ -178,26 +178,26 @@ public class LudoFunAccountService {
 	 * @param libro Objeto LibroDTO que contiene los nuevos detalles del libro.
 	 * @return True si la actualización es exitosa, False en caso contrario.
 	 */
-	public boolean registerActualizarLibro(LibroDTO libro) {
-
-		Libro l = new Libro(libro.getNombre(),libro.getDescripccion(), libro.getPrecio(),
-				libro.getTipo());
-		l.setId(libro.getId());
-		
-		try {
-			tx.begin();
-			// logger.info("AÑADIENDO LIBRO: ",compra.getLibro().getId(),
-			// compra.getLibro().getNombre(),compra.getUsuario());
-			pm.makePersistent(l);
-			logger.info("Purchase added: {}", l);
-			tx.commit();
-			return true;
-		} catch (Exception e) {
-			logger.error("Exception thrown while adding purchase: {}", e.getMessage());
-			if (tx.isActive()) {
-				tx.rollback();
-			}
-			return false;
-		}
-	}
+//	public boolean registerActualizarLibro(LibroDTO libro) {
+//
+//		Libro l = new Libro(libro.getNombre(),libro.getDescripccion(), libro.getPrecio(),
+//				libro.getTipo());
+//		l.setId(libro.getId());
+//		
+//		try {
+//			tx.begin();
+//			// logger.info("AÑADIENDO LIBRO: ",compra.getLibro().getId(),
+//			// compra.getLibro().getNombre(),compra.getUsuario());
+//			pm.makePersistent(l);
+//			logger.info("Purchase added: {}", l);
+//			tx.commit();
+//			return true;
+//		} catch (Exception e) {
+//			logger.error("Exception thrown while adding purchase: {}", e.getMessage());
+//			if (tx.isActive()) {
+//				tx.rollback();
+//			}
+//			return false;
+//		}
+//	}
 }

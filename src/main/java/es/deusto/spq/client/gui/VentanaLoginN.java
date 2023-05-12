@@ -13,11 +13,14 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import java.awt.Font;
 import javax.swing.border.MatteBorder;
+import javax.ws.rs.core.Response;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import es.deusto.spq.client.ExampleClient;
+import es.deusto.spq.server.LudoFunAccountService;
+import es.deusto.spq.server.LudoFunBooksService;
 import net.miginfocom.swing.MigLayout;
 import java.awt.Color;
 import java.awt.Dimension;
@@ -48,7 +51,7 @@ public class VentanaLoginN extends JFrame {
 	protected static final Logger logger = LogManager.getLogger();
 
 	public VentanaLoginN() {
-
+  
 		setBounds(100, 100, 1160, 761);
 		setLocationRelativeTo(null);
 		setVisible(true);
@@ -246,5 +249,9 @@ public class VentanaLoginN extends JFrame {
 		});
 		
 
+//		ExampleClient ec = new ExampleClient("localhost", "8080");
+//		ec.initBD();
+			
+		
 	}
 }

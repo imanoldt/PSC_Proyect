@@ -146,7 +146,9 @@ public class Resource {
 	@Path("/register")
 	public Response registerUser(UserData userData) {
 		if (LudoFunAccountService.getInstance().registerUser(userData)) {
-			LudoFunBooksService.getInstance().populateDB();
+			if (getBooks().isEmpty()) {
+				LudoFunBooksService.getInstance().populateDB();
+			}
 			return Response.ok().build();
 		} else {
 			return Response.status(Response.Status.CONFLICT).build();
@@ -332,11 +334,22 @@ public class Resource {
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response ActualizarLibrosComprado(LibroDTO libro) {
 
+		try {
+			tx.begin();
+			Libro l = null;
 
-		if (LudoFunAccountService.getInstance().registerActualizarLibro(libro)) {
+			l = pm.getObjectById(Libro.class, libro.getId());
+			l.setTipo("vendido");
+			pm.makePersistent(l);
+			logger.info("Libro actualizado: {}", l);
+			tx.commit();
+
 			return Response.ok().build();
-		} else {
-			return Response.status(Response.Status.CONFLICT).build();
+		} finally {
+			if (tx.isActive()) {
+				tx.rollback();
+			}
+			pm.close();
 		}
 
 	}
