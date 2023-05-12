@@ -56,7 +56,7 @@ public class VentanaMenuN extends JFrame {
 			return false;
 		}
 	};
-	JTable tabla = new JTable(modelAlquiler);
+	JTable tablaAlquiler = new JTable(modelAlquiler);
 	DefaultTableModel modelComprar = new DefaultTableModel(
 			new Object[] { /* "Id", */ "Nombre", "Descripcion", "Precio" }, 0) {
 		private static final long serialVersionUID = 1L;
@@ -66,7 +66,7 @@ public class VentanaMenuN extends JFrame {
 			return false;
 		}
 	};
-	JTable tabla_2 = new JTable(modelComprar);
+	JTable tablaCompra = new JTable(modelComprar);
 
 	public VentanaMenuN(String usuario, String contraseña) {
 
@@ -188,9 +188,9 @@ public class VentanaMenuN extends JFrame {
 
 		pnlSur.add(lblDevolver, "cell 15 6,alignx center,growy");
 
-		pnlPanelSur.add(new JScrollPane(tabla));
-		pnlPanelSur.add(new JScrollPane(tabla_2));
-		tabla.getTableHeader().setResizingAllowed(false);
+		pnlPanelSur.add(new JScrollPane(tablaAlquiler));
+		pnlPanelSur.add(new JScrollPane(tablaCompra));
+		tablaAlquiler.getTableHeader().setResizingAllowed(false);
 
 		lblIconAlquiler.addMouseListener(new MouseAdapter() {
 			@Override
@@ -210,7 +210,39 @@ public class VentanaMenuN extends JFrame {
 
 			}
 		});
+		
+		lblIconDevolver.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
 
+				ExampleClient eC = new ExampleClient("localhost", "8080");
+				LibroDTO result = null;
+				
+				int[] libros = tablaAlquiler.getSelectedRows();
+				
+				if(libros.length!=0) {
+					for (int i = 0; i < libros.length; i++) {
+						result = books.get(i);
+						
+						eC.DevolverLibro(books.get(libros[i]).getNombre(),usuario);
+						//eC.actualizarLibroCommprado(books.get(libros[i]).getId(), books.get(libros[i]).getNombre(), books.get(libros[i]).getDescripccion(), result.getPrecio(),books.get(libros[i]).getTipo(), usuario);
+						
+
+					}	
+					for (int i = libros.length-1; i>=0 ; i--) {
+						modelAlquiler.removeRow(libros[i]);
+					}
+								
+					JOptionPane.showMessageDialog(null, "Libro devuelto con exito ", "Devolución realizada", JOptionPane.INFORMATION_MESSAGE);
+				}else {
+					JOptionPane.showMessageDialog(null, "Seleccione un libro para devolver ", "Devolución Erronea", JOptionPane.ERROR_MESSAGE);
+				}
+				
+
+			}
+		});
+		
+		
 		mnItemAnyadir.addActionListener(new ActionListener() {
 
 			public void actionPerformed(ActionEvent e) {

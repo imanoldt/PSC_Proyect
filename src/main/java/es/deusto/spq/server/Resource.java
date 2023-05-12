@@ -355,6 +355,43 @@ public class Resource {
 	}
 
 	
+	
+	@POST
+	@Path("/DevolverLibro")
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response DevolvreLibro(AlquilerDTO a) {
+
+		 try {
+		        tx.begin();
+
+		        // Busca la tupla en la tabla Alquiler que coincida con el título de libro y el nombre de usuario
+		        Query query = pm.newQuery(Alquiler.class, "libro =='"+a.getLibro()+"' && usuario =='"+a.getUsuario()+"'");
+		        query.setUnique(true);
+		        Alquiler alquiler = (Alquiler) query.execute(a.getLibro(),a.getUsuario());
+
+		        // Si se encuentra la tupla, se elimina de la tabla Alquiler
+		        if (alquiler != null) {
+		            pm.deletePersistent(alquiler);
+		            logger.info("Tupla eliminada de la tabla Alquiler: {}", alquiler);
+		        } else {
+		            logger.warn("No se encontró ninguna tupla en la tabla Alquiler que coincida con el título de libro {} y el nombre de usuario {}", a.getLibro(), a.getUsuario());
+		        }
+
+		        tx.commit();
+		        return Response.ok().build();
+		    } catch (Exception e) {
+		        logger.error("Error en DevolverLibro", e);
+		        if (tx.isActive()) {
+		            tx.rollback();
+		        }
+		        return Response.serverError().build();
+		    } finally {
+		        pm.close();
+		    }
+
+	}
+	
+	
 	@POST
 	@Path("/ActualizarLibroAlquilado")
 	@Produces(MediaType.APPLICATION_JSON)

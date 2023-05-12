@@ -136,19 +136,23 @@ public class VentanaPrincipal extends JFrame {
 				LibroDTO result = null;
 				
 				int[] libros = tabla.getSelectedRows();
-				
-				for (int i = 0; i < libros.length; i++) {
-					result = books.get(i);
-					System.out.println("Comprando Libro : " + books.get(libros[i]).getNombre());
-					eC.comprarLibro(books.get(libros[i]).getId(), books.get(libros[i]).getNombre(), books.get(libros[i]).getDescripccion(), result.getPrecio(),books.get(libros[i]).getTipo(), usuario);
-					eC.actualizarLibroCommprado(books.get(libros[i]).getId(), books.get(libros[i]).getNombre(), books.get(libros[i]).getDescripccion(), result.getPrecio(),books.get(libros[i]).getTipo(), usuario);
-				}	
-				for (int i = libros.length-1; i>=0 ; i--) {
-					modelo.removeRow(libros[i]);
-				}
-							
-				JOptionPane.showMessageDialog(null, "Libro comprado exitosamente", "Compra realizada", JOptionPane.INFORMATION_MESSAGE);
+				if(libros.length!=0) {
+					for (int i = 0; i < libros.length; i++) {
+						result = books.get(i);
+						System.out.println("Comprando Libro : " + books.get(libros[i]).getNombre());
+						eC.comprarLibro(books.get(libros[i]).getId(), books.get(libros[i]).getNombre(), books.get(libros[i]).getDescripccion(), result.getPrecio(),books.get(libros[i]).getTipo(), usuario);
+						eC.actualizarLibroCommprado(books.get(libros[i]).getId(), books.get(libros[i]).getNombre(), books.get(libros[i]).getDescripccion(), result.getPrecio(),books.get(libros[i]).getTipo(), usuario);
+					}	
+					for (int i = libros.length-1; i>=0 ; i--) {
+						modelo.removeRow(libros[i]);
+					}
+								
+					JOptionPane.showMessageDialog(null, "Libro comprado exitosamente", "Compra realizada", JOptionPane.INFORMATION_MESSAGE);
 
+				}else {
+					JOptionPane.showMessageDialog(null, "Seleccione un libro para comprar ", "Compra Erronea", JOptionPane.ERROR_MESSAGE);
+				}
+				
 			}
 		});
 		

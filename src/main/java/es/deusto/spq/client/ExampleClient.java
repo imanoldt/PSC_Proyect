@@ -337,6 +337,24 @@ public class ExampleClient {
 		}
 
 	}
+	
+	
+	public boolean DevolverLibro( String titulo, String usuario) {
+		WebTarget registerUserWebTarget = webTarget.path("DevolverLibro");
+		Invocation.Builder invocationBuilder = registerUserWebTarget.request(MediaType.APPLICATION_JSON);
+
+		AlquilerDTO alquiler = new AlquilerDTO(titulo, usuario,"");
+		Response response = invocationBuilder.post(Entity.entity(alquiler, MediaType.APPLICATION_JSON));
+		if (response.getStatus() != Status.OK.getStatusCode()) {
+			logger.error("Error connecting with the server. Code: {}", response.getStatus());
+			return false;
+		} else {
+			logger.info("User correctly logged");
+			return true;
+		}
+		
+	}
+
 
 	public static String getUser() {
 		return user;
@@ -354,4 +372,5 @@ public class ExampleClient {
 		ExampleClient.password = password;
 	}
 
+	
 }
