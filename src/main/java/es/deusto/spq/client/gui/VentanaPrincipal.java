@@ -173,6 +173,7 @@ public class VentanaPrincipal extends JFrame {
 				 
 				 
 				 ec.alquilarLibros(result,usuario);
+				 ec.actualizarLibroAlquilado(result,usuario); 
 
 				
 			}

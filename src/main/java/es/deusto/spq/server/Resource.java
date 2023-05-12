@@ -354,6 +354,36 @@ public class Resource {
 
 	}
 
+	
+	@POST
+	@Path("/ActualizarLibroAlquilado")
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response ActualizarLibrosAlquilado(ArrayList<LibroDTO> result) {
+
+		try {
+			tx.begin();
+			Libro l = null;
+			for(LibroDTO li:result) {
+				l = pm.getObjectById(Libro.class, li.getId());
+				l.setTipo("alquilado");
+				pm.makePersistent(l);
+				logger.info("Libro actualizado: {}", l);
+				tx.commit();
+			}
+			
+			
+
+			return Response.ok().build();
+		} finally {
+			if (tx.isActive()) {
+				tx.rollback();
+			}
+			pm.close();
+		}
+
+	}
+
+	
 	@POST
 	@Path("alquilarLibros")
 	@Consumes(MediaType.APPLICATION_JSON)
