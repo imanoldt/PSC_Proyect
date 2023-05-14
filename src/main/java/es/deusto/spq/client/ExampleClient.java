@@ -305,10 +305,10 @@ public class ExampleClient {
 
 		Response response = invocationBuilder.post(Entity.entity(result, MediaType.APPLICATION_JSON));
 		if (response.getStatus() != Status.OK.getStatusCode()) {
-			logger.error("Error connecting with the server. Code: {}", response.getStatus());
+			logger.error("Error al actualizar estado del libro alquilado. Code: {}", response.getStatus());
 			return false;
 		} else {
-			logger.info("User correctly logged");
+			logger.info("Estado del libro alquilado actualizado");
 			return true;
 		}
 
@@ -329,16 +329,22 @@ public class ExampleClient {
 		l.setId(id);
 		Response response = invocationBuilder.post(Entity.entity(l, MediaType.APPLICATION_JSON));
 		if (response.getStatus() != Status.OK.getStatusCode()) {
-			logger.error("Error connecting with the server. Code: {}", response.getStatus());
+			logger.error("Error al actualizar estado del libro comprado. Code: {}", response.getStatus());
 			return false;
 		} else {
-			logger.info("User correctly logged");
+			logger.info("Estado del libro comprado actualizado");
 			return true;
 		}
 
 	}
 	
-	
+	/**
+	 *Metodo para Devolver un libro y eliminar de la tabla alquilado
+	 *Realiza una solicitud HTTP POST al servidor 
+	 * @param result lista de libros alquilados
+	 * @param usuario nombre del usuario que ha comprado el libro
+	 * @return Devuelve true si el alquiler se realizó correctamente, false en caso contrario
+	 */
 	public boolean DevolverLibro( String titulo, String usuario) {
 		WebTarget registerUserWebTarget = webTarget.path("DevolverLibro");
 		Invocation.Builder invocationBuilder = registerUserWebTarget.request(MediaType.APPLICATION_JSON);
@@ -346,15 +352,39 @@ public class ExampleClient {
 		AlquilerDTO alquiler = new AlquilerDTO(titulo, usuario,"");
 		Response response = invocationBuilder.post(Entity.entity(alquiler, MediaType.APPLICATION_JSON));
 		if (response.getStatus() != Status.OK.getStatusCode()) {
-			logger.error("Error connecting with the server. Code: {}", response.getStatus());
+			logger.error("Error al devolver un libro. Code: {}", response.getStatus());
 			return false;
 		} else {
-			logger.info("User correctly logged");
+			logger.info("Libro devuelto");
 			return true;
 		}
 		
 	}
 
+	/**
+	 * Metodo para actulizar un libro que ha sifo devuelto a "alquiler"
+	 * @param result lista de libros alquilados
+	 * @param usuario nombre del usuario que ha comprado el libro
+	 * @return Devuelve true si el alquiler se realizó correctamente, false en caso contrario
+	 */
+	public Boolean actualizarLibroDevueto(Long id) {
+		
+		WebTarget registerUserWebTarget = webTarget.path("ActualizarLibroDevuelto");
+		Invocation.Builder invocationBuilder = registerUserWebTarget.request(MediaType.APPLICATION_JSON);
+
+		
+		Response response = invocationBuilder.post(Entity.entity(id, MediaType.APPLICATION_JSON));
+		if (response.getStatus() != Status.OK.getStatusCode()) {
+			logger.error("Error al actualzar el estado de un libro devuleto. Code: {}", response.getStatus());
+			return false;
+		} else {
+			logger.info("Libro devuelto actualizado");
+			return true;
+		}
+	}
+	
+	
+	
 
 	public static String getUser() {
 		return user;
@@ -371,6 +401,8 @@ public class ExampleClient {
 	public static void setPassword(String password) {
 		ExampleClient.password = password;
 	}
+
+	
 
 	
 }

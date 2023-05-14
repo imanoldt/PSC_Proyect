@@ -29,6 +29,12 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.time.LocalDate;
+import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 import javax.swing.JTextField;
@@ -118,6 +124,13 @@ public class VentanaMenuN extends JFrame {
 
 		JMenuItem mnItemEliminar = new JMenuItem("Eliminar libro");
 		mnMenu.add(mnItemEliminar);
+		
+		JMenu mnMenuTicket = new JMenu("Ticket");
+		menuBar.add(mnMenuTicket);
+		
+		JMenuItem mntmItemGenerarT = new JMenuItem("Generar ticket");
+		
+		mnMenuTicket.add(mntmItemGenerarT);
 
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -226,7 +239,7 @@ public class VentanaMenuN extends JFrame {
 						
 						eC.DevolverLibro(books.get(libros[i]).getNombre(),usuario);
 						//eC.actualizarLibroCommprado(books.get(libros[i]).getId(), books.get(libros[i]).getNombre(), books.get(libros[i]).getDescripccion(), result.getPrecio(),books.get(libros[i]).getTipo(), usuario);
-						
+						eC.actualizarLibroDevueto(books.get(libros[i]).getId());
 
 					}	
 					for (int i = libros.length-1; i>=0 ; i--) {
@@ -335,9 +348,27 @@ public class VentanaMenuN extends JFrame {
 			        });
 			    }
 		});
+		
+		mntmItemGenerarT.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				try {
+					generarTicket(tablaCompra);
+				} catch (IOException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+			}
+		});
+		
+		
 		cargarDatosCompra(usuario);
 		cargarDatosAlquilar(usuario);
+		
+		
 	}
+	
+	
+	
 
 	private void cargarDatosAlquilar(String usuario) {
 		// TODO Auto-generated method stub
@@ -372,4 +403,46 @@ public class VentanaMenuN extends JFrame {
 		}
 
 	}
+	
+	public void generarTicket(JTable tabla) throws IOException {
+	    FileWriter fw = new FileWriter("ticket.txt");
+	    PrintWriter pw = new PrintWriter(fw);
+
+	
+	    pw.println("------------- LUDOFUN -------------");
+	    pw.println("\nFecha impresion del ticket: " + LocalDate.now());
+	    pw.println("Hora impresion del ticket: " + LocalTime.now().format(DateTimeFormatter.ofPattern("HH:mm:ss")));
+	    pw.println("---------------------------------------");
+	    pw.println("Nombre \t\t           \t\tPrecio");
+
+	 
+	    for (int i = 0; i < tabla.getRowCount(); i++) {
+	        String nombre = tabla.getValueAt(i, 0).toString();
+	        String precio = tabla.getValueAt(i, 2).toString();
+
+	        pw.printf("%-20s .......... %10s%n", nombre, precio);
+	    }
+
+	    
+	
+	    //calcular total de dinero gastado
+	  
+	    pw.println("--------------------------------\n");
+	    pw.println("TOTAL: " + calcularTotal(tabla) + "€\n");
+	    pw.printf("Gracias por su visita!\n");
+
+	   
+	    pw.close();
+	    fw.close();
+	}
+
+	private double calcularTotal(JTable tabla) {
+	    double total = 0;
+	    for (int i = 0; i < tabla.getRowCount(); i++) {
+	        double precio = Double.parseDouble(tabla.getValueAt(i, 2).toString());
+	        total += precio;
+	    }
+	    return total;
+	}
+
 }

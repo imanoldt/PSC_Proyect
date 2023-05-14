@@ -326,35 +326,22 @@ public class Resource {
 
 	
 	
-	/**
-	 * Actualizar libro comprado a vendido
-	 */
+	
+
 	@POST
-	@Path("/ActualizarLibroComprado")
-	@Produces(MediaType.APPLICATION_JSON)
-	public Response ActualizarLibrosComprado(LibroDTO libro) {
-
-		try {
-			tx.begin();
-			Libro l = null;
-
-			l = pm.getObjectById(Libro.class, libro.getId());
-			l.setTipo("vendido");
-			pm.makePersistent(l);
-			logger.info("Libro actualizado: {}", l);
-			tx.commit();
-
-			return Response.ok().build();
-		} finally {
-			if (tx.isActive()) {
-				tx.rollback();
-			}
-			pm.close();
+	@Path("alquilarLibros")
+	@Consumes(MediaType.APPLICATION_JSON)
+	public Response getLibrosAlquiladosUsuario(ArrayList<AlquilerDTO> alquileres) {
+		logger.info("Recibidos alquileres:");
+		for (AlquilerDTO alquiler : alquileres) {
+			logger.info(" " + alquiler.getUsuario() + ": " + alquiler.getLibro() + " - " + alquiler.getFecha_compra());
+			LudoFunAccountService.getInstance().alquilarLibro(alquiler);
 		}
+
+		return Response.ok("//TODO ALQUILAR LIBROS").build();
 
 	}
 
-	
 	
 	@POST
 	@Path("/DevolverLibro")
@@ -391,6 +378,33 @@ public class Resource {
 
 	}
 	
+	/**
+	 * Actualizar libro comprado a vendido
+	 */
+	@POST
+	@Path("/ActualizarLibroComprado")
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response ActualizarLibrosComprado(LibroDTO libro) {
+
+		try {
+			tx.begin();
+			Libro l = null;
+
+			l = pm.getObjectById(Libro.class, libro.getId());
+			l.setTipo("vendido");
+			pm.makePersistent(l);
+			logger.info("Libro actualizado: {}", l);
+			tx.commit();
+
+			return Response.ok().build();
+		} finally {
+			if (tx.isActive()) {
+				tx.rollback();
+			}
+			pm.close();
+		}
+
+	}
 	
 	@POST
 	@Path("/ActualizarLibroAlquilado")
@@ -422,19 +436,30 @@ public class Resource {
 
 	
 	@POST
-	@Path("alquilarLibros")
-	@Consumes(MediaType.APPLICATION_JSON)
-	public Response getLibrosAlquiladosUsuario(ArrayList<AlquilerDTO> alquileres) {
-		logger.info("Recibidos alquileres:");
-		for (AlquilerDTO alquiler : alquileres) {
-			logger.info(" " + alquiler.getUsuario() + ": " + alquiler.getLibro() + " - " + alquiler.getFecha_compra());
-			LudoFunAccountService.getInstance().alquilarLibro(alquiler);
+	@Path("/ActualizarLibroDevuelto")
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response ActualizarLibrosDevuelto(long id) {
+
+		try {
+			tx.begin();
+			Libro l = null;
+
+			l = pm.getObjectById(Libro.class, id);
+			l.setTipo("alquiler");
+			pm.makePersistent(l);
+			logger.info("Libro actualizado: {}", l);
+			tx.commit();
+
+			return Response.ok().build();
+		} finally {
+			if (tx.isActive()) {
+				tx.rollback();
+			}
+			pm.close();
 		}
-
-		return Response.ok("//TODO ALQUILAR LIBROS").build();
-
 	}
 
+	
 	@GET
 	@Path("/hello")
 	@Produces(MediaType.TEXT_PLAIN)

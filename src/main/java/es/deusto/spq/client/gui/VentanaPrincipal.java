@@ -33,7 +33,7 @@ public class VentanaPrincipal extends JFrame {
 	JPanel contentPane, panel, panel_1;
 	JLabel lblLogo;
 	JLabel lblTablaLibros = new JLabel("TABLA LIBROS");
-	DefaultTableModel modelo = new DefaultTableModel(new Object[] {/*"Id",*/ "Nombre", "Descripcion", "Precio","Tipo" }, 0);
+	DefaultTableModel modelo = new DefaultTableModel(new Object[] {/*"Id",*/ "Nombre", "Descripcion", "Precio"}, 0);
 	JTable tabla = new JTable(modelo);
 	JButton btnNewButton;
 	private JPanel panel_2;
@@ -208,7 +208,7 @@ public class VentanaPrincipal extends JFrame {
 		ExampleClient eC = new ExampleClient("localhost", "8080");
 		books = eC.getBooksAlquiler();
 		for (LibroDTO libro : books) {
-			String[] fila = { libro.getNombre(), libro.getDescripccion(), String.valueOf(libro.getPrecio()),libro.getTipo() };
+			String[] fila = { libro.getNombre(), libro.getDescripccion(), String.valueOf(libro.getPrecio()) };
 			modelo.addRow(fila);
 			//System.out.println(libro.toString());
 			
@@ -221,7 +221,7 @@ public class VentanaPrincipal extends JFrame {
 		ExampleClient eC = new ExampleClient("localhost", "8080");
 		books = eC.getBooksCompra();
 		for (LibroDTO libro : books) {
-			String[] fila = {/*String.valueOf(libro.getId()),*/ libro.getNombre(), libro.getDescripccion(), String.valueOf(libro.getPrecio()),libro.getTipo() };
+			String[] fila = {/*String.valueOf(libro.getId()),*/ libro.getNombre(), libro.getDescripccion(), String.valueOf(libro.getPrecio())};
 			modelo.addRow(fila);
 			System.out.println(libro.toString());
 		}
