@@ -13,7 +13,7 @@ import java.util.List;
 
 public class BookSelectionDialog extends JDialog {
     private JTable table;
-    private JButton selectButton;
+    private JButton bntAceptar;
 	List<LibroDTO> books;
     private DefaultTableModel tableModel;
 
@@ -32,20 +32,33 @@ public class BookSelectionDialog extends JDialog {
         JScrollPane scrollPane = new JScrollPane(table);
 
       
-        selectButton = new JButton("Aceptar");
-        selectButton.addActionListener(new ActionListener() {
+        bntAceptar = new JButton("Aceptar");
+        bntAceptar.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                int selectedRow = table.getSelectedRow();
-                if (selectedRow != -1) {
-                    selectedBook = (String) table.getValueAt(selectedRow, 0);
-                }
-                dispose();
+
+				ExampleClient eC = new ExampleClient("localhost", "8080");
+				LibroDTO result = null;
+				
+				int[] libros = table.getSelectedRows();
+				
+				for (int i = 0; i < libros.length; i++) {
+					result = books.get(i);
+					eC.borrarLibro(books.get(libros[i]).getId());
+					
+				}	
+				for (int i = libros.length-1; i>=0 ; i--) {
+					tableModel.removeRow(libros[i]);
+				}
+							
+				JOptionPane.showMessageDialog(null, "Libro borrado con exito", "Borrado realizado", JOptionPane.INFORMATION_MESSAGE);
+
+                //dispose();
             }
         });
 
         JPanel buttonPanel = new JPanel();
-        buttonPanel.add(selectButton);
+        buttonPanel.add(bntAceptar);
 
         getContentPane().setLayout(new BorderLayout());
         getContentPane().add(scrollPane, BorderLayout.CENTER);

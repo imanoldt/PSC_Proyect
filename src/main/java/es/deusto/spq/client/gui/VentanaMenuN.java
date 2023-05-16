@@ -434,6 +434,9 @@ public class VentanaMenuN extends JFrame {
 	   
 	    pw.close();
 	    fw.close();
+	    JOptionPane.showMessageDialog(null, "Ticket generado", "Ticket", JOptionPane.INFORMATION_MESSAGE);
+
+		
 	}
 
 	private double calcularTotal(JTable tabla) {

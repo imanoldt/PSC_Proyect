@@ -296,7 +296,7 @@ public class ExampleClient {
 	 * Metodo para actualizar un libro ya alquilado a "alquilado"
 	 * @param result lista de libros alquilados
 	 * @param usuario nombre del usuario que ha comprado el libro
-	 * @return Devuelve true si el alquiler se realizó correctamente, false en caso contrario
+	 * @return Devuelve true si la actualizacion se realizó correctamente, false en caso contrario
 	 */
 	public boolean actualizarLibroAlquilado(ArrayList<LibroDTO> result, String usuario) {
 
@@ -318,7 +318,7 @@ public class ExampleClient {
 	 * Metodo para actulizar un libro ya alquilado a "alquilado"
 	 * @param result lista de libros alquilados
 	 * @param usuario nombre del usuario que ha comprado el libro
-	 * @return Devuelve true si el alquiler se realizó correctamente, false en caso contrario
+	 * @return Devuelve true si la actualizacion se realizó correctamente, false en caso contrario
 	 */
 	public boolean actualizarLibroCommprado(long id, String titulo, String descrip, float precio, String tipo,
 			String usuario) {
@@ -343,7 +343,7 @@ public class ExampleClient {
 	 *Realiza una solicitud HTTP POST al servidor 
 	 * @param result lista de libros alquilados
 	 * @param usuario nombre del usuario que ha comprado el libro
-	 * @return Devuelve true si el alquiler se realizó correctamente, false en caso contrario
+	 * @return Devuelve true si la devolución se realizó correctamente, false en caso contrario
 	 */
 	public boolean DevolverLibro( String titulo, String usuario) {
 		WebTarget registerUserWebTarget = webTarget.path("DevolverLibro");
@@ -365,7 +365,7 @@ public class ExampleClient {
 	 * Metodo para actulizar un libro que ha sifo devuelto a "alquiler"
 	 * @param result lista de libros alquilados
 	 * @param usuario nombre del usuario que ha comprado el libro
-	 * @return Devuelve true si el alquiler se realizó correctamente, false en caso contrario
+	 * @return Devuelve true si se actualizó correctamente, false en caso contrario
 	 */
 	public Boolean actualizarLibroDevueto(Long id) {
 		
@@ -384,7 +384,28 @@ public class ExampleClient {
 	}
 	
 	
-	
+
+	/**
+	 * Metodo para borrar un libro 
+	 * @param result lista de libros alquilados
+	 * @param usuario nombre del usuario que ha comprado el libro
+	 * @return Devuelve true si el borrado se realizó correctamente, false en caso contrario
+	 */
+	public Boolean borrarLibro(Long id) {
+		WebTarget registerUserWebTarget = webTarget.path("BorrarLibro");
+		Invocation.Builder invocationBuilder = registerUserWebTarget.request(MediaType.APPLICATION_JSON);
+
+		
+		Response response = invocationBuilder.post(Entity.entity(id, MediaType.APPLICATION_JSON));
+		if (response.getStatus() != Status.OK.getStatusCode()) {
+			logger.error("Error al actualzar el estado de un libro devuleto. Code: {}", response.getStatus());
+			return false;
+		} else {
+			logger.info("Libro devuelto actualizado");
+			return true;
+		}
+		
+	}
 
 	public static String getUser() {
 		return user;

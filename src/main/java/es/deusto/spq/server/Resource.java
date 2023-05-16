@@ -459,6 +459,31 @@ public class Resource {
 		}
 	}
 
+
+	@POST
+	@Path("/BorrarLibro")
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response EliminarLibro(long id) {
+	    try {
+	        tx.begin();
+	        Libro l = pm.getObjectById(Libro.class, id);
+
+	        // Verifica si se encontró el objeto Libro en la base de datos
+	        if (l != null) {
+	            pm.deletePersistent(l);
+	            logger.info("Libro eliminado: {}", l);
+	            tx.commit();
+	            return Response.ok().build();
+	        } else {
+	        	return Response.serverError().build(); }
+	    } finally {
+	        if (tx.isActive()) {
+	            tx.rollback();
+	        }
+	        pm.close();
+	    }
+	}
+	
 	
 	@GET
 	@Path("/hello")
