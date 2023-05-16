@@ -24,6 +24,8 @@ import java.awt.Image;
 import net.miginfocom.swing.MigLayout;
 
 import javax.swing.ImageIcon;
+import javax.swing.JFileChooser;
+
 import java.awt.Cursor;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -405,6 +407,10 @@ public class VentanaMenuN extends JFrame {
 	}
 	
 	public void generarTicket(JTable tabla) throws IOException {
+		
+		JFileChooser fileChooser = new JFileChooser();
+		fileChooser.setDialogTitle("Guardar archivo CSV");
+		
 	    FileWriter fw = new FileWriter("ticket.txt");
 	    PrintWriter pw = new PrintWriter(fw);
 

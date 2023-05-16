@@ -175,6 +175,20 @@ public class Resource {
 	 * Response.status(Response.Status.UNAUTHORIZED).build(); } }
 	 */
 
+//	@GET
+//	@Path("/getBooks")
+//	public List<Libro> getBooks() {
+//		// obtener lista de los libros de la bbdd
+//		List<Libro> books = null;
+//		try {
+//			Query query = pm.newQuery(Libro.class);
+//			books = (List<Libro>) query.execute();
+//		} finally {
+//			pm.close();
+//		}
+//		return books;
+//	}
+	
 	@GET
 	@Path("/getBooks")
 	public List<Libro> getBooks() {
@@ -182,10 +196,12 @@ public class Resource {
 		List<Libro> books = null;
 		try {
 			Query query = pm.newQuery(Libro.class);
+			query.setFilter("tipo == 'alquiler' || tipo == 'compra'");
 			books = (List<Libro>) query.execute();
 		} finally {
 			pm.close();
 		}
+		
 		return books;
 	}
 
