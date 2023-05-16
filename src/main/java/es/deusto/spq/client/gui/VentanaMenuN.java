@@ -5,6 +5,7 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.border.EmptyBorder;
+import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.swing.table.DefaultTableModel;
 
 import es.deusto.spq.client.ClientController;
@@ -31,6 +32,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -56,7 +58,8 @@ public class VentanaMenuN extends JFrame {
 	private JTextField txInfo;
 	List<LibroDTO> books;
 	protected static final Logger logger = LogManager.getLogger();
-	DefaultTableModel modelAlquiler = new DefaultTableModel(new Object[] { /* "Id", */ "Nombre", "Descripcion", "Precio" }, 0) {
+	DefaultTableModel modelAlquiler = new DefaultTableModel(
+			new Object[] { /* "Id", */ "Libro Alquilado", "Descripción", "Precio" }, 0) {
 		private static final long serialVersionUID = 1L;
 
 		@Override
@@ -66,7 +69,7 @@ public class VentanaMenuN extends JFrame {
 	};
 	JTable tablaAlquiler = new JTable(modelAlquiler);
 	DefaultTableModel modelComprar = new DefaultTableModel(
-			new Object[] { /* "Id", */ "Nombre", "Descripcion", "Precio" }, 0) {
+			new Object[] { /* "Id", */ "Libro Comprado", "Descripción", "Precio" }, 0) {
 		private static final long serialVersionUID = 1L;
 
 		@Override
@@ -126,12 +129,12 @@ public class VentanaMenuN extends JFrame {
 
 		JMenuItem mnItemEliminar = new JMenuItem("Eliminar libro");
 		mnMenu.add(mnItemEliminar);
-		
+
 		JMenu mnMenuTicket = new JMenu("Ticket");
 		menuBar.add(mnMenuTicket);
-		
+
 		JMenuItem mntmItemGenerarT = new JMenuItem("Generar ticket");
-		
+
 		mnMenuTicket.add(mntmItemGenerarT);
 
 		contentPane = new JPanel();
@@ -225,39 +228,38 @@ public class VentanaMenuN extends JFrame {
 
 			}
 		});
-		
+
 		lblIconDevolver.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 
 				ExampleClient eC = new ExampleClient("localhost", "8080");
 				LibroDTO result = null;
-				
+
 				int[] libros = tablaAlquiler.getSelectedRows();
-				
-				if(libros.length!=0) {
+
+				if (libros.length != 0) {
 					for (int i = 0; i < libros.length; i++) {
 						result = books.get(i);
-						
-						eC.DevolverLibro(books.get(libros[i]).getNombre(),usuario);
-						//eC.actualizarLibroCommprado(books.get(libros[i]).getId(), books.get(libros[i]).getNombre(), books.get(libros[i]).getDescripccion(), result.getPrecio(),books.get(libros[i]).getTipo(), usuario);
+
+						eC.DevolverLibro(books.get(libros[i]).getNombre(), usuario);
 						eC.actualizarLibroDevueto(books.get(libros[i]).getId());
 
-					}	
-					for (int i = libros.length-1; i>=0 ; i--) {
+					}
+					for (int i = libros.length - 1; i >= 0; i--) {
 						modelAlquiler.removeRow(libros[i]);
 					}
-								
-					JOptionPane.showMessageDialog(null, "Libro devuelto con exito ", "Devolución realizada", JOptionPane.INFORMATION_MESSAGE);
-				}else {
-					JOptionPane.showMessageDialog(null, "Seleccione un libro para devolver ", "Devolución Erronea", JOptionPane.ERROR_MESSAGE);
+
+					JOptionPane.showMessageDialog(null, "Libro devuelto con exito ", "Devolución realizada",
+							JOptionPane.INFORMATION_MESSAGE);
+				} else {
+					JOptionPane.showMessageDialog(null, "Seleccione un libro para devolver ", "Devolución Erronea",
+							JOptionPane.ERROR_MESSAGE);
 				}
-				
 
 			}
 		});
-		
-		
+
 		mnItemAnyadir.addActionListener(new ActionListener() {
 
 			public void actionPerformed(ActionEvent e) {
@@ -332,25 +334,25 @@ public class VentanaMenuN extends JFrame {
 		});
 
 		mnItemEliminar.addActionListener(new ActionListener() {
-			  public void actionPerformed(ActionEvent e) {
+			public void actionPerformed(ActionEvent e) {
 
-			        SwingUtilities.invokeLater(new Runnable() {
-			            public void run() {
-			                BookSelectionDialog dialog = new BookSelectionDialog(null);
-			                dialog.setVisible(true);
+				SwingUtilities.invokeLater(new Runnable() {
+					public void run() {
+						BookSelectionDialog dialog = new BookSelectionDialog(null);
+						dialog.setVisible(true);
 
-			                String selectedBook = dialog.getSelectedBook();
-			                if (selectedBook != null) {
-			                    // Realizar la eliminación del libro aquí
-			                    System.out.println("Libro seleccionado: " + selectedBook);
-			                } else {
-			                    System.out.println("No se seleccionó ningún libro.");
-			                }
-			            }
-			        });
-			    }
+						String selectedBook = dialog.getSelectedBook();
+						if (selectedBook != null) {
+							// Realizar la eliminación del libro aquí
+							System.out.println("Libro seleccionado: " + selectedBook);
+						} else {
+							System.out.println("No se seleccionó ningún libro.");
+						}
+					}
+				});
+			}
 		});
-		
+
 		mntmItemGenerarT.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				try {
@@ -361,16 +363,11 @@ public class VentanaMenuN extends JFrame {
 				}
 			}
 		});
-		
-		
+
 		cargarDatosCompra(usuario);
 		cargarDatosAlquilar(usuario);
-		
-		
+
 	}
-	
-	
-	
 
 	private void cargarDatosAlquilar(String usuario) {
 		// TODO Auto-generated method stub
@@ -378,8 +375,7 @@ public class VentanaMenuN extends JFrame {
 		books = eC.getBooksUsuarioUsuario(usuario);
 		if (books != null) {
 			for (LibroDTO libro : books) {
-				String[] fila = { /* String.valueOf(libro.getId()), */ libro.getNombre(), libro.getDescripccion(),
-						String.valueOf(libro.getPrecio()) };
+				String[] fila = { libro.getNombre(), libro.getDescripccion(), String.valueOf(libro.getPrecio()) };
 				modelAlquiler.addRow(fila);
 				System.out.println(libro.toString());
 			}
@@ -388,15 +384,13 @@ public class VentanaMenuN extends JFrame {
 		}
 	}
 
-
 	private void cargarDatosCompra(String usuario) {
 		// TODO Auto-generated method stub
 		ExampleClient eC = new ExampleClient("localhost", "8080");
 		books = eC.getBooksCompraUsuario(usuario);
 		if (books != null) {
 			for (LibroDTO libro : books) {
-				String[] fila = { /* String.valueOf(libro.getId()), */ libro.getNombre(), libro.getDescripccion(),
-						String.valueOf(libro.getPrecio()) };
+				String[] fila = { libro.getNombre(), libro.getDescripccion(), String.valueOf(libro.getPrecio()) };
 				modelComprar.addRow(fila);
 				System.out.println(libro.toString());
 			}
@@ -405,53 +399,54 @@ public class VentanaMenuN extends JFrame {
 		}
 
 	}
-	
+
 	public void generarTicket(JTable tabla) throws IOException {
-		
 		JFileChooser fileChooser = new JFileChooser();
-		fileChooser.setDialogTitle("Guardar archivo CSV");
-		
-	    FileWriter fw = new FileWriter("ticket.txt");
-	    PrintWriter pw = new PrintWriter(fw);
+		fileChooser.setDialogTitle("Guardar archivo TXT");
+		fileChooser.setFileFilter(new FileNameExtensionFilter("Archivos de texto (*.txt)", "txt"));
 
-	
-	    pw.println("------------- LUDOFUN -------------");
-	    pw.println("\nFecha impresion del ticket: " + LocalDate.now());
-	    pw.println("Hora impresion del ticket: " + LocalTime.now().format(DateTimeFormatter.ofPattern("HH:mm:ss")));
-	    pw.println("---------------------------------------");
-	    pw.println("Nombre \t\t           \t\tPrecio");
+		int userSelection = fileChooser.showSaveDialog(null);
 
-	 
-	    for (int i = 0; i < tabla.getRowCount(); i++) {
-	        String nombre = tabla.getValueAt(i, 0).toString();
-	        String precio = tabla.getValueAt(i, 2).toString();
+		if (userSelection == JFileChooser.APPROVE_OPTION) {
 
-	        pw.printf("%-20s .......... %10s%n", nombre, precio);
-	    }
+			File fileToSave = fileChooser.getSelectedFile();
 
-	    
-	
-	    //calcular total de dinero gastado
-	  
-	    pw.println("--------------------------------\n");
-	    pw.println("TOTAL: " + calcularTotal(tabla) + "€\n");
-	    pw.printf("Gracias por su visita!\n");
+			FileWriter fw = new FileWriter(fileToSave + ".txt");
+			PrintWriter pw = new PrintWriter(fw);
 
-	   
-	    pw.close();
-	    fw.close();
-	    JOptionPane.showMessageDialog(null, "Ticket generado", "Ticket", JOptionPane.INFORMATION_MESSAGE);
+			pw.println("------------- LUDOFUN -------------");
+			pw.println("\nFecha impresion del ticket: " + LocalDate.now());
+			pw.println("Hora impresion del ticket: " + LocalTime.now().format(DateTimeFormatter.ofPattern("HH:mm:ss")));
+			pw.println("---------------------------------------");
+			pw.println("Nombre \t\t           \t\tPrecio");
 
-		
+			for (int i = 0; i < tabla.getRowCount(); i++) {
+				String nombre = tabla.getValueAt(i, 0).toString();
+				String precio = tabla.getValueAt(i, 2).toString();
+
+				pw.printf("%-20s ....... %10s%n", nombre, precio);
+			}
+			// calcular total de dinero gastado
+			pw.println("--------------------------------\n");
+			pw.println("TOTAL: " + calcularTotal(tabla) + "€\n");
+			pw.printf("Gracias por su visita!\n");
+
+			pw.close();
+			fw.close();
+		} else if (userSelection == JFileChooser.CANCEL_OPTION) {
+			JOptionPane.showMessageDialog(null, "Operación de generación de ticket cancelada", "Cancelado",
+					JOptionPane.WARNING_MESSAGE);
+		}
+		JOptionPane.showMessageDialog(null, "Ticket generado", "Ticket", JOptionPane.INFORMATION_MESSAGE);
 	}
 
 	private double calcularTotal(JTable tabla) {
-	    double total = 0;
-	    for (int i = 0; i < tabla.getRowCount(); i++) {
-	        double precio = Double.parseDouble(tabla.getValueAt(i, 2).toString());
-	        total += precio;
-	    }
-	    return total;
+		double total = 0;
+		for (int i = 0; i < tabla.getRowCount(); i++) {
+			double precio = Double.parseDouble(tabla.getValueAt(i, 2).toString());
+			total += precio;
+		}
+		return total;
 	}
 
 }
