@@ -42,5 +42,15 @@ public class LibroDTOTest {
 		assertEquals("Libro [nombre=" + lib.getNombre() + ", descripccion=" + lib.getDescripccion() + ", precio=" + lib.getPrecio() + "]",
 				lib.toString());
 	}
+	
+	@Test
+	public void testGetId() {
+		assertEquals((long)1, lib.getId(),1);
+	}
+	
+	@Test
+	public void testGetTipo() {
+		assertEquals("Novela", lib.getTipo());
+	}
 
 }
