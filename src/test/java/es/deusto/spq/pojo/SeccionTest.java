@@ -9,7 +9,7 @@ import org.mockito.Mock;
 
 public class SeccionTest {
 
-	@Mock
+
 	Seccion secc;
 	@Before
 	public void setUp() throws Exception {

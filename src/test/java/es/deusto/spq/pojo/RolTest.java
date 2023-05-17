@@ -9,7 +9,6 @@ import org.mockito.Mock;
 
 public class RolTest {
 
-	@Mock
 	Rol rol;
 	@Before
 	public void setUp() throws Exception {

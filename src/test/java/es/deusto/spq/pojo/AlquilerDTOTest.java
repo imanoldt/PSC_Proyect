@@ -10,17 +10,15 @@ import org.junit.Test;
 import org.mockito.Mock;
 
 public class AlquilerDTOTest {
-	@Mock
+
     AlquilerDTO alquiler;
-	@Mock
     LibroDTO libro;
-    private String usuario;
-    private String fecha;
+    String usuario;
+    String fecha;
 
     @Before
     public void setUp() {
-        libro = mock(LibroDTO.class);
-        when(libro.getNombre()).thenReturn("Libro 1");
+        libro = new LibroDTO();
         
         alquiler = new AlquilerDTO();
         alquiler.setLibro("lib");

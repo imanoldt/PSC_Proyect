@@ -11,15 +11,14 @@ import static org.mockito.Mockito.when;
 
 public class CompraTest {
 
-    @Mock
-    private LibroDTO libroMock;
+    private LibroDTO libro;
 
     private Compra compra;
 
     @Before
     public void setUp() {
-        MockitoAnnotations.initMocks(this);
-        compra = new Compra(libroMock, "usuario");
+    	libro = new LibroDTO();
+        compra = new Compra(libro, "usuario");
     }
     @Test
     public void testCompra() {
@@ -28,7 +27,7 @@ public class CompraTest {
     }
     @Test
     public void testGetLibro() {
-        assertEquals(libroMock, compra.getLibro());
+        assertEquals(libro, compra.getLibro());
     }
 
     @Test

@@ -9,7 +9,6 @@ import org.mockito.Mock;
 
 public class CategoriaTest {
 
-	@Mock
 	Categoria categoria;
 	@Before
 	public void setUp() throws Exception {

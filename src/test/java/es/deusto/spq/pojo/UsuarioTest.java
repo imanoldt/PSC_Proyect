@@ -7,12 +7,13 @@ import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 import static org.mockito.Mockito.*;
 
 @RunWith(MockitoJUnitRunner.class)
 public class UsuarioTest {
 
-    @Mock
+  
     private Usuario usuario;
 
     private String testName = "Test Name";
@@ -22,7 +23,10 @@ public class UsuarioTest {
     public void setUp() {
         usuario = new Usuario(testName, testPassword);
     }
-
+    @Test
+    public void testUSU() {
+        assertNotNull(new Usuario());
+    }
     @Test
     public void testGetName() {
         assertEquals(testName, usuario.getName());
