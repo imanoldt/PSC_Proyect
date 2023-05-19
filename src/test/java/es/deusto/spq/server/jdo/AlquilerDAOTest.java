@@ -10,8 +10,8 @@ import es.deusto.spq.client.ClientController;
 
 public class AlquilerDAOTest {
 
-	AlquilerDAO alq;
-	AlquilerDAO alq1;
+	private AlquilerDAO alq;
+	private AlquilerDAO alq1;
 	
 	@Before
 	public void setUp() throws Exception {
@@ -21,7 +21,7 @@ public class AlquilerDAOTest {
 
 	@Test
 	public void testInst() {
-		alq = AlquilerDAO.getInstance();
+		alq = AlquilerDAO.getInstance(); 
 		assertEquals(alq1, alq);
 	}
 

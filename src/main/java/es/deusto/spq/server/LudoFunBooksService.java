@@ -28,7 +28,7 @@ public class LudoFunBooksService {
 	 * @brief Logger para la clase LudoFunBooksService.
 	 */
 	protected static final Logger logger = LogManager.getLogger();
-	private static LudoFunBooksService instance;
+	private static LudoFunBooksService instance;  
 
 	/**
 	 * @brief Devuelve la instancia única de LudoFunBooksService utilizando el

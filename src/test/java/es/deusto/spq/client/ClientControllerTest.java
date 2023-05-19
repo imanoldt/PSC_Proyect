@@ -51,7 +51,7 @@ public class ClientControllerTest {
 
 	@Before
 	public void setUp() {
-		exampleClient1 = new ExampleClient("", "");
+		exampleClient1 = new ExampleClient("", ""); 
 		exampleClient1.webTarget = webTarget;
 		controller = ClientController.getInstance();
 		ex = mock(ClientController.class);

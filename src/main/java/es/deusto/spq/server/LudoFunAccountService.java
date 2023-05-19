@@ -39,7 +39,7 @@ public class LudoFunAccountService {
 		if (instance == null) {
 			instance = new LudoFunAccountService();
 		}
-		return instance;
+		return instance; 
 	}
 	/**
 	 * @brief Constructor de la clase LudoFunAccountService.
@@ -48,7 +48,7 @@ public class LudoFunAccountService {
 	public LudoFunAccountService() {
 		PersistenceManagerFactory pmf = JDOHelper.getPersistenceManagerFactory("datanucleus.properties");
 		this.pm = pmf.getPersistenceManager();
-		this.tx = pm.currentTransaction();
+		this.tx = pm.currentTransaction(); 
 	}
 	/**
 	 * Alquila un libro.

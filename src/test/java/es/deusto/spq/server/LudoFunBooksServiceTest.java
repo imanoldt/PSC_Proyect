@@ -19,7 +19,7 @@ public class LudoFunBooksServiceTest {
 	@Before
 	public void setUp() throws Exception {
 		lfb = LudoFunBooksService.getInstance();
-		lfb2 = LudoFunBooksService.getInstance();
+		lfb2 = LudoFunBooksService.getInstance(); 
 	}
 
 	@After
