@@ -2,11 +2,11 @@ package es.deusto.spq.server.jdo;
 
 import static org.junit.Assert.*;
 
-import org.junit.After;
+//import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-import es.deusto.spq.client.ClientController;
+//import es.deusto.spq.client.ClientController;
 
 public class AlquilerDAOTest {
 

@@ -1,36 +1,36 @@
 package es.deusto.spq.server;
 
 import static org.junit.Assert.*;
-import static org.mockito.Mockito.mock;
-
-import javax.jdo.JDOHelper;
-import javax.jdo.PersistenceManager;
-import javax.jdo.PersistenceManagerFactory;
-import javax.jdo.Transaction;
-import javax.ws.rs.client.WebTarget;
+//import static org.mockito.Mockito.mock;
+//
+//import javax.jdo.JDOHelper;
+//import javax.jdo.PersistenceManager;
+//import javax.jdo.PersistenceManagerFactory;
+//import javax.jdo.Transaction;
+//import javax.ws.rs.client.WebTarget;
 
 import org.junit.After;
 import org.junit.Before;
-import org.junit.BeforeClass;
-import org.junit.Rule;
+//import org.junit.BeforeClass;
+//import org.junit.Rule;
 import org.junit.Test;
 
-import com.github.noconnor.junitperf.JUnitPerfRule;
-import com.github.noconnor.junitperf.reporting.providers.HtmlReportGenerator;
-
-import es.deusto.spq.client.ClientController;
-import es.deusto.spq.client.ExampleClient;
-import es.deusto.spq.server.jdo.User;
+//import com.github.noconnor.junitperf.JUnitPerfRule;
+//import com.github.noconnor.junitperf.reporting.providers.HtmlReportGenerator;
+//
+//import es.deusto.spq.client.ClientController;
+//import es.deusto.spq.client.ExampleClient;
+//import es.deusto.spq.server.jdo.User;
 
 public class LudoFunAccountServiceTest {
 
 	private LudoFunAccountService lf;
 	private LudoFunAccountService lf2;
 
-	private static final PersistenceManagerFactory pmf = JDOHelper.getPersistenceManagerFactory("datanucleus.properties");
-
-
-	private WebTarget target;
+//	private static final PersistenceManagerFactory pmf = JDOHelper.getPersistenceManagerFactory("datanucleus.properties");
+//
+//
+//	private WebTarget target;
 
 //	@Rule
 //	public JUnitPerfRule perfTestRule = new JUnitPerfRule(new HtmlReportGenerator("target/junitperf/report.html"));
