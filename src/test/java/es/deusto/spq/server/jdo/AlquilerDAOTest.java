@@ -11,28 +11,30 @@ import es.deusto.spq.client.ClientController;
 public class AlquilerDAOTest {
 
 	AlquilerDAO alq;
+	AlquilerDAO alq1;
 	
 	@Before
 	public void setUp() throws Exception {
-		alq = new AlquilerDAO();
+		alq = AlquilerDAO.getInstance();
+		alq1 = AlquilerDAO.getInstance();
 	}
 
 	@Test
 	public void testInst() {
-		AlquilerDAO alq = AlquilerDAO.getInstance();
-		assertNotNull(alq);
+		alq = AlquilerDAO.getInstance();
+		assertEquals(alq1, alq);
 	}
 
 	@Test
 	public void testInstError() {
 		alq = null;
-		AlquilerDAO alq = AlquilerDAO.getInstance();
-		assertNotNull(alq);
+		alq = AlquilerDAO.getInstance();
+		assertEquals(alq1, alq);
 	}
 
 	@Test
 	public void testFind() {
-		assertNull(alq.find("param"));
+		assertNull(alq.find("param")); 
 	}
 
 }

@@ -57,20 +57,6 @@ public class ExampleClient {
 		return instance;
 	}
 
-//	public boolean initBD() {
-//		WebTarget booksWebTarget = webTarget.path("init");
-//	    Invocation.Builder invocationBuilder = booksWebTarget.request(MediaType.APPLICATION_JSON);
-//
-//	    Response response = invocationBuilder.get();
-//	    if (response.getStatus() != Status.OK.getStatusCode()) {
-//	        logger.error("Error carga de libros. Code: {}", response.getStatus());
-//	        return false;
-//	    } else {
-//	       
-//	        logger.info("Cargado correctamente");
-//	        return true;
-//	    }
-//	}
 
 	public boolean registerUser(String login, String password) {
 		WebTarget registerUserWebTarget = webTarget.path("register");
@@ -255,13 +241,6 @@ public class ExampleClient {
 			return false;
 		}
 
-//		for (int i = 0; i < libros.size(); i++) {
-//			logger.info("Intentando mandar: [" + libros.get(i)+"] "+ libros.get(i).getNombre());
-//		} 
-//		if (response.getStatus() != Status.OK.getStatusCode()) {
-//			logger.error("Error connecting with the server. Code: {}", response.getStatus());
-//		} else {
-//			logger.info("Libros Alquilados Correctamente");
 	}
 	
 	/**

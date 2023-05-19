@@ -27,7 +27,7 @@ public class UserDAO extends DataAccessObjectBase implements IDataAccessObject<U
 
 	@Override
 	public void delete(User object) {
-		super.deleteObject(object);
+		super.deleteObject(object); 
 		
 	}
 
@@ -73,6 +73,7 @@ public class UserDAO extends DataAccessObjectBase implements IDataAccessObject<U
 			tx.commit();
 		}catch(Exception e) {
 			logger.error("Error querying an User : "+ e.getMessage());
+			return null;
 		}finally {
 			if(tx != null && tx.isActive()) {
 				tx.rollback();

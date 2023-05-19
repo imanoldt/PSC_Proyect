@@ -48,50 +48,8 @@ public class Resource {
 	public Resource() {
 		PersistenceManagerFactory pmf = JDOHelper.getPersistenceManagerFactory("datanucleus.properties");
 		this.pm = pmf.getPersistenceManager();
-		this.tx = pm.currentTransaction();
+		this.tx = pm.currentTransaction(); 
 	}
-
-//	@POST
-//	@Path("/sayMessage")
-//	public Response sayMessage(DirectMessage directMessage) {
-//		User user = null;
-//		try {
-//			tx.begin();
-//			logger.info("Creating query ...");
-//
-//			try (Query<?> q = pm.newQuery("SELECT FROM " + User.class.getName() + " WHERE login == \""
-//					+ directMessage.getUserData().getLogin() + "\" &&  password == \""
-//					+ directMessage.getUserData().getPassword() + "\"")) {
-//				q.setUnique(true);
-//				user = (User) q.execute();
-//
-//				logger.info("User retrieved: {}", user);
-//				if (user != null) {
-//					Message message = new Message(directMessage.getMessageData().getMessage());
-//					user.getMessages().add(message);
-//					pm.makePersistent(user);
-//				}
-//			} catch (Exception e) {
-//				e.printStackTrace();
-//			}
-//			tx.commit();
-//		} finally {
-//			if (tx.isActive()) {
-//				tx.rollback();
-//			}
-//		}
-//
-//		if (user != null) {
-//			cont++;
-//			logger.info(" * Client number: {}", cont);
-//			MessageData messageData = new MessageData();
-//			messageData.setMessage(directMessage.getMessageData().getMessage());
-//			return Response.ok(messageData).build();
-//		} else {
-//			return Response.status(Status.BAD_REQUEST)
-//					.entity("Login details supplied for message delivery are not correct").build();
-//		}
-//	}
 
 	/*
 	 * @POST
@@ -155,39 +113,6 @@ public class Resource {
 		}
 	}
 
-	/*
-	 * @GET
-	 * 
-	 * @Path("/login") public Response login(UserData userData) {
-	 * if(LudoFunAccountService.getInstance().loginUser(userData)) { return
-	 * Response.ok().build(); }else { //Este es el 401 return
-	 * Response.serverError().status(Response.Status.UNAUTHORIZED).build(); } }
-	 */
-
-	/*
-	 * @POST
-	 * 
-	 * @Path("/login")
-	 * 
-	 * @Consumes(MediaType.APPLICATION_JSON) public Response login(UserData
-	 * userData) { if(LudoFunAccountService.getInstance().loginUser(userData)) {
-	 * return Response.ok().build(); } else { return
-	 * Response.status(Response.Status.UNAUTHORIZED).build(); } }
-	 */
-
-//	@GET
-//	@Path("/getBooks")
-//	public List<Libro> getBooks() {
-//		// obtener lista de los libros de la bbdd
-//		List<Libro> books = null;
-//		try {
-//			Query query = pm.newQuery(Libro.class);
-//			books = (List<Libro>) query.execute();
-//		} finally {
-//			pm.close();
-//		}
-//		return books;
-//	}
 	
 	@GET
 	@Path("/getBooks")
@@ -498,13 +423,5 @@ public class Resource {
 	        }
 	        pm.close();
 	    }
-	}
-	
-	
-	@GET
-	@Path("/hello")
-	@Produces(MediaType.TEXT_PLAIN)
-	public Response sayHello() {
-		return Response.ok("Hello world!").build();
 	}
 }

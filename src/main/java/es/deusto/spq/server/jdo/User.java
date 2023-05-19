@@ -17,6 +17,12 @@ public class User {
 	
 	
 	
+	public User() {
+
+	}
+
+
+
 	public User(String login, String password) {
 		this.login = login;
 		this.password = password;
@@ -25,7 +31,7 @@ public class User {
 
 
 	public String getLogin() {
-		return this.login;
+		return (String)this.login;
 	}
 	
 	public String getPassword() {

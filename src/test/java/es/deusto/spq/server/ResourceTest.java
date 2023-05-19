@@ -18,6 +18,6 @@ public class ResourceTest {
 
 	@Test
 	public void test() {
-	}
+	} 
 
 }

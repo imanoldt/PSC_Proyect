@@ -69,10 +69,7 @@ public class LudoFunBooksService {
 		bks.add(new Libro("Harry Potter y la piedra", "Clasico de la JK en la que un chaval bla bla", (float) 9.95,
 				"compra"));
 		bks.add(new Libro("La biblia", "El libro sagrado del cristianismo que bla bla bla", (float) 13.95, "alquiler"));
-//
-//		Book b1 = new Book("Cien años de soledad",
-//				"Obra de Gabriel García Márquez en la que narra la historia de la familia Buendía", (float) 9.5,
-//				"compra");
+
 		bks.add(new Libro("El Quijote",
 				"Obra de Miguel de Cervantes que cuenta las aventuras de un caballero y su escudero", (float) 8.2,
 				"alquiler"));

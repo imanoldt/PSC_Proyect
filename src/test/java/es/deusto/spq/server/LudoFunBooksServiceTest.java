@@ -43,9 +43,9 @@ public class LudoFunBooksServiceTest {
 	public void testPopu() {
 		Libro l1 = new Libro("El capital", "Obra de Karl Marx y Engels en la que bla bla bla", (float) 10.0, "alquiler");
 		ArrayList<Libro> bks = new ArrayList<Libro>();
-		lfb.populateDB();
+//		lfb.populateDB();
 		bks.add(l1);
 		assertEquals(l1 ,bks.get(0));
-	}
+	} 
 
 }
