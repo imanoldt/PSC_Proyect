@@ -32,8 +32,8 @@ public class UserDAOTest {
         u2 = UserDAO.getInstance(); 
     }
 
-//    @Test
-//    public void testDeleteUser() {
+    @Test
+    public void testDeleteUser() {
 //        // Crear un usuario de prueba y guardarlo en la base de datos
 //        User user = new User("Imanol", "Imanol");
 //        // Configurar los atributos del usuario, si es necesario
@@ -46,7 +46,7 @@ public class UserDAOTest {
 //        // Verificar que el usuario se haya eliminado correctamente
 //        User deletedUser = userDAO.find(user.getLogin());
 //        assertNull(deletedUser);
-//    }
+    }
 
 	@Test
 	public void testInst() {

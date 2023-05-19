@@ -3,6 +3,7 @@ package es.deusto.spq.server.jdo;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotEquals;
+import static org.junit.Assert.assertNotNull;
 import static org.mockito.Mockito.*;
 
 import java.util.HashSet;
@@ -26,6 +27,12 @@ public class UserTest {
     public void testGetLogin() {
     	assertEquals("user", u.getLogin());
     }
+    
+    @Test
+    public void testIn() {
+    	assertNotNull(new User());
+    }
+    
     @Test
     public void testGetPassword() {
     	assertEquals("pass", u.getPassword());

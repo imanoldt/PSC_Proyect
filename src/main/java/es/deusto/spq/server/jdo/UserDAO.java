@@ -62,7 +62,7 @@ public class UserDAO extends DataAccessObjectBase implements IDataAccessObject<U
 		PersistenceManager pm = pmf.getPersistenceManager();
 		Transaction tx = pm.currentTransaction();
 		
-		User result = null;
+		User result = new User();
 		try {
 			tx.begin();
 			

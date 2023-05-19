@@ -15,12 +15,9 @@ public class User {
 	String password;
 	
 	
-	
-	
 	public User() {
 
 	}
-
 
 
 	public User(String login, String password) {
@@ -31,7 +28,7 @@ public class User {
 
 
 	public String getLogin() {
-		return (String)this.login;
+		return this.login;
 	}
 	
 	public String getPassword() {
@@ -45,6 +42,6 @@ public class User {
 	 
 	 public String toString() {
 		
-        return "User: login --> " + this.login + ", password -->  " + this.password ;
+        return "User: login --> " + login + ", password -->  " + password ;
     }
 }

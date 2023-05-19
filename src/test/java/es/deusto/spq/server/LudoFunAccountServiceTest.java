@@ -22,11 +22,7 @@ import org.junit.Test;
 //import es.deusto.spq.client.ExampleClient;
 //import es.deusto.spq.server.jdo.User;
 
-<<<<<<< HEAD
 public class LudoFunAccountServiceTest { 
-=======
-public class LudoFunAccountServiceTest {
->>>>>>> branch 'main' of https://github.com/imanoldt/PSC_Proyect.git
 
 	private LudoFunAccountService lf;
 	private LudoFunAccountService lf2;
