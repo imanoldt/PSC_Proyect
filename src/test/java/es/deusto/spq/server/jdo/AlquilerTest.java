@@ -1,6 +1,7 @@
 package es.deusto.spq.server.jdo;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 
 import java.util.Date;
 
@@ -12,24 +13,28 @@ import org.mockito.MockitoAnnotations;
 
 
 public class AlquilerTest {
-	@Mock
+	
     private Alquiler alquiler;
 
-    @Mock
-    private Libro mockLibro;
+    
+    private Libro libro;
 
     @Before
     public void setUp() {
-    	mockLibro = new Libro();
-    	mockLibro.setNombre("lib");
-    	mockLibro = new Libro("Libro de Prueba", "Libro Mock 01",(float) 5.1, "Alquiler");
-        MockitoAnnotations.initMocks(this);
-        alquiler = new Alquiler(mockLibro.getNombre(), "usuarioPrueba", new Date().toString());
+    	libro = new Libro();
+    	libro.setNombre("lib");
+    	libro = new Libro("Libro de Prueba", "Libro Mock 01",(float) 5.1, "Alquiler");
+        alquiler = new Alquiler(libro.getNombre(), "usuarioPrueba", new Date().toString());
     }
 
     @Test
+    public void testBui() {
+        assertNotNull(new Alquiler());
+    }
+    
+    @Test
     public void testGetLibro() {
-        assertEquals(mockLibro.getNombre(), alquiler.getLibro());
+        assertEquals(libro.getNombre(), alquiler.getLibro());
     }
 
     @Test
@@ -54,7 +59,7 @@ public class AlquilerTest {
     @Test
     public void testGetFecha_compra() {
         String fechaCompra = new Date().toString();
-        Alquiler alquilerConFecha = new Alquiler(mockLibro.getNombre(), "usuarioPrueba", fechaCompra);
+        Alquiler alquilerConFecha = new Alquiler(libro.getNombre(), "usuarioPrueba", fechaCompra);
         assertEquals(fechaCompra, alquilerConFecha.getFecha_compra());
     }
 

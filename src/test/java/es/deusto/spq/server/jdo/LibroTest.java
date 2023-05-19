@@ -10,67 +10,71 @@ import org.mockito.MockitoAnnotations;
 
 public class LibroTest {
 
-    @Mock
-    Libro mockedLibro;
+    Libro libro;
 
     @Before
     public void setUp() {
-        MockitoAnnotations.initMocks(this);
-        mockedLibro = new Libro("El Quijote", "Libro de aventuras", 20.5f, "Literatura");
-        mockedLibro.setId((long)2);
+        libro = new Libro("El Quijote", "Libro de aventuras", 20.5f, "Literatura");
+        libro.setId((long)2);
     }
 
     @Test
     public void testGetNombre() {
-        assertEquals("El Quijote", mockedLibro.getNombre());
+        assertEquals("El Quijote", libro.getNombre());
     }
 
     @Test
     public void testSetNombre() {
-        mockedLibro.setNombre("Don Juan Tenorio");
-        assertEquals("Don Juan Tenorio", mockedLibro.getNombre());
+        libro.setNombre("Don Juan Tenorio");
+        assertEquals("Don Juan Tenorio", libro.getNombre());
     }
 
     @Test
     public void testGetDescripccion() {
-        assertEquals("Libro de aventuras", mockedLibro.getDescripccion());
+        assertEquals("Libro de aventuras", libro.getDescripccion());
     }
 
     @Test
     public void testSetDescripccion() {
-        mockedLibro.setDescripccion("Libro de terror");
-        assertEquals("Libro de terror", mockedLibro.getDescripccion());
+        libro.setDescripccion("Libro de terror");
+        assertEquals("Libro de terror", libro.getDescripccion());
     }
 
     @Test
     public void testGetPrecio() {
-        assertEquals(20.5f, mockedLibro.getPrecio(), 0.01);
+        assertEquals(20.5f, libro.getPrecio(), 0.01);
     }
 
     @Test
     public void testSetPrecio() {
-        mockedLibro.setPrecio(25.5f);
-        assertEquals(25.5f, mockedLibro.getPrecio(), 0.01);
+        libro.setPrecio(25.5f);
+        assertEquals(25.5f, libro.getPrecio(), 0.01);
     }
 
     @Test
     public void testGetTipo() {
-        assertEquals("Literatura", mockedLibro.getTipo());
+        assertEquals("Literatura", libro.getTipo());
     }
 
     @Test
     public void testSetTipo() {
-        mockedLibro.setTipo("Ciencia ficción");
-        assertEquals("Ciencia ficción", mockedLibro.getTipo());
+        libro.setTipo("Ciencia ficción");
+        assertEquals("Ciencia ficción", libro.getTipo());
     }
     @Test
     public void testGetId() {
-        assertEquals((long)2, mockedLibro.getId(), 1);
+        assertEquals((long)2, libro.getId(), 1);
     }
 
     @Test
     public void testSetId() {
-        mockedLibro.setId((long) 1);
-        assertEquals((long)1, mockedLibro.getId(), 1);
+        libro.setId((long) 1);
+        assertEquals((long)1, libro.getId(), 1);
+    }
+    
+    @Test
+    public void testStr() {
+        assertEquals("Libro [id=" + libro.getId() + ", nombre=" + libro.getNombre() + ", descripccion=" + libro.getDescripccion() + ", precio=" + libro.getPrecio()
+				+ ", tipo=" + libro.getTipo() + "]", libro.toString());
     }
 }

@@ -15,7 +15,6 @@ import org.mockito.Mock;
 
 public class UserTest {
 	
-	@Mock
 	User u;
 	
 	@Before

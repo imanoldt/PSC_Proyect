@@ -1,6 +1,7 @@
 package es.deusto.spq.server.jdo;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 import static org.mockito.Mockito.mock;
 
 import org.junit.Before;
@@ -13,22 +14,25 @@ import es.deusto.spq.server.jdo.Libro;
 
 public class CompraJdoTest {
 
-	@Mock
-	private Libro libroMock;
-	private String usuarioMock;
+	private Libro libro;
+	private String usuario;
 
 	private CompraJdo compra;
 
 	@Before
 	public void setUp() {
-		libroMock = mock(Libro.class);
-		usuarioMock = "usuario1";
-		compra = new CompraJdo(libroMock, usuarioMock);
+		usuario = "usuario1";
+		compra = new CompraJdo(libro, usuario);
 	}
 
 	@Test
+	public void testBui() {
+		assertNotNull(new  CompraJdo());
+	}
+	
+	@Test
 	public void testGetLibro() {
-		assertEquals(libroMock, compra.getLibro());
+		assertEquals(libro, compra.getLibro());
 	}
 
 	@Test
@@ -40,7 +44,7 @@ public class CompraJdoTest {
 
 	@Test
 	public void testGetUsuario() {
-		assertEquals(usuarioMock, compra.getUsuario());
+		assertEquals(usuario, compra.getUsuario());
 	}
 
 	@Test
@@ -50,6 +54,17 @@ public class CompraJdoTest {
 		assertEquals(usuarioMock2, compra.getUsuario());
 	}
 
+	@Test
+	public void testGetBookK() {
+		compra.setBookKey((long)1);
+		assertEquals((long)1, compra.getBookKey());
+	}
+
+	@Test
+	public void testSetBookK() {
+		compra.setBookKey((long)1);
+		assertEquals((long)1, compra.getBookKey());
+	}
 //	@Test
 //	public void testGetPrecio() {
 //		assertEquals(precioMock, compra.getPrecio(), 0);
