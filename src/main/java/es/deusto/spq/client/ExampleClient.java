@@ -48,6 +48,7 @@ public class ExampleClient {
 		webTarget = client.target(String.format("http://%s:%s/rest/resource", hostname, port));
 
 	}
+	
 
 	public static ExampleClient getInstance() {
 		if (instance == null) {
@@ -87,7 +88,7 @@ public class ExampleClient {
 			return true;
 		}
 	}
-
+	
 	public boolean loginUser(String name, String password) {
 		WebTarget loginUserWebTarget = webTarget.path("login");
 		Invocation.Builder invocationBuilder = loginUserWebTarget.request(MediaType.APPLICATION_JSON);
@@ -423,7 +424,6 @@ public class ExampleClient {
 		ExampleClient.password = password;
 	}
 
-	
 
 	
 }

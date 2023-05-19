@@ -32,6 +32,11 @@
 			<artifactId>jcommon</artifactId>
 			<version>1.0.23</version>
 		</dependency>
+		<dependency>
+			<groupId>com.github.noconnor</groupId>
+			<artifactId>junitperf</artifactId>
+			<version>1.24.0</version>
+		</dependency>
 		<!-- Thanks for using https://jar-download.com -->
 		<!-- https://mvnrepository.com/artifact/com.miglayout/miglayout-swing -->
 		<dependency>
@@ -39,6 +44,7 @@
 			<artifactId>miglayout-swing</artifactId>
 			<version>11.0</version>
 		</dependency>
+
 		<!-- https://mvnrepository.com/artifact/com.toedter/jcalendar -->
 		<dependency>
 			<groupId>com.toedter</groupId>
@@ -111,6 +117,8 @@
 			<version>4.6.0</version>
 			<scope>test</scope>
 		</dependency>
+
+
 	</dependencies>
 	<build>
 		<finalName>ludoFun-app</finalName>
@@ -196,6 +204,9 @@
 				<artifactId>jacoco-maven-plugin</artifactId>
 				<version>0.8.7</version>
 				<configuration>
+					<excludes>
+						<exclude>**/gui/*</exclude>
+					</excludes>
 					<rules>
 						<rule>
 							<element>BUNDLE</element>
