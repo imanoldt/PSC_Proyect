@@ -287,5 +287,11 @@
 				</plugins>
 			</build>
 		</profile>
+		<profile>
+			<id>exclude-performance-tests</id>
+			<properties>
+				<exclude.performance.tests>true</exclude.performance.tests>
+			</properties>
+		</profile>
 	</profiles>
 </project>

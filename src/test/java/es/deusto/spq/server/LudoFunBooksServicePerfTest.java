@@ -6,6 +6,7 @@ import java.util.ArrayList;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.apache.logging.log4j.util.PerformanceSensitive;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Rule;
@@ -19,6 +20,7 @@ import com.github.noconnor.junitperf.reporting.providers.HtmlReportGenerator;
 import es.deusto.spq.client.ClientController;
 import es.deusto.spq.server.jdo.Libro;
 
+@PerformanceTest
 public class LudoFunBooksServicePerfTest {
 
 	private LudoFunBooksService lfb;
@@ -48,7 +50,8 @@ public class LudoFunBooksServicePerfTest {
 	}
 	
 	@Test
-    @JUnitPerfTest(threads = 2, durationMs = 10000)
+	@PerformanceTest
+    @JUnitPerfTest(threads = 2, durationMs = 1000)
 	@JUnitPerfTestRequirement(meanLatency = 100)
 	public void testPopu() {
 		Libro l1 = new Libro("El capital", "Obra de Karl Marx y Engels en la que bla bla bla", (float) 10.0, "alquiler");

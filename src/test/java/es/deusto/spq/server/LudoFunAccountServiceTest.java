@@ -106,5 +106,10 @@ public class LudoFunAccountServiceTest {
 		lf = LudoFunAccountService.getInstance();
 		assertEquals(lf2, lf);
 	}
+	
+	@Test
+	public void testRegisterCom() {
+		
+	}
 
 }

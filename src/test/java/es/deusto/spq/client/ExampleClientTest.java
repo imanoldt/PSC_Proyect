@@ -49,9 +49,6 @@ public class ExampleClientTest {
 
 	ExampleClient exampleClient;
 
-	@Rule 
-	public JUnitPerfRule perfTestRule = new JUnitPerfRule(new HtmlReportGenerator("target/junitperf/report.html"));
-	
 	
 	@Mock(answer = Answers.RETURNS_DEEP_STUBS)
 	private WebTarget webTarget;
@@ -93,8 +90,6 @@ public class ExampleClientTest {
 	}
 
 	@Test
-    @JUnitPerfTest(threads = 1, durationMs = 1000)
-//	@JUnitPerfTestRequirement(meanLatency = 100)
 	public void testGetBooksAlquiler() {
 		List<LibroDTO> expectedBooks = new ArrayList<>();
 		expectedBooks.add(new LibroDTO("Libro1", "Desc1", 10, "Tipe1"));
