@@ -22,6 +22,7 @@ import javax.ws.rs.core.Response;
 
 import org.junit.After;
 import org.junit.Before;
+import org.junit.Rule;
 import org.junit.Test;
 import org.mockito.Answers;
 import org.mockito.ArgumentCaptor;
@@ -31,6 +32,10 @@ import org.mockito.MockedStatic;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 
+import com.github.noconnor.junitperf.JUnitPerfRule;
+import com.github.noconnor.junitperf.JUnitPerfTest;
+import com.github.noconnor.junitperf.JUnitPerfTestRequirement;
+import com.github.noconnor.junitperf.reporting.providers.HtmlReportGenerator;
 import com.mysql.cj.log.Log;
 
 import ch.qos.logback.classic.spi.LoggingEvent;
@@ -44,6 +49,10 @@ public class ExampleClientTest {
 
 	ExampleClient exampleClient;
 
+	@Rule 
+	public JUnitPerfRule perfTestRule = new JUnitPerfRule(new HtmlReportGenerator("target/junitperf/report.html"));
+	
+	
 	@Mock(answer = Answers.RETURNS_DEEP_STUBS)
 	private WebTarget webTarget;
 	@Mock
@@ -84,6 +93,8 @@ public class ExampleClientTest {
 	}
 
 	@Test
+    @JUnitPerfTest(threads = 1, durationMs = 1000)
+//	@JUnitPerfTestRequirement(meanLatency = 100)
 	public void testGetBooksAlquiler() {
 		List<LibroDTO> expectedBooks = new ArrayList<>();
 		expectedBooks.add(new LibroDTO("Libro1", "Desc1", 10, "Tipe1"));
