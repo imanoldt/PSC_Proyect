@@ -11,9 +11,16 @@ jobs:
       - name: Set up JDK 17
         uses: actions/setup-java@v3
         with:
-          java-version: '17'
+          java-version: '17.0.4'
           distribution: 'temurin'
       #- name: Build with Maven
        # run: mvn --batch-mode --update-snapshots package -Dmaven.test.failure.ignore=true
       - name: Build with Maven
         run: mvn --batch-mode --update-snapshots package
+      - name: Build with Maven (excluding performance tests)
+        run: mvn --batch-mode --update-snapshots package -P !exclude-performance-tests
+
+
+
+
+
