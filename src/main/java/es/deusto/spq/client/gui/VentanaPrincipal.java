@@ -46,8 +46,9 @@ public class VentanaPrincipal extends JFrame {
 
 	public VentanaPrincipal(String usuario, String contraseña, String tipo) {
 
+
+		setResizable(false);
 		setLocationRelativeTo(null);
-		setResizable(true);
 		setTitle("LudoFun");
 		setVisible(true);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

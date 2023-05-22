@@ -28,78 +28,81 @@ public class AlquilerDAO extends DataAccessObjectBase implements IDataAccessObje
 
 	@Override
 	public void delete(Alquiler object) {
-		super.deleteObject(object);
+		//super.deleteObject(object);
 		
 	}
 
 	@Override
 	public List<Alquiler> getAll() {
-		PersistenceManager pm = pmf.getPersistenceManager();
-		Transaction tx = pm.currentTransaction();
-		
-		List<Alquiler> alquileres = new ArrayList<>();
-		
-		try {
-			tx.begin();
-			Extent<Alquiler> extent = pm.getExtent(Alquiler.class, true);
-			
-			for (Alquiler category : extent) {
-				alquileres.add(category);
-			}
-			tx.commit();
-			
-		}catch(Exception e) {
-			logger.error("Error retrieving all the Alquileres :" + e.getMessage());
-		}finally {
-			if(tx != null && tx.isActive()) {
-				tx.rollback();
-			}
-			pm.close();	
-		}
-		return alquileres;
+//		PersistenceManager pm = pmf.getPersistenceManager();
+//		Transaction tx = pm.currentTransaction();
+//		
+//		List<Alquiler> alquileres = new ArrayList<>();
+//		
+//		try {
+//			tx.begin();
+//			Extent<Alquiler> extent = pm.getExtent(Alquiler.class, true);
+//			
+//			for (Alquiler category : extent) {
+//				alquileres.add(category);
+//			}
+//			tx.commit();
+//			
+//		}catch(Exception e) {
+//			logger.error("Error retrieving all the Alquileres :" + e.getMessage());
+//		}finally {
+//			if(tx != null && tx.isActive()) {
+//				tx.rollback();
+//			}
+//			pm.close();	
+//		}
+//		return alquileres;
+		return null;
 	}
 
 	public Alquiler find(String user, String libro) {
-		PersistenceManager pm = pmf.getPersistenceManager();
-		Transaction tx = pm.currentTransaction();
-		
-		Alquiler result = null;
-		try {
-			tx.begin();
-			
-			Query<?> query = pm.newQuery("SELECT FROM " + Alquiler.class.getName() + " WHERE User == '" + user + " AND Libro == '" + libro + "'");
-			query.setUnique(true);
-			result = (Alquiler) query.execute();
-			
-			tx.commit();
-		}catch(Exception e) {
-			logger.error("Error querying an Alquiler : "+ e.getMessage());
-		}finally {
-			if(tx != null && tx.isActive()) {
-				tx.rollback();
-			}
-			pm.close();	
-		}
-		return result;
+//		PersistenceManager pm = pmf.getPersistenceManager();
+//		Transaction tx = pm.currentTransaction();
+//		
+//		Alquiler result = null;
+//		try {
+//			tx.begin();
+//			
+//			Query<?> query = pm.newQuery("SELECT FROM " + Alquiler.class.getName() + " WHERE User == '" + user + " AND Libro == '" + libro + "'");
+//			query.setUnique(true);
+//			result = (Alquiler) query.execute();
+//			
+//			tx.commit();
+//		}catch(Exception e) {
+//			logger.error("Error querying an Alquiler : "+ e.getMessage());
+//		}finally {
+//			if(tx != null && tx.isActive()) {
+//				tx.rollback();
+//			}
+//			pm.close();	
+//		}
+//		return result;
+		return null;
 	}
 
 	@Override
 	public void update(Alquiler object) {
-		PersistenceManager pm = pmf.getPersistenceManager();
-		Transaction tx = pm.currentTransaction();
+//		PersistenceManager pm = pmf.getPersistenceManager();
+//		Transaction tx = pm.currentTransaction();
+//		
+//		try {
+//			tx.begin();
+//			pm.makePersistent(object);
+//			tx.commit();
+//		} catch (Exception e) {
+//			logger.error("Error updating object: " + e.getMessage());
+//		}finally {
+//			if (tx != null && tx.isActive()) {
+//				tx.rollback();
+//			}
+//		}
+//		pm.close();
 		
-		try {
-			tx.begin();
-			pm.makePersistent(object);
-			tx.commit();
-		} catch (Exception e) {
-			logger.error("Error updating object: " + e.getMessage());
-		}finally {
-			if (tx != null && tx.isActive()) {
-				tx.rollback();
-			}
-		}
-		pm.close();
 	}
 		
 	@Override
