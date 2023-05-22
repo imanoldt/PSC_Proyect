@@ -21,42 +21,43 @@ public class LibroDAO extends DataAccessObjectBase implements IDataAccessObject<
 	@Override
 	public boolean Save(Libro object) {
 		
-		logger.info("Saving Libro :" + object.getNombre() + " With DAO");
+		//logger.info("Saving Libro :" + object.getNombre() + " With DAO");
 		return super.saveObject(object);
 		
 	}
 
 	@Override
 	public void delete(Libro object) {
-		super.deleteObject(object);
+	
 		
 	}
 
 	@Override
 	public List<Libro> getAll() {
-		PersistenceManager pm = pmf.getPersistenceManager();
-		Transaction tx = pm.currentTransaction();
-		
-		List<Libro> Libroes = new ArrayList<>();
-		
-		try {
-			tx.begin();
-			Extent<Libro> extent = pm.getExtent(Libro.class, true);
-			
-			for (Libro category : extent) {
-				Libroes.add(category);
-			}
-			tx.commit();
-			
-		}catch(Exception e) {
-			logger.error("Error retrieving all the Libroes :" + e.getMessage());
-		}finally {
-			if(tx != null && tx.isActive()) {
-				tx.rollback();
-			}
-			pm.close();	
-		}
-		return Libroes;
+		return null;
+//		PersistenceManager pm = pmf.getPersistenceManager();
+//		Transaction tx = pm.currentTransaction();
+//		
+//		List<Libro> Libroes = new ArrayList<>();
+//		
+//		try {
+//			tx.begin();
+//			Extent<Libro> extent = pm.getExtent(Libro.class, true);
+//			
+//			for (Libro category : extent) {
+//				Libroes.add(category);
+//			}
+//			tx.commit();
+//			
+//		}catch(Exception e) {
+//			logger.error("Error retrieving all the Libroes :" + e.getMessage());
+//		}finally {
+//			if(tx != null && tx.isActive()) {
+//				tx.rollback();
+//			}
+//			pm.close();	
+//		}
+//		return Libroes;
 	}
 
 	public Libro find(String nombre) {
@@ -93,47 +94,34 @@ public class LibroDAO extends DataAccessObjectBase implements IDataAccessObject<
 	public void update(Libro object) {
 		
 
+//		
+//		PersistenceManager pm = pmf.getPersistenceManager();
+//		Transaction tx = pm.currentTransaction();
+//		
+//		Libro l = find(object.getNombre());
+//		logger.debug("LibroDAO : Intentando actualizar libro: " + object.getNombre() + " - " + object.getTipo() + " - " + object.getPrecio());
+//	
+//		try {
+//			tx.begin();
+//					
+//			l.setDescripccion(object.getDescripccion());
+//			l.setPrecio(object.getPrecio());
+//			l.setTipo(object.getTipo());
+////			pm.makePersistent(object);
+//			logger.debug("LibroDAO: update :  a punto de commit : " + l.toString())	;
+//			tx.commit();
+//			logger.debug("LibroDAO:  despues de commit : " + l.toString());
+//		} catch (Exception e) {
+//			logger.error("Error updating object: " + object.getNombre() + " : " + e.getMessage());
+//			e.printStackTrace();
+//		}finally {
+//			if (tx != null && tx.isActive()) {
+//				tx.rollback();
+//			}
+//		}
+//		pm.close();
 		
-		PersistenceManager pm = pmf.getPersistenceManager();
-		Transaction tx = pm.currentTransaction();
-		
-		Libro l = find(object.getNombre());
-		logger.debug("LibroDAO : Intentando actualizar libro: " + object.getNombre() + " - " + object.getTipo() + " - " + object.getPrecio());
+	}
 	
-		try {
-			tx.begin();
-					
-			l.setDescripccion(object.getDescripccion());
-			l.setPrecio(object.getPrecio());
-			l.setTipo(object.getTipo());
-//			pm.makePersistent(object);
-			logger.debug("LibroDAO: update :  a punto de commit : " + l.toString())	;
-			tx.commit();
-			logger.debug("LibroDAO:  despues de commit : " + l.toString());
-		} catch (Exception e) {
-			logger.error("Error updating object: " + object.getNombre() + " : " + e.getMessage());
-			e.printStackTrace();
-		}finally {
-			if (tx != null && tx.isActive()) {
-				tx.rollback();
-			}
-		}
-		pm.close();
-		
-	}
-	public void alquilar(String nombre) {
-		PersistenceManager pm = pmf.getPersistenceManager();
-		Transaction tx = pm.currentTransaction();
-		
-		Libro l = find(nombre);
-		try {
-			//TODO hacer una función para facilitar el alquilar y desalquilar libros
-		} catch (Exception e) {
-			// TODO: handle exception
-		} finally {
-			
-		}
-		pm.close();
-	}
 
 }

@@ -42,6 +42,8 @@ import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 import javax.swing.JTextField;
+import javax.swing.ListSelectionModel;
+
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -87,6 +89,12 @@ public class VentanaMenuN extends JFrame {
 		setResizable(false);
 		setTitle("Menu");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		
+		// Obtener el modelo de selección de la tabla
+		ListSelectionModel selectionModel = tablaAlquiler.getSelectionModel();
+
+		// Configurar el modelo de selección para permitir la selección de una sola fila
+		selectionModel.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 
 		// IMAGENES
 		ImageIcon imagenIcono = new ImageIcon("src/main/java/es/deusto/spq/client/utils/rent.png");

@@ -43,7 +43,7 @@ public class DataAccessObjectBase  {
 			result = false;
 		}
 		catch (Exception e) {
-			logger.error("Error storing object: " + e.getMessage());
+			//logger.error("Error storing object: " + e.getMessage());
 			result = false;
 		}finally {
 			if (tx != null && tx.isActive()) {

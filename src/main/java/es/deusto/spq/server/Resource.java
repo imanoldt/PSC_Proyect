@@ -352,6 +352,7 @@ public class Resource {
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response ActualizarLibrosAlquilado(ArrayList<LibroDTO> result) {
 
+
 		try {
 			tx.begin();
 			Libro l = null;
@@ -360,10 +361,10 @@ public class Resource {
 				l.setTipo("alquilado");
 				pm.makePersistent(l);
 				logger.info("Libro actualizado: {}", l);
-				tx.commit();
+				
 			}
 			
-			
+			tx.commit();
 
 			return Response.ok().build();
 		} finally {
@@ -372,6 +373,7 @@ public class Resource {
 			}
 			pm.close();
 		}
+
 
 	}
 

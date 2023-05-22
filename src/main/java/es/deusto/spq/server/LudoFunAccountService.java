@@ -21,7 +21,7 @@ import es.deusto.spq.server.jdo.Libro;
 import es.deusto.spq.server.jdo.LibroDAO;
 
 import es.deusto.spq.server.jdo.User;
-import es.deusto.spq.server.jdo.UserDAO;
+
 import es.deusto.spq.pojo.UserData;
 
 public class LudoFunAccountService {
@@ -60,9 +60,9 @@ public class LudoFunAccountService {
 		Alquiler a = new Alquiler();
 //		User u = UserDAO.getInstance().find(alquiler.getUsuario());
 		Libro l = LibroDAO.getInstance().find(alquiler.getLibro());
-		l.setTipo("ALQUILADO");
+		//l.setTipo("ALQUILADO");
 		logger.debug("AccountService: A punto de alquilar el siguiente libro: " + l.toString());
-		LibroDAO.getInstance().update(l);
+		//LibroDAO.getInstance().update(l);
 
 		a.setFecha_compra(alquiler.getFecha_compra());
 		a.setLibro(l.getNombre());
