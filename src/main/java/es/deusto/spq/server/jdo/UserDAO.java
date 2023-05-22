@@ -103,5 +103,9 @@ public class UserDAO extends DataAccessObjectBase implements IDataAccessObject<U
 		}
 		pm.close();
 	}
+	public void setPersistenceManager(PersistenceManager pm) {
+		// TODO Auto-generated method stub
+		
+	}
 
 }

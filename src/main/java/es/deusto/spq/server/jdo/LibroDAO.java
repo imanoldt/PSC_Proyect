@@ -29,7 +29,6 @@ public class LibroDAO extends DataAccessObjectBase implements IDataAccessObject<
 	@Override
 	public void delete(Libro object) {
 	
-		
 	}
 
 	@Override

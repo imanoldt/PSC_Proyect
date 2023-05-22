@@ -8,12 +8,19 @@ import static org.junit.Assert.*;
 //import javax.jdo.PersistenceManagerFactory;
 //import javax.jdo.Transaction;
 //import javax.ws.rs.client.WebTarget;
+import static org.mockito.Mockito.mock;
 
 import org.junit.After;
 import org.junit.Before;
 //import org.junit.BeforeClass;
 //import org.junit.Rule;
 import org.junit.Test;
+
+import es.deusto.spq.pojo.AlquilerDTO;
+import es.deusto.spq.server.jdo.Alquiler;
+import es.deusto.spq.server.jdo.AlquilerDAO;
+import es.deusto.spq.server.jdo.Libro;
+import es.deusto.spq.server.jdo.LibroDAO;
 
 //import com.github.noconnor.junitperf.JUnitPerfRule;
 //import com.github.noconnor.junitperf.reporting.providers.HtmlReportGenerator;
@@ -26,6 +33,7 @@ public class LudoFunAccountServiceTest {
 
 	private LudoFunAccountService lf;
 	private LudoFunAccountService lf2;
+	
 
 //	private static final PersistenceManagerFactory pmf = JDOHelper.getPersistenceManagerFactory("datanucleus.properties");
 //
@@ -56,7 +64,10 @@ public class LudoFunAccountServiceTest {
 
 //	@Before
 //	public void setUp() {
-//		// create the client
+//    accountService = LudoFunAccountService.getInstance();
+//    libroDAO = mock(LibroDAO.class);
+//    accountService.setLibroDAO(libroDAO);
+		// create the client
 //		Client c = ClientBuilder.newClient();
 //		target = c.target(Main.BASE_URI).path("resource");
 //	}
@@ -107,9 +118,9 @@ public class LudoFunAccountServiceTest {
 		assertEquals(lf2, lf);
 	}
 	
-	@Test
-	public void testRegisterCom() {
-		
-	}
+//	@Test
+//	public void testAlq() {
+//
+//	}
 
 }
