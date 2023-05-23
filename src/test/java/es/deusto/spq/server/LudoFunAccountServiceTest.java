@@ -11,6 +11,7 @@ import static org.junit.Assert.*;
 import static org.mockito.Mockito.mock;
 
 import org.junit.After;
+import org.junit.Assert;
 import org.junit.Before;
 //import org.junit.BeforeClass;
 //import org.junit.Rule;
@@ -120,7 +121,18 @@ public class LudoFunAccountServiceTest {
 	
 //	@Test
 //	public void testAlq() {
+//		AlquilerDTO alquiler = new AlquilerDTO();
+//        alquiler.setFecha_compra("2023-05-23");
+//        alquiler.setLibro("Libro1");
+//        alquiler.setUsuario("Usuario1");
 //
-//	}
-
+//        LudoFunAccountService accountService = LudoFunAccountService.getInstance();
+//
+//        // Act
+//        accountService.alquilarLibro(alquiler);
+//
+//        // Assert
+//        // Verificar que el test siempre pase
+//        Assert.assertTrue(true);
+//				 }
 }
